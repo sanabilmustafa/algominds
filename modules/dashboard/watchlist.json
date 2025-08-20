@@ -1,0 +1,6 @@
+[
+  { "name": "Apple Inc.", "change": 1.24 },
+  { "name": "Tesla Inc.", "change": -0.87 },
+  { "name": "Amazon", "change": 0.65 },
+  { "name": "Meta", "change": -2.12 }
+]       

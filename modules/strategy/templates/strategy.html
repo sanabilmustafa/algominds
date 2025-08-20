@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algominds | Strategy</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/strategy.css">
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- jQuery + Select2 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+</head>
+
+<body>
+    <div class="strategy-container">
+        <nav class="dashboard-navbar">
+            <h3 class="logo"><a class="dashboard-navbar-brand" href="#">ALGOMINDS</a></h3>
+            <div class="collapse dashboard-nav-list">
+                <ul class="dashboard-navbar-nav mb-2 mb-lg-0">
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="fa-solid fa-grip"></i> DASHBOARD</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/screener"><i class="fa-solid fa-table-cells"></i> SCREENER</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/chart"><i class="fa-solid fa-chart-line"></i></i> CHARTS</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/order"><i class="fas fa-pen"></i> TRADING</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/strategy"><i class="fas fa-star"></i> STRATEGIES</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/watch"><i class="fas fa-eye"></i> WATCHLIST</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/reports"><i class="fas fa-layer-group"></i> REPORTS</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dashboard-nav-account">
+                <div class="image"></div>
+                <div>
+                    <p>Client Code</p>
+                </div>
+            </div>
+        </nav>
+
+        <div class="strategies-content">
+            <h2>Strategies</h2>
+            <div class="strategy-tab">
+                <ul class="strategy-tab-list">
+                    <li class="strategy-tab-item active"><a href="#">All Strategies</a></li>
+                    <li class="strategy-tab-item"><a href="#">Deployed Strategies</a></li>
+                </ul>
+            </div>
+            <div class="strategies-container">
+                {% for strategy in strategies %}
+                <div class="strategy" data-strategy-id="{{ strategy.strategy_id }}">
+                    <div class="strategy-card-header">
+                        <h3>{{strategy.strategy_name}}</h3>
+                        <div class="strategy-status">
+                            <!-- <p class="status-inactive">{{strategy.status}}</p> -->
+                            <p
+                                class="{% if strategy.status == 'Active' %}status-active{% else %}status-inactive{% endif %}">
+                                {{ strategy.status }}
+                            </p>
+                            <label class="switch">
+                                <input type="checkbox" {% if strategy.status=='Active' %}checked{% endif %} {% if not
+                                    strategy.allow_update %}disabled{% endif %}>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="strategy-card-author">
+                        <p>by <span class="author-name">{{strategy.strategy_author}}</span></p>
+                    </div>
+                    <div class="strategy-time">
+                        <p><i class="fa-solid fa-clock"></i>starts: <span class="time">9:30 a.m.</span></p>
+                        <p><i class="fa-solid fa-clock"></i>ends: <span class="time">3:30 p.m.</span></p>
+                    </div>
+                    <div class="strategy-characteristics">
+                        {% set parts = strategy.description.split(',') %}
+                        {% set description_dict = {} %}
+                        {% for part in parts %}
+                        {% if ': ' in part %}
+                        {% set key_value = part.strip().split(': ', 1) %}
+                        {% set _ = description_dict.update({key_value[0]: key_value[1]}) %}
+                        {% endif %}
+                        {% endfor %}
+
+                        <div class="char">
+                            <p class="key">Type: </p>
+                            <p class="value">{{ description_dict['Type'] }}</p>
+                        </div>
+                        <div class="char">
+                            <p class="key">Asset Class: </p>
+                            <p class="value">{{ description_dict['Asset Class'] }}</p>
+                        </div>
+                        <div class="">
+                            <form method="" {% if not strategy.allow_update %}onsubmit="return false;" {% endif %}>
+                                {% if not strategy.allow_update %}
+                                <div class="char">
+                                    <label for="stocks">Select Stocks:</label>
+                                    <select name="stocks" multiple
+                                        class=" stock-select stock-select-{{strategy.strategy_id}}"
+                                        id="stock-select-{{strategy.strategy_id}}" disabled>
+                                        <!-- {% for symbol in stock_symbols %}
+                                        <option value="{{ symbol }}" {% if symbol in
+                                            stocks_by_strategy[strategy.strategy_id] %}selected{% endif %}>{{ symbol }}
+                                        </option>
+                                        {% endfor %} -->
+                                        {% for symbol in stock_symbols %}
+                                        {% set selected_symbols = stocks_by_strategy[strategy.strategy_id] |
+                                        map(attribute='stock_symbol') | list %}
+                                        <option value="{{ symbol }}" {% if symbol in selected_symbols %}selected{% endif
+                                            %}>{{ symbol }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="char">
+                                    <label for="allocation_of_balance">Allocation (%) of Total Balance:</label>
+                                    <input type="text" value="{{strategy.allocation_of_assets}}" disabled
+                                        name="allocation_of_balance" id="allocation_of_balance">
+                                </div>
+                                <div class="stock-allocations" id="stock-allocations-{{ strategy.strategy_id }}">
+
+                                    {%for stock in stocks_by_strategy[strategy.strategy_id] %}
+                                    <div class="stock-row">
+                                        <label>{{stock.stock_symbol}}</label>
+                                        <input class="stock-name" type="hidden" name="stock_symbol[]"
+                                            value="{{stock.stock_symbol}}" />
+                                        <input class="stock-allocation" name="allocation_percent[]" type="number"
+                                            min="1" max="100" value="{{stock.allocation_percent}}"
+                                            placeholder="Allocation %" />
+                                    </div> 
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                {% if strategy.allow_update %}
+                                <div class="char">
+                                    <label for="stocks">Select Stocks:</label>
+                                    <select name="stocks" multiple
+                                        class="stock-select stock-select-{{strategy.strategy_id}}"
+                                        id="stock-select-{{strategy.strategy_id}}">
+                                        <!-- {% for symbol in stock_symbols %}
+                                        <option value="{{ symbol }}" {% if symbol in
+                                            stocks_by_strategy[strategy.strategy_id] %}selected{% endif %}>{{ symbol }}
+                                        </option>
+                                        {% endfor %} -->
+                                        {% for symbol in stock_symbols %}
+                                        {% set selected_symbols = stocks_by_strategy[strategy.strategy_id] |
+                                        map(attribute='stock_symbol') | list %}
+                                        <option value="{{ symbol }}" {% if symbol in selected_symbols %}selected{% endif
+                                            %}>{{ symbol }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="char">
+                                    <label for="allocation_of_balance">Allocation (%) of Total Balance:</label>
+                                    <input type="text" value="{{strategy.allocation_of_assets}}"
+                                        name="allocation_of_balance" id="allocation_of_balance">
+
+                                </div>
+                                <div class="stock-allocations" id="stock-allocations-{{ strategy.strategy_id }}">
+
+                                    {%for stock in stocks_by_strategy[strategy.strategy_id] %}
+                                    <div class="stock-row">
+                                        <label>{{stock.stock_symbol}}</label>
+                                        <input class="stock-name" type="hidden" name="stock_symbol[]"
+                                            value="{{stock.stock_symbol}}" />
+                                        <input class="stock-allocation" name="allocation_percent[]" type="number"
+                                            min="1" max="100" value="{{stock.allocation_percent}}"
+                                            placeholder="Allocation %" />
+                                    </div> 
+                                    {% endfor %}
+                                </div>
+
+                                {% endif %}
+                                <button
+                                    class="{% if strategy.deploy_status == 'Deployed' %}deployed-btn{% else %}deploy-btn{% endif %}">
+                                    {{ strategy.deploy_status }}
+                                </button>
+                                <button class="check-status-btn" 
+                                onclick="window.location.href='/strategies/{{strategy.strategy_id}}'"
+                                 data-strategy-id="{{strategy.strategy_id}}" id="check-status-btn">Check Status <i class="fa-solid fa-chevron-right"></i> </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div id="strategy-deployed-container" class="strategy-deployed-container">
+                {% for strategy in strategies %}
+                {% if strategy.deploy_status == 'Deployed' %}
+                <div class="strategy" data-strategy-id="{{ strategy.strategy_id }}">
+                    <div class="strategy-card-header">
+                        <h3>{{strategy.strategy_name}}</h3>
+                        <div class="strategy-status">
+                            <!-- <p class="status-inactive">{{strategy.status}}</p> -->
+                            <p
+                                class="{% if strategy.status == 'Active' %}status-active{% else %}status-inactive{% endif %}">
+                                {{ strategy.status }}
+                            </p>
+                            <label class="switch">
+                                <input type="checkbox" {% if strategy.status=='Active' %}checked{% endif %} {% if not
+                                    strategy.allow_update %}disabled{% endif %}>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="strategy-card-author">
+                        <p>by <span class="author-name">{{strategy.strategy_author}}</span></p>
+                    </div>
+                    <div class="strategy-time">
+                        <p><i class="fa-solid fa-clock"></i>starts: <span class="time">9:30 a.m.</span></p>
+                        <p><i class="fa-solid fa-clock"></i>ends: <span class="time">3:30 p.m.</span></p>
+                    </div>
+                    <div class="strategy-characteristics">
+                        {% set parts = strategy.description.split(',') %}
+                        {% set description_dict = {} %}
+                        {% for part in parts %}
+                        {% if ': ' in part %}
+                        {% set key_value = part.strip().split(': ', 1) %}
+                        {% set _ = description_dict.update({key_value[0]: key_value[1]}) %}
+                        {% endif %}
+                        {% endfor %}
+
+                        <div class="char">
+                            <p class="key">Type: </p>
+                            <p class="value">{{ description_dict['Type'] }}</p>
+                        </div>
+                        <div class="char">
+                            <p class="key">Asset Class: </p>
+                            <p class="value">{{ description_dict['Asset Class'] }}</p>
+                        </div>
+                        <div class="">
+                            <form method="" {% if not strategy.allow_update %}onsubmit="return false;" {% endif %}>
+                                {% if not strategy.allow_update %}
+                                <div class="char">
+                                    <label for="stocks">Select Stocks:</label>
+                                    <select name="stocks" multiple class="stock-select" disabled>
+                                        {% for symbol in stock_symbols %}
+                                        <option value="{{ symbol }}" {% if symbol in strategy.stocks %}selected{% endif
+                                            %}>{{ symbol }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="char">
+                                    <label for="allocation_of_balance">Allocation (%) of Total Balance:</label>
+                                    <input type="text" value="{{strategy.allocation_of_assets}}" disabled
+                                        name="allocation_of_balance" id="allocation_of_balance">
+                                </div>
+                                <div class="stock-allocations" id="stock-allocations-{{ strategy.strategy_id }}">
+
+                                    {%for stock in stocks_by_strategy[strategy.strategy_id] %}
+                                    <div class="stock-row">
+                                        <label>{{stock.stock_symbol}}</label>
+                                        <input class="stock-name" type="hidden" name="stock_symbol[]"
+                                            value="{{stock.stock_symbol}}" />
+                                        <input class="stock-allocation" name="allocation_percent[]" type="number"
+                                            min="1" max="100" value="{{stock.allocation_percent}}"
+                                            placeholder="Allocation %" />
+                                    </div> 
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                {% if strategy.allow_update %}
+                                <div class="char">
+                                    <label for="stocks">Select Stocks:</label>
+                                    <select name="stocks" multiple class="stock-select">
+                                        {% for symbol in stock_symbols %}
+                                        <option value="{{ symbol }}" {% if symbol in strategy.stocks %}selected{% endif
+                                            %}>{{ symbol }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="char">
+                                    <label for="allocation_of_balance">Allocation (%) of Total Balance:</label>
+                                    <input type="text" value="{{strategy.allocation_of_assets}}"
+                                        name="allocation_of_balance" id="allocation_of_balance">
+                                </div>
+                                <div class="stock-allocations" id="stock-allocations-{{ strategy.strategy_id }}">
+
+                                    {%for stock in stocks_by_strategy[strategy.strategy_id] %}
+                                    <div class="stock-row">
+                                        <label>{{stock.stock_symbol}}</label>
+                                        <input class="stock-name" type="hidden" name="stock_symbol[]"
+                                            value="{{stock.stock_symbol}}" />
+                                        <input class="stock-allocation" name="allocation_percent[]" type="number"
+                                            min="1" max="100" value="{{stock.allocation_percent}}"
+                                            placeholder="Allocation %" />
+                                    </div> 
+                                    {% endfor %}
+                                </div>
+
+                                {% endif %}
+                                <button
+                                    class="{% if strategy.deploy_status == 'Deployed' %}deployed-btn{% else %}deploy-btn{% endif %}">
+                                    {{ strategy.deploy_status }}
+                                </button>
+                                <button class="check-status-btn" data-strategy-id="{{strategy.strategy_id}}" id="check-status-btn">Check Status <i class="fa-solid fa-chevron-right"></i> </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/static/strategy.js"></script>
+
+</html>

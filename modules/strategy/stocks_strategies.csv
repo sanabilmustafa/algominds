@@ -1,0 +1,8 @@
+id,strategy_id,stock_symbol,allocation_percent
+1,1,PSO,100
+2,1,MARI,100
+3,2,MCB,100
+4,2,PSO,100
+5,3,KEL,100
+6,3,WTL,100
+7,3,EPCL,100

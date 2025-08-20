@@ -1,0 +1,1059 @@
+*{
+    font-family: 'Roboto', sans-serif; 
+}
+/* ==== Layout Containers ==== */
+.default-badge {
+    color: gold;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.indicator-tag {
+    background-color: #f1f1f1;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+#profile-add-button-form {
+    display: flex;
+    flex-direction: row;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo-bar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* lighting */
+.flash-up {
+  background-color: #d4f7dc;
+  color: #339353;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.flash-down {
+  background-color: #fbdcdc;
+  color: #B21A1C;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+/* ==== Filters and Search ==== */
+
+.market-flag {
+    font-size: 26px;
+    background-color: #838da1;
+}
+
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin: 20px;
+}
+
+.filters-container button:hover {
+    background-color: var(--hover-light-color);
+    transition: all 0.3s;
+}
+
+.filters-container button,
+.filters-container select {
+    padding: 8px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+    /* font-size: 16px; */
+    font-size: 14px;
+    color: var(--dark-color-light);
+}
+
+.market-flag {
+    font-size: 26px;
+    background-color: #0c1320;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* spacing between input and clear button */
+}
+
+.search-bar input {
+    padding: 8px;
+    width: 250px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin: 0;
+    /* background-color: var(--lighter-color); */
+}
+
+.clear-filter-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 18px;
+    padding: 5px;
+    transition: color 0.2s;
+}
+
+.clear-filter-btn:hover {
+    color: #ff4444;
+}
+
+.clear-filter-btn:active {
+    transform: scale(0.95);
+}
+
+
+.table-container {
+    margin: 20px;
+    overflow: auto; /* Keeps layout stable if content overflows */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Prevents column resizing */
+}
+
+th,
+td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;    
+
+}
+/* Fixed width for average_price column */
+ th[data-col="average_price"],
+td[data-col="average_price"] {
+    width: 150px;
+    max-width: 150px;
+    min-width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Shows "..." if too long */
+ }
+
+td {
+    text-align: end;
+    color: #434343;
+        width: 110px; /* fixed width per column */
+    height: 40px; /* fixed height per row */
+    overflow: hidden; /* hide overflow content */
+    /* text-overflow: ellipsis; "..." for long text */
+    white-space: nowrap; /* keep text in one line */
+}
+
+th {
+    background-color: #ccf1f5;
+    color: #213555;
+    font-size: 14px;
+    padding: 15px 2px;
+    /* border-top: var(--darker-color) 0.2px solid;
+    border-bottom: var(--darker-color) 0.2px solid; */
+    text-align: center;
+}
+tr:hover{
+    background-color: #f9f9f9;
+}
+
+
+/* ==== Status and Value i ==== */
+
+.status {
+    font-weight: bold;
+    color: green !important;
+    padding: 0px 20px;
+}
+
+.positive {
+    color: green;
+}
+
+.value-increase {
+    background-color: rgba(0, 255, 0, 0.2);
+    position: relative;
+}
+
+.value-increase::after {
+    content: "↑";
+    color: green;
+    margin-left: 5px;
+}
+
+.value-decrease {
+    background-color: rgba(255, 0, 0, 0.2);
+    position: relative;
+}
+
+.value-decrease::after {
+    content: "↓";
+    color: red;
+    margin-left: 5px;
+}
+
+
+/* ==== Dropdown Menus ==== */
+
+.dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 200px;
+    padding: 10px 0;
+    display: none;
+    z-index: 100;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    display: block;
+}
+
+.dropdown-menu li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+    cursor: pointer;
+    color: #0c1320;
+}
+
+.dropdown-menu li:hover {
+    background-color: rgb(235, 232, 232);
+    border-radius: 8px;
+}
+
+.dropdown-menu a {
+    font-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-menu-columns {
+    position: absolute;
+    top: 260px;
+    right: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 150px;
+    padding: 5px 0;
+    display: none;
+    z-index: 100;
+}
+
+.dropdown-menu-columns.show {
+    display: block;
+}
+
+.dropdown-menu-columns>.column-settings {
+    list-style: none;
+    margin: 0;
+    display: block;
+}
+
+.column-settings>label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 10px;
+    cursor: pointer;
+    color: #0c1320;
+}
+
+.dropdown-menu-columns li:hover {
+    background-color: rgb(235, 232, 232);
+    border-radius: 8px;
+}
+
+.dropdown-menu-columns a {
+    font-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+
+/* ==== Symbol and Sector Dropdowns ==== */
+
+#symbol-dropdown,
+#sector-dropdown {
+    top: 100%;
+    left: 0;
+    position: absolute;
+    margin-top: 5px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#symbol-dropdown.hidden,
+#sector-dropdown.hidden {
+    display: none;
+}
+
+
+/* ==== Dropdown Search and Items ==== */
+
+.dropdown-sector-box {
+    background: white;
+    border: 4px solid #ccc;
+    width: 300px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 100;
+}
+
+.dropdown-symbol-box {
+    background: white;
+    border: 4px solid #ccc;
+    width: 250px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 100;
+}
+
+.dropdown-search {
+    flex: 1;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 0.5px solid #ccc;
+}
+
+.dropdown-item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* ==== Selected Symbols Display ==== */
+
+.selected-symbols-container {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.selected-symbol {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.selected-symbol i {
+    cursor: pointer;
+}
+/* 
+.indicator-char>input {
+    border: none !important;
+    border-bottom: 2px solid var(--darker-color) !important;
+    border-radius: 0 !important;
+    background-color: transparent;
+    width: 100px;
+} */
+
+/* ==== Misc ==== */
+
+#menu-toggle {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#menu-toggle-new {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+/* PROFILE JAVASCRIPT */
+
+.profiles_dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profiles_dropdown-menu {
+    background: white;
+    border: 1px solid #ccc;
+    width: 250px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 100;
+    border-radius: 5px;
+}
+
+.profiles_dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+
+    gap: 20px;
+}
+.edit-icon{
+    color: #6c757d;
+    cursor: pointer;
+    font-size: 16px;
+}
+.profiles_dropdown-item:hover {
+    background-color: #9ACBD0;
+}
+.selected{
+    color: #fff;
+    background-color: var(--lighter-color);
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.profile-add-button-dropdown {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 0.5px solid #ccc;
+}
+
+.profile-add-button-dropdown:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* === FORM CONTAINER === */
+
+#profile-add-button-form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    background-color: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+    /* width: fit-content; */
+    /* width: 360px; */
+    width: 600px;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.35s ease;
+}
+
+/* responsive */
+@media screen and (max-width: 400px) {
+    #profile-add-button-form {
+        width: 360px;
+        /* padding: 20px;
+          transform: translate(-50%, -50%); */
+    }
+
+}
+
+#profile-add-button-form.show {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+
+/* === HEADER === */
+
+#profile-add-button-form h2 {
+    /* margin-bottom: 24px; */
+    font-size: 26px;
+    font-weight: 700;
+    color: #1e1e1e;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+}
+
+
+/* === INPUT WRAPPERS === */
+
+.profile-name-input,
+.profile-stocks-input {
+    /* margin-bottom: 20px; */
+}
+
+#profile-add-button-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+    font-size: 15px;
+}
+
+/* === TEXT INPUT & SELECT === */
+
+#profile-add-button-form input[type="text"],
+#profile-add-button-form select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    transition: border-color 0.3s;
+}
+
+#profile-add-button-form input[type="text"]:focus,
+#profile-add-button-form select:focus {
+    border-color: #198754;
+    outline: none;
+    background-color: #fff;
+}
+
+#select-stocks {
+    height: 220px;
+    resize: none;
+}
+
+
+/* === SELECTED STOCKS PREVIEW === */
+/* === SELECT BOX HEIGHT === */
+#select-stocks,
+#selected-columns {
+    height: 220px;
+    resize: none;
+}
+
+/* === SELECTED STOCKS PREVIEW === */
+#selected-stocks-preview {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+#selected-stock-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+/* === SELECTED COLUMNS PREVIEW === */
+#selected-columns-preview {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+#selected-column-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+/* === SELECTED PILL STYLE (used for both stocks and columns) === */
+.selected-stock {
+    background-color: #e8f5e9;
+    color: #198754;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #198754;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.selected-stock:hover {
+    background-color: #198754;
+    color: #fff;
+}
+
+.selected-stock::after {
+    content: "✓";
+    font-weight: bold;
+    color: inherit;
+    font-size: 14px;
+}
+
+
+/* === BUTTON GROUP === */
+/* #add-profile-form{
+    display: flex;
+    width: 100%; */
+/* } */
+.profile-btns {
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 10px 24px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    background-color: #9ACBD0;
+    color: white;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-btns>button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
+
+.profile-btns>button[type="submit"]:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+#close-profile-form {
+    background-color: #6c757d;
+    color: white;
+}
+
+#close-profile-form:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+
+/* === SELECTED OPTION IN DROPDOWN === */
+
+#select-stocks option.selected {
+    background-color: #d1ffd6;
+    color: #006400;
+    font-weight: bold;
+}
+
+
+/* === MODAL BACKDROP === */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+
+/* === MODAL CONTENT === */
+
+.modal-content {
+    background: #ffffff;
+    padding: 32px;
+    width: 440px;
+    border-radius: 16px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    position: relative;
+    animation: fadeInScale 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* === ANIMATION === */
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* === CLOSE BUTTON (X) === */
+
+.close-button {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: #000;
+}
+
+
+/* === HEADINGS === */
+
+.modal-content h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #1e1e1e;
+}
+
+#modalProfileName {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+
+/* === INPUT FIELDS === */
+
+.modal-content input[type="text"],
+.modal-content select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+    margin-top: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content select:focus {
+    border-color: #198754;
+    outline: none;
+    background-color: #fff;
+}
+
+
+/* === MULTI SELECT AREA === */
+
+#edit-profile-stock-select {
+    height: 220px;
+    resize: none;
+}
+
+
+/* === SELECTED STOCK PREVIEW === */
+
+#edit-profile-stock-preview,
+#edit-selected-columns-preview {
+    margin-top: 20px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+#edit-profile-selected-stock-list,
+#edit-selected-column-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+
+/* === SELECTED STOCK PILL === */
+
+.selected-stock {
+    background-color: #e8f5e9;
+    color: #198754;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #198754;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.selected-stock:hover {
+    background-color: #198754;
+    color: #fff;
+}
+
+
+/* === BUTTONS === */
+
+.modal-content button {
+    padding: 10px 22px;
+    font-size: 15px;
+    margin-top: 24px;
+    margin-right: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.25s, transform 0.15s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+}
+
+
+/* Save */
+
+#saveProfileButton {
+    background-color: #28a745;
+    color: white;
+    display: none;
+    /* Shown dynamically */
+}
+
+#saveProfileButton:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+
+/* Edit */
+
+#editProfileButton {
+    background-color: #6c757d;
+    color: white;
+}
+
+#editProfileButton:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+
+/* Delete */
+
+#deleteProfileButton {
+    background-color: #dc3545;
+    color: white;
+}
+
+#deleteProfileButton:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+
+/* === CUSTOM STYLED OPTION (optional enhancement) === */
+
+.stock-option.selected {
+    background-color: #d1ffd6 !important;
+    border-radius: 10px;
+    padding: 4px;
+    font-weight: bold;
+}
+
+
+
+
+/* Select2 container wrapper */
+.select2-container--default .select2-selection--multiple {
+    border: none !important;
+    border-bottom: 1px solid var(--dark-color) !important;
+    border-radius: 0 !important;
+    background-color: transparent;
+    padding-bottom: 4px;
+}
+
+/* Focus effect */
+.select2-container--default .select2-selection--multiple:focus,
+.select2-container--default .select2-selection--multiple:focus-within {
+    border-bottom-color: var(--darker-color) !important;
+    box-shadow: none !important;
+}
+
+/* Make it look cleaner */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: var(--darker-color);
+    color: white;
+    border: none;
+    padding: 2px 6px;
+    margin-top: 4px;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: var(--lighter-color) !important;
+    border: var(--darker-color) !important;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: var(--lighter-color) !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: var(--darker-color) !important;
+}
+
+.indicator-form-selects {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* .profile-stocks-columns {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 0;
+} */
+
+.profile-stocks-columns>div {
+    width: 100%;
+}
+
+/* -------------- */
+
+
+  /* --------- */
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 80%;
+    height: 14px;
+    background: #ddd;
+    border-radius: 50px;
+    outline: none;
+    transition: background 0.3s ease;
+    margin: 8px 0;
+  }
+  
+  /* Slider Thumb - WebKit */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #9ACBD0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    /* margin-top: -5px; Center the thumb vertically */
+    transition: transform 0.5s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Slider Thumb - Firefox */
+  input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #9ACBD0;
+    cursor: pointer;
+    border: none;
+  }
+  
+  /* Progress track - Firefox */
+  input[type="range"]::-moz-range-progress {
+    -webkit-appearance: none;
+    background-color: #9ACBD0;
+    height: 4px;
+    border-radius: 2px;
+  }
+  
+  /* Track - Firefox */
+  input[type="range"]::-moz-range-track {
+    -webkit-appearance: none;
+    background-color: #9ACBD0;
+    height: 4px;
+    border-radius: 2px;
+  }
+  
+  /* Optional: Adjust labels */
+  .range-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .range-value {
+    font-weight: 500;
+    font-size: 14px;
+    min-width: 30px;
+    text-align: right;
+  }
+  .indicator-period-value{
+    background-color: #9ACBD0;
+    border-radius: 50%;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .stock-logo {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .symbol-column{
+    display: flex;
+    flex-wrap: nowrap;
+    text-align: start !important;
+  }

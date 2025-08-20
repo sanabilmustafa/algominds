@@ -1,0 +1,155 @@
+:root {
+    --darker-color: #213555;
+    --dark-color: #3E5879;
+    --light-color: #ffffff;
+    --lighter-color: #9ACBD0;
+    --red-color: red;
+    --green-color: green;
+  }
+
+
+
+
+
+
+
+
+.create-account-header{
+    margin: 30px;
+}
+.create-account-header > h2{
+    font-size: 30px;
+    color: var(--darker-color);
+    text-align: center;
+}
+.progressbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 3px solid #ccc;
+    color: #aaa;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.step.active {
+    color: #1a2a6c;
+    font-weight: bold;
+    border-bottom: 3px solid #1a2a6c;
+}
+.form-container{
+    margin: 30px;
+}
+.form-step {
+    display: none;
+  }
+  
+.form-step.active {
+display: block;
+}
+.prev-btn, .next-btn, .done-btn{
+    border-radius: 10px;
+    padding: 10px 20px ;
+    background-color: var(--darker-color);
+    font-weight: 600;
+    border: none;
+    margin-right: 10px;
+    color: var(--light-color);
+    margin-top: 30px;
+}
+.prev-btn:hover, .next-btn:hover, .done-btn:hover{
+    transition: 0.6s all;
+    background-color:var(--darker-color) ;
+    cursor: pointer;
+}
+
+.input-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.input-row > .col{
+    width: calc(50% - 7.5px); /* half of the 15px gap */
+}
+
+input[type="text"],
+input[type="date"],
+select,
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+input[type="file"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+}
+.form-sections{
+    display: flex;
+}
+.input-label{
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 20px;
+}
+.input-col{
+    display: flex;
+    flex-direction: column;
+}
+.form-inputs{
+    width: 60%;
+}
+.whale{
+    color: var(--darker-color);
+}
+.input-row > label{
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    color: var(--darker-color);
+}
+input[type="file"]::file-selector-button {
+    border-radius: 10px;
+    padding: 10px 20px ;
+    background-color: var(--darker-color);
+    font-weight: 600;
+    border: none;
+    margin-right: 10px;
+    color: var(--light-color);
+    cursor: pointer;
+}
+
+
+
+/* review section */
+.review-container {
+    margin: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.error{
+    color: var(--red-color);
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: 600;
+}

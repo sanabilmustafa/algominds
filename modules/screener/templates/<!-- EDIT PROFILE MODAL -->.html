@@ -1,0 +1,94 @@
+<!-- EDIT PROFILE MODAL -->
+  <div id="profileModal" class="modal hidden" data-profile-id="">
+    <div class="modal-content">
+      <div class="modal-header">
+
+      </div>
+      <span class="close-button" onclick="closeProfileModal()">&times;</span>
+      <h2>Edit Profile</h2>
+        <h2 id="modalProfileName">Profile Name</h2>
+      <input type="text" id="edit-profile-name" disabled />
+
+      <div class="profile-stocks-input">
+        <label for="edit-profile-stock-select">Select the Stocks:</label>
+        <select id="edit-profile-stock-select" name="edit_profile_stocks" multiple required
+          class="edit-profile-stock-list"></select>
+      </div>
+      <label>Select Columnns:</label>
+      <select id="edit_selected_columns" name="selected_columns" multiple>
+        <option value="symbol">Symbol</option>
+        <option value="market_code">Market</option>
+        <option value="last_trade_price">Last Price</option>
+        <option value="net_change">Net Change</option>
+        <option value="bid_price">Bid Price</option>
+        <option value="ask_price">Ask Price</option>
+        <option value="bid_volume">Bid Volume</option>
+        <option value="ask_volume">Ask Volume</option>
+        <option value="average_price">Average Price</option>
+        <option value="high_price">High</option>
+        <option value="low_price">Low</option>
+        <option value="open_price">Open</option>
+        <option value="last_day_close_price">Close</option>
+        <option value="last_trade_volume">Last Trade Volume</option>
+        <option value="last_trade_time">Last Trade Time</option>
+        <option value="record_identifier">Record Identifier</option>
+        <option value="symbol_code">Symbol Code</option>
+        <option value="symbol_direction">Symbol Direction</option>
+        <option value="symbol_state">Symbol State</option>
+        <option value="timestamp">Timestamp</option>
+        <option value="total_traded_volume">Total Traded Volume</option>
+        <option value="total_trades">Total Trades</option>
+      </select>
+
+      <!-- Selected stocks preview -->
+      <div id="edit-profile-stock-preview" style="margin-bottom: 10px; font-size: 14px; color: #333">
+        Selected Stocks:
+        <div id="edit-profile-selected-stock-list" style="display: flex; flex-wrap: wrap; gap: 10px"></div>
+      </div>
+      <div id="edit-selected-columns-preview" style="margin-bottom: 10px; font-size: 14px; color: #333">
+        Selected Columns For This Profile:
+        <div id="edit-selected-column-list" style="display: flex; flex-wrap: wrap; gap: 10px"></div>
+      </div>
+      <div id="edit-indicators-form">
+        <label>Edit Indicators:</label>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <select id="edit-indicator-name">
+            <option value="SMA">SMA</option>
+            <option value="RSI">RSI</option>
+            <option value="EMA">EMA</option>
+            <option value="MACD">MACD</option>
+            <option value="SUPERTREND">SUPERTREND</option>
+          </select>
+
+          <input type="number" id="edit-indicator-period" min="1" max="99" placeholder="Period" style="width: 80px" />
+
+          <select id="edit-indicator-interval">
+            <option value="15min">15 min</option>
+            <option value="30min">30 min</option>
+            <option value="1h">hourly</option>
+            <option value="1d">Daily</option>
+            <option value="1w">weekly</option>
+          </select>
+
+          <button type="button" id="edit-add-indicator">Add</button>
+        </div>
+
+        <div style="margin-top: 10px;">
+          Selected Indicators:
+          <div id="edit-indicator-tags" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;"></div>
+        </div>
+      </div>
+
+
+      <div class="profile-default-input">
+        <label for="edit-is-default">Make this the default profile?</label>
+        <input type="checkbox" id="edit-is-default" />
+      </div>
+
+      <button id="saveProfileButton">Save</button>
+      <button id="editProfileButton">Edit</button>
+      <button id="deleteProfileButton" style="background-color: red; color: white">
+        Delete
+      </button>
+    </div>
+  </div>

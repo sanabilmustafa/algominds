@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoMinds | Create Account</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/createaccount.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+     <!--  & Navbar start -->
+<nav class="navbar">
+<h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+<div class="collapse nav-list">
+    <ul class="navbar-nav mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a class="nav-link" href="/hero/"><i class="fas fa-home"></i> HOME</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/hero/dashboard.html"><i class="fas fa-clock"></i> DASHBOARDS</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
+      </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
+    </li>
+    </ul>
+</div>
+<div class="button-container">
+    <button class="btn"><a class="btn-signup" href="#">SIGN-UP</a></button>
+    <button class="btn"><a class="btn-signup" href="#">LOGIN</a></button>
+</div>
+</nav>
+
+<nav class="navbar-collapse">
+<h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+<!-- collapse bar side -->
+<div class="collapse-bar">
+    <div class="collapse-icon"><i class="fas fa-bars"></i></div>
+    <div class="side-bar">
+    <div class="uncollapse-icon"><i class="fas fa-xmark"></i></div>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus necessitatibus sunt accusantium sapiente in ad labore vitae, dolor adipisci eveniet deserunt voluptatibus magni impedit quasi. Accusantium harum voluptatum repellendus laudantium!</p>
+    <div class="uncollapse nav-list-bar">
+        <ul class="navbar-nav-bar mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link" href="/hero/"><i class="fas fa-home"></i> HOME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/hero/dashboard.html"><i class="fas fa-clock"></i> DASHBOARDS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
+        </li>
+        </ul>
+    </div>
+    <div class="button-container-bar">
+        <button class="btn-bar"><a class="btn-signup" href="#">SIGN-UP</a></button>
+        <button class="btn-bar"><a class="btn-signup" href="#">LOGIN</a></button>
+    </div>
+    </div>
+</div>
+</nav>
+<!-- & Navbar  end -->
+ <!-- & header start -->
+<div class="create-account-header">
+    <h2>Open an Account</h2>
+    <div class="progressbar">
+        <div class="step active">Profile Info</div>
+        <div class="step">Contact Info</div>
+        <div class="step">Bank Info</div>
+        <div class="step">Occupation Info</div>
+        <div class="step">Zakaat</div>
+        <div class="step">Nominee Info</div>
+        <div class="step">UKN Info</div>
+        <div class="step">Review & Submit</div>
+      </div>
+</div>
+<!-- & form start -->
+ <div class="form-container">
+ <form id="multiStepForm">
+    <div class="form-step active">
+        <h3>Profile Info</h3>
+       <div class="form-sections">
+            <div class="form-inputs">
+                <div class="input-label">Name: </div>
+                <div class="input-row">
+                    <input type="text" name="firstname" required placeholder="First Name">
+                    <input type="text" name="lastname" required placeholder="Last Name">
+                </div>
+                <div class="input-row">
+                    <div class="col">                
+                        <div class="input-label">Gender: </div>
+                        <select name="gender" required id="gender">
+                            <option value="select">select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col">                
+                        <div class="input-label">Marital Status: </div>
+                        <select name="maritalstatus" required id="maritalstatus">
+                            <option value="select">select</option>
+                            <option value="male">Married</option>
+                            <option value="female">Single</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-label">Birth: </div>
+                <div class="input-row">
+                    <label for="date-birth">Date of Birth:</label>
+                    <input type="date" name="dateofbirth" required id="date-birth" placeholder="Date of Birth">
+                    <input type="text" name="placeofbirth" required placeholder="Place of Birth">
+                </div>
+                <div class="input-label">ID-Card Number: </div>
+                <input type="text" name="idcardnumber" required placeholder="ID-Card Number (XXXXX-XXXXXXX-X)" />
+                <div class="input-label">ID-Card Date: </div>
+                <div class="input-row">
+                    <label for="date-issue">Date of Issue:</label>
+                    <input type="date" name="dateofissue" required id="date-issue" placeholder="Date of Issue">
+                    <label for="date-expiry">Date of Expiry:</label>
+                    <input type="date" name="dateofexpiry" required id="date-expiry" placeholder="Date of Expiry">
+                </div>
+                <label for="cnic-front">Upload CNIC Front:</label>
+                <input type="file" name="cnicfront" required id="cnic-front">
+                <label for="cnic-back">Upload CNIC Back:</label>
+                <input type="file" name="cnicback" required id="cnic-back">
+            </div>
+       </div>
+        <button type="button" class="next-btn">Save & Continue</button>
+    </div>
+    <!-- 1 step completed -->
+    <div class="form-step">
+        <h3>Contact Info</h3>
+        <div class="form-sections">
+            <div class="form-inputs">
+                <div class="input-label">Email Adress: </div>
+                <input type="email" name="email" placeholder="Email Adress">
+                <div class="input-label">Phone Number: </div>
+                <input type="tel" name="phonenumber" pattern="[\+]\d{2}\d{10}" title="ex: +923101234567" placeholder="Phone Number">
+                <div class="input-label whale">Is this mobile number registered in your name with PTA?</div>
+                <div class="input-col">
+                    <div>
+                        <input type="radio" name="pta" id="yes-pta">
+                        <label for="yes-pta">yes, this is registred against my name</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="pta" id="no-pta">
+                        <label for="no-pta">No, it is registered in the name of my family member</label>
+                    </div>
+               </div>
+               <div class="input-label">Address</div>
+               <input type="text" name="mailingaddress" placeholder="Enter Mailing Address">
+               <div class="input-label whale">Is your Mailing address same as the permanent address mentioned on your ID-Card?</div>
+               <div class="input-col">
+                <div>
+                    <input type="radio" name="add" id="yes-add">
+                    <label for="yes-add">yes, my addresses are the same</label>
+                </div>
+                <div>
+                    <input type="radio" name="add" id="no-add">
+                    <label for="no-add">No, my mailing address is different from my permanent address</label>
+                </div>
+           </div>
+            </div>
+        </div>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="button" class="next-btn">Save & Continue</button>
+    </div>
+    <!-- 2nd step completed -->
+    <div class="form-step">
+        <h3>Bank Info</h3>
+
+        <div class="form-sections">
+            <div class="form-inputs">
+                <div class="input-label">Bank Name</div>
+                <input type="text" name="bankname" placeholder="Enter Bank Name">
+                <div class="input-label">IBAN Number: </div>
+                <input type="number" name="iban" id="iban" placeholder="Enter IBAN number">
+                <label class="input-label" for="proof-iban">Proof of IBAN:</label>
+                <input type="file" name="proofiban" id="proof-iban">
+            </div>
+        </div>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="button" class="next-btn">Save & Continue</button>
+    </div>
+    <!-- 3rd step completed -->
+    <div class="form-step">
+        <h3>Occupation Info</h3>
+        <div class="form-sections">
+            <div class="form-inputs">
+                <div class="input-label">Employment Status: </div>
+                <div class="input-col">
+                <div>
+                    <input type="radio" name="employment" id="self-employed">
+                    <label for="self-employed">Are you Self Employed?</label>
+                </div>
+                <div>
+               <input type="radio" name="employment" id="salary-employed">
+                    <label for="salary-employed">Are you taking a monthly salary from your employer?</label>
+                </div>
+                <div>
+                    <input type="radio" name="employment" id="homemaker">
+                    <label for="homemaker">Are you a homemaker?</label>
+                </div>
+                <div>
+                    <input type="radio" name="employment" id="student">
+                    <label for="student">Are you currently a student?</label>
+                </div>
+                <div>
+                    <input type="radio" name="employment" id="retired">
+                    <label for="retired">Have you retired from your job?</label>
+                </div>
+                <div>
+                    <input type="radio" name="employment" id="other">
+                    <label for="other">Other – Please Specify</label>
+                    <input type="text" for="other" name="employment" placeholder="Please Specify here">
+                </div>
+            </div>
+        </div>
+        </div>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="button" class="next-btn">Save & Continue</button>
+    </div>
+    <!-- 4th step fcompleted -->
+    <div class="form-step">
+        <h3>Zakat and Signiture</h3>
+        <div class="form-sections">
+            <div class="form-inputs">
+                <div class="input-label">Zakat Deduction Status: </div>
+                <div class="input-col">
+                    <div>
+                        <input type="radio" name="zakat" id="yes-zakaat">
+                        <label for="yes-zakaat">Yes, I wish Zakat to be deducted from my account.</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="zakat" id="yes-zakaat">
+                        <label for="yes-zakaat">No, I do NOT wish Zakat to be deducted from my account.</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="zakat" id="no-muslim">
+                        <label for="no-muslim">I am a Non-Muslim.</label>
+                    </div>
+                </div>
+                <div class="input-label">Digital Signature: </div>
+                <input type="file" name="digitalsignature" id="d-sig">
+            </div>
+        </div>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="button" class="next-btn">Save & Continue</button>
+    </div>
+    <!-- 5th step completed -->
+    <div class="form-step">
+        <h3>Nominee Info</h3>
+        <div class="form-sections">
+            <div class="form-inputs">
+                <div class="input-label">Nominee Name: </div>
+                <input type="text" name="nom-name" placeholder="Enter Name">
+                <div class="input-label ">Nominee ID Number: </div>
+                <input type="text" name="nom-id" placeholder="Enter ID">
+                <label class="input-label" for="nomid-front">Upload Nominee ID Front:</label>
+                <input type="file" name="nom-id-front" id="nom-front">
+                <label class="input-label" for="nomid-back">Upload Nominee ID Back:</label>
+                <input type="file" name="nom-id-back" id="nom-back">
+                <div class="input-label">Nominee ID Expiry Date: </div>
+                <input type="date" name="nom-id-exp-date" name="nom-id-exp" id="nom-id-exp">
+                <div>
+                    <input type="radio" name="nom-id-exp" id="lifetime-exp">
+                    <label for="lifetime-exp">Life time Expiry</label>
+                </div>
+                <div class="input-label">Relation with Nominee: </div>
+                <select name="Relation-w-nominee" id="relation-w-nominee">
+                    <option value="select">select</option>
+                    <option value="brother">Brother</option>
+                    <option value="daughter">Daughter</option>
+                    <option value="father">Father</option>
+                    <option value="husband">Husband</option>
+                    <option value="mother">Mother</option>
+                    <option value="sister">Sister</option>
+                    <option value="son">Son</option>
+                    <option value="wife">Wife</option>
+                </select>
+
+                <label class="input-label" for="nom-proof">Nominee Proof of Relation:</label>
+                <input type="file" name="nom-proof" id="nom-proof">
+            </div>
+        </div>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="button" class="next-btn">Save & Continue</button>
+    </div>
+    <!-- 6th step completed -->
+    <div class="form-step">
+        <h3>UKN Info | Unique Know your Customer Number (UKN) for tagging</h3>
+        <div class="form-sections">
+            <div class="form-inputs">
+                <div class="input-label">UKN Number: </div>
+                <input type="number" name="ukn" id="ukn" placeholder="Enter UKN Number">
+                <label class="input-label" for="nom-proof">Proof of UKN:</label>
+                <input type="file" name="proof-ukn" id="nom-proof">
+            </div>
+        </div>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="button" class="next-btn">Save & Continue</button>
+    </div>
+    <!-- 7th step completed -->
+    <div class="form-step">
+        <h3>Documents to review</h3>
+        <div class="form-sections">
+            <div class="form-inputs">
+                <!-- <div class="input-label">Profile Info: </div> -->
+                <div class="review-container">
+                    <!-- <div class="wrapper">
+                        <div class="field-review"></div>
+                        <div class="review"></div>
+                    </div> -->
+                </div>
+              
+            </div>
+        </div>
+        <button type="button" class="prev-btn">Back</button>
+        <button type="button" class="next-btn">DONE</button>
+    </div>
+    <!-- 8th step completed -->
+ </form>
+</div>
+<!-- & form end -->
+
+
+
+
+</body>
+<script src="/static/script.js"></script>
+
+</html>

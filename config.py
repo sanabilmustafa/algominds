@@ -1,0 +1,6 @@
+DB_USERNAME = "algominds"
+DB_PASSWORD = "machinedatabase"
+DB_NAME = "AlgoMinds"
+DB_HOST = "localhost"
+DB_PORT = "5432"
+SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@localhost/{DB_NAME}"

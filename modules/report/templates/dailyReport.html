@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Category Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <!-- Highcharts Core -->
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+
+    <!-- Indicators Core -->
+    <script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+
+    <!-- SMA (part of EMA) -->
+    <script src="https://code.highcharts.com/stock/indicators/ema.js"></script>
+
+    <!-- RSI -->
+    <script src="https://code.highcharts.com/stock/indicators/rsi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/report.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+        <div class="collapse nav-list">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
+                </li>
+            </ul>
+        </div>
+        <div class="button-container">
+            <button class="btn"><a class="btn-signup" href="#">SIGN-UP</a></button>
+            <button class="btn"><a class="btn-signup" href="#">LOGIN</a></button>
+        </div>
+    </nav>
+
+    <nav class="navbar-collapse">
+        <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+        <!-- collapse bar side -->
+        <div class="collapse-bar">
+            <div class="collapse-icon"><i class="fas fa-bars"></i></div>
+            <div class="side-bar">
+                <div class="uncollapse-icon"><i class="fas fa-xmark"></i></div>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus necessitatibus sunt accusantium
+                    sapiente in ad labore vitae, dolor adipisci eveniet deserunt voluptatibus magni impedit quasi.
+                    Accusantium harum voluptatum repellendus laudantium!</p>
+                <div class="uncollapse nav-list-bar">
+                    <ul class="navbar-nav-bar mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/hero/"><i class="fas fa-home"></i> HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
+                          </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="button-container-bar">
+                    <button class="btn-bar"><a class="btn-signup" href="#">SIGN-UP</a></button>
+                    <button class="btn-bar"><a class="btn-signup" href="#">LOGIN</a></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+   <div class="report-wrapper">
+    <div class="chart-analysis-wrapper">
+        <div id="donutChartContainer" class="donut-chart-container">
+            <canvas id="donutChart"></canvas>
+        </div>
+        <div>
+            <h2 class="top-sectors-header">TOP PERFORMING SECTORS</h2>
+            <div class="sector-progress-container">
+                <div class="sector">
+                    <div class="sector-header">
+                        <span class="sector-name">Technology</span>
+                        <span class="sector-value">15%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 15%;"></div>
+                    </div>
+                </div>
+
+                <div class="sector">
+                    <div class="sector-header">
+                        <span class="sector-name">Healthcare</span>
+                        <span class="sector-value">10%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 10%;"></div>
+                    </div>
+                </div>
+
+                <div class="sector">
+                    <div class="sector-header">
+                        <span class="sector-name">Finance</span>
+                        <span class="sector-value">20%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 20%;"></div>
+                    </div>
+                </div>
+
+                <div class="sector">
+                    <div class="sector-header">
+                        <span class="sector-name">Consumer Goods</span>
+                        <span class="sector-value">25%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 25%;"></div>
+                    </div>
+                </div>
+
+                <div class="sector">
+                    <div class="sector-header">
+                        <span class="sector-name">Energy</span>
+                        <span class="sector-value">30%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 30%;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="report-container">
+        <h2 class="report-container-heading">Category Report By <span>ALGOMINDS</span></h2>
+        <div class="report-categories">
+            {% for category, stocks in report.categories.items() %}
+            <div class="category">
+                <h2 class="category-name">{{ category }}</h2>
+
+                {% if stocks %}
+                <ul class="stock-list">
+                    {% for stock in stocks %}
+                    <li>
+                        <p>{{ stock.symbol }}</p>
+                        <p class="company-name">{{stock.company}}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="no-stock-alert">No stocks in this category.</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            <p class="report-id"><strong>Report ID:</strong> {{ report_id }}</p>
+            <p class="report-date"><strong>Generated at:</strong> {{ report.timestamp }}</p>
+        </div>
+    </div>
+   </div>
+
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const donutCtx = document.getElementById("donutChart").getContext("2d");
+
+        new Chart(donutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['A+', 'A', 'B', 'C', 'D', 'D-'],
+                datasets: [{
+                    data: [10, 30, 10, 5, 15, 20], // Example stock distribution
+                    backgroundColor: ['#205781', '#4F959D', '#98D2C0', '#2973B2', '#48A6A7', '#5F99AE'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                cutout: '65%',
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    });
+</script>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Report {{ report_id }}</title>
+</head>
+<body>
+    <h1>Stock Category Report</h1>
+    <p><strong>Report ID:</strong> {{ report_id }}</p>
+    <p><strong>Generated at:</strong> {{ report.timestamp }}</p>
+
+    {% for category, stocks in report.categories.items() %}
+        <h2>{{ category }}</h2>
+        {% if stocks %}
+            <ul>
+                {% for symbol in stocks %}
+                    <li>{{ symbol }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No stocks in this category.</p>
+        {% endif %}
+    {% endfor %}
+
+</body>
+</html> -->

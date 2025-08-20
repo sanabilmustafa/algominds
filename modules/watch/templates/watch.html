@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlgoMinds | Market Watch</title>
+  <script src="https://kit.fontawesome.com/1e1b118233.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet" />
+
+
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/watch/watch.css">
+</head>
+
+<body>
+  <div class="container">
+     <nav class="navbar" id="watchlist-navbar">
+      <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+      <div class="collapse nav-list">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
+          </li>
+        </ul>
+      </div>
+      <div class="button-container">
+        <button class="btn"><a class="btn-signup" href="#">SIGN-UP</a></button>
+        <button class="btn"><a class="btn-signup" href="#">LOGIN</a></button>
+      </div>
+    </nav>
+
+    <!-- <nav class="navbar-collapse">
+      <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+      <div class="collapse-bar">
+        <div class="collapse-icon"><i class="fas fa-bars"></i></div>
+        <div class="side-bar">
+          <div class="uncollapse-icon"><i class="fas fa-xmark"></i></div>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus necessitatibus sunt accusantium sapiente in
+            ad labore vitae, dolor adipisci eveniet deserunt voluptatibus magni impedit quasi. Accusantium harum
+            voluptatum repellendus laudantium!</p>
+          <div class="uncollapse nav-list-bar">
+            <ul class="navbar-nav-bar mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/hero/"><i class="fas fa-home"></i> HOME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
+              </li>
+            </ul>
+          </div>
+          <div class="button-container-bar">
+            <button class="btn-bar"><a class="btn-signup" href="#">SIGN-UP</a></button>
+            <button class="btn-bar"><a class="btn-signup" href="#">LOGIN</a></button>
+          </div>
+        </div>
+      </div>
+    </nav> -->
+    <main>
+      <button class="message-btn"><i class="fa-solid fa-message"></i></button>
+      <div class="message-box">
+        <h3>Messages</h3>
+        <table>
+          <tbody>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+          <tr class="message-row">
+            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, repellat.</td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+      <!-- <div class="watch-header">
+            <h1>MARKET WATCH</h1>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div> -->
+      <div class="tick-container">
+        <div class="tick">
+          <div class="watch-logo tick-section">
+            <p>MARKET WATCH</p>
+          </div>
+          <div class="tick-index tick-section">
+            <p>KSE100</p>
+            <p>Indices</p>
+          </div>
+          <div class="tick-current-index tick-section">
+            <p class="current-index-value pn-index-value">147,534.41</p>
+            <p>Current Index</p>
+          </div>
+            <div class="tick-change gradient-red tick-section">
+              <!-- <p class="change-value pn-value">+1947.77</p> -->
+              <p class="change-value">+1947.77 <i class="fa-solid fa-arrow-trend-down"></i></p>
+              <p>Change</p>
+            </div>
+            <div class="tick-change-percent tick-section">
+              <p class="change-percent-value pn-value">-1.12%</p>
+              <p>Change %</p>
+            </div>
+          <div class="tick-high tick-section">
+            <!-- <p class="high-value">101,700.4</p> -->
+            <div class="summary-values"><span class="high pn-value">200.17</span> <i
+                class="fa-solid fa-arrow-trend-up"></i> <span class="high_percent pn-value">1.19%</span></div>
+            <p>High</p>
+          </div>
+          <div class="tick-low tick-section">
+            <!-- <p class="low-value">100,000.2</p> -->
+            <div class="summary-values"><span class="low pn-value">-81.31</span> <i
+                class="fa-solid fa-arrow-trend-down"></i> <span class="low_percent pn-value">-1.13%</span></div>
+            <p>Low</p>
+          </div>
+          <div class="tick-high tick-section">
+            <p class="high-value">101,700.4</p>
+            <!-- <div class="summary-values"><span class="high pn-value">200.17</span> <i class="fa-solid fa-arrow-trend-up"></i> <span class="high_percent pn-value">1.19%</span></div> -->
+            <p>High</p>
+          </div>
+          <div class="tick-low tick-section">
+            <p class="low-value">100,000.2</p>
+            <!-- <div class="summary-values"><span class="low pn-value">-81.31</span> <i class="fa-solid fa-arrow-trend-down"></i> <span class="low_percent pn-value">-1.13%</span></div> -->
+            <p>Low</p>
+          </div>
+          <div class="tick-volume tick-section">
+            <p class="volume-value">1,200,000</p>
+            <p>Volume</p>
+          </div>
+          <div class="tick-mkt-volume tick-section">
+            <p class="mkt-volume-value">1,300,000</p>
+            <p>Mkt Volume</p>
+          </div>
+          <div class="market-time tick-section">
+            <p id="market-status" class="market-status">CLOSED</p>
+            <p>Status</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="navigation-btns">
+        <button class="create-watchlist-btn watch-nav-btn"><i class="fa-solid fa-plus"></i> Create Watchlist</button>
+        <!-- <button class="create-watchlist-btn watch-nav-btn"><i class="fa-solid fa-chevron-down"></i> My Watch</button> -->
+        <div class="watch-dropdown">
+          <button class="my-watchlist-btn watch-nav-btn">
+            <i class="fa-solid fa-chevron-down"></i> My Watch
+          </button>
+          <div class="watch-dropdown-menu" id="watchProfilesDropdown" style="display:none;">
+            <!-- Profiles will be loaded here -->
+          </div>
+        </div>
+
+        <button class="select-sector watch-nav-btn"><i class="fa-solid fa-chevron-down"></i> Select Sector</button>
+        <button class="select-sector-watch watch-nav-btn">Sector Watch</button>
+        <button class="select-inventory-watch watch-nav-btn">Inventory Watch</button>
+        <button class="select-cap-watch watch-nav-btn">Cap Watch</button>
+        <button class="select-future-watch watch-nav-btn">Future Watch</button>
+        <button class="select-Index-watch watch-nav-btn">Index Watch</button>
+      </div>
+      <div class="watchlist-table">
+        <div class="table-container">
+          <table class="watchlist-table" >
+            <thead >
+              <tr id="watch-header">
+                <th>MKT</th>
+                <th>Actions</th>
+                <th>Symbol</th>
+                <th>Buyer <br>Volume</th>
+                <th>Buyer</th>
+                <th>Seller</th>
+                <th>Seller <br>Volume</th>
+                <th>Change</th>
+                <th>Total <br> Volume</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>High Low Range</th>
+                <th>Last Trade <br>Price</th>
+                <th>% Change</th>
+                <th>Upper Cap</th>
+                <th>Lower Lock</th>
+                <th>Close</th>
+                <th>Open</th>
+                <th>Last Trade <br>Volume</th>
+                <th>Prev Close</th>
+                <th>Average <br>Price</th>
+                <th>Total <br> Trades</th>
+                <th>Last Trade <br>Time</th>
+                <th>Symbol <br>State</th>
+              </tr>
+            </thead>
+            <tbody id="watch-body"></tbody>
+          </table>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Popup Overlay -->
+<div id="createWatchlistModal" class="watchlist-popup-overlay" style="display:none;">
+  <div class="watchlist-popup">
+    <h2>Create Watchlist</h2>
+
+    <!-- Profile Name -->
+    <!-- <label for="profileName">Profile Name:</label> -->
+    <input type="text" id="profileName" placeholder="Enter profile name">
+
+    <!-- Stocks Selection -->
+    <label for="stocksSelect">Select the Stocks:</label>
+    <div class="custom-tag-select">
+      <div class="selected-tags" id="selectedTags"></div>
+      <input type="text" placeholder="Search stocks..." id="stockSearch">
+      <div class="dropdown-options" id="stockOptions"></div>
+      <select id="stocksSelect" multiple style="display:none;"></select>
+    </div>
+
+    <!-- Columns Selection -->
+    <label for="columnsSelect">Select the Columns:</label>
+    <div class="column-pills" id="columnPills"></div>
+    <select id="columnsSelect" multiple style="display:none;">
+      <option value="symbol">Symbol</option>
+      <option value="market_code">Market</option>
+      <option value="last_trade_price">Last Price</option>
+      <option value="net_change">Net Change</option>
+      <option value="bid_price">Bid Price</option>
+      <option value="ask_price">Ask Price</option>
+      <option value="bid_volume">Bid Volume</option>
+      <option value="ask_volume">Ask Volume</option>
+      <option value="average_price">Average Price</option>
+      <option value="high_price">High</option>
+      <option value="low_price">Low</option>
+      <option value="open_price">Open</option>
+      <option value="last_day_close_price">Close</option>
+      <option value="last_trade_volume">Last Trade Volume</option>
+      <option value="last_trade_time">Last Trade Time</option>
+      <option value="record_identifier">Record Identifier</option>
+      <option value="symbol_code">Symbol Code</option>
+      <option value="symbol_direction">Symbol Direction</option>
+      <option value="symbol_state">Symbol State</option>
+      <option value="timestamp">Timestamp</option>
+      <option value="total_traded_volume">Total Traded Volume</option>
+      <option value="total_trades">Total Trades</option>
+    </select>
+
+    <!-- Is Default -->
+    <label for="isDefault" class="switch">
+      <input type="checkbox" id="isDefault">
+      <span class="slider"></span> Is Default
+    </label>
+
+    <!-- Buttons -->
+    <div class="popup-actions">
+      <button id="saveWatchlist" class="save-btn">Save</button>
+      <button id="closeModal" class="cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="editProfileModal" class="watchlist-popup-overlay" style="display:none;">
+  <div class="watchlist-popup">
+    <h2>Edit Watchlist</h2>
+
+    <!-- Profile Name -->
+    <label for="editProfileName">Profile Name:</label>
+    <input type="text" id="editProfileName" placeholder="Enter profile name">
+
+    <!-- Stocks Selection -->
+    <label for="editStocksSelect">Stocks:</label>
+    <select id="editStocksSelect" multiple></select>
+
+    <!-- Columns Selection -->
+    <label for="editColumnsSelect">Columns:</label>
+    <select id="editColumnsSelect" multiple>
+      <option value="symbol">Symbol</option>
+            <option value="market_code">Market</option>
+            <option value="last_trade_price">Last Price</option>
+            <option value="net_change">Net Change</option>
+            <option value="bid_price">Bid Price</option>
+            <option value="ask_price">Ask Price</option>
+            <option value="bid_volume">Bid Volume</option>
+            <option value="ask_volume">Ask Volume</option>
+            <option value="average_price">Average Price</option>
+            <option value="high_price">High</option>
+            <option value="low_price">Low</option>
+            <option value="open_price">Open</option>
+            <option value="last_day_close_price">Close</option>
+            <option value="last_trade_volume">Last Trade Volume</option>
+            <option value="last_trade_time">Last Trade Time</option>
+            <option value="record_identifier">Record Identifier</option>
+            <option value="symbol_code">Symbol Code</option>
+            <option value="symbol_direction">Symbol Direction</option>
+            <option value="symbol_state">Symbol State</option>
+            <option value="timestamp">Timestamp</option>
+            <option value="total_traded_volume">Total Traded Volume</option>
+            <option value="total_trades">Total Trades</option>
+    </select>
+
+    <!-- Is Default -->
+    <label>
+      <input type="checkbox" id="editProfileDefault"> Is Default
+    </label>
+
+    <!-- Buttons -->
+    <div class="popup-actions">
+      <button id="saveProfileBtn" class="save-btn">Save</button>
+      <button id="deleteProfileBtn" style="background:red;color:white;">Delete</button>
+      <button id="cancelEditBtn" class="cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</body>
+<script src="/static/watch/watch.js"></script>
+
+</html>

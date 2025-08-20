@@ -1,0 +1,127 @@
+.report-wrapper{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.chart-analysis-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    /* width: 100%; */
+}
+.donut-chart-container>h1 {
+    color: var(--darker-color);
+    gap: 20px; /* space between the two sections */
+    font-size: 24px;
+}
+.sector-progress-container {
+    max-width: 600px;
+    margin-top: 20px;
+}
+#donutChart{
+    width: 400px;
+    height: 400px;
+}
+.sector {
+    margin-bottom: 15px;
+}
+
+.sector-header {
+    display: flex;
+    justify-content: space-between; 
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 16px;
+}
+.top-sectors-header{
+    color: var(--darker-color);
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.sector-name {
+    font-size: 16px;
+    color: var(--darker-color);
+}
+
+.progress {
+    height: 100%;
+    background: #9ACBD0;
+    background: linear-gradient(90deg,rgba(174, 231, 235, 1) 0%, rgba(154, 203, 208, 1) 100%);
+    
+    transition: width 0.5s ease-in-out;
+}
+.report-container{
+    width: 50%;
+    /* background-color: var(--lighter-color); */
+    padding: 24px;
+    border-radius: 24px;
+    box-shadow: 10px 20px 25px 5px rgba(0,0,0,0.2);
+
+}
+.report-categories{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+.category{
+    /* border: #9ACBD0 1px solid; */
+    margin: 10px;
+}
+.stock-list >li{
+    color: var(--dark-color);
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+.report-container-heading{
+    color: var(--darker-color);
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+
+}
+.report-container-heading > span{
+    color: var(--dark-color);
+}
+.category-name{
+    font-size: 20px;
+    background-color: var(--lighter-color);
+    /* color: white; */
+    color: var(--darker-color);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.stock-list > li > .company-name{
+    border: #9ACBD0 solid 1px;
+    font-size: 10px;
+    padding: 5px;
+    margin: 2px 10px 0 0;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width : 1000px){
+    .report-wrapper{
+        flex-direction: column;
+        align-items: center;
+    }
+    .report-container{
+        width: 90%;
+        margin: 20px 0;
+    }
+    .chart-analysis-wrapper{
+        width: 100%;
+    }
+    #donutChart{
+        width: 400px;
+        height: 400px;
+    }
+}

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>order</title>
+    <script src="/static/charting_library/charting_library.standalone.js"></script>
+    <script src="/static/datafeeds/udf/dist/bundle.js"></script>
+
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/order.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+      <div class="collapse nav-list">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard"
+              ><i class="fas fa-clock"></i> DASHBOARDS</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/chart"
+              ><i class="fas fa-layer-group"></i> CHARTS</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/strategy"><i class="fas fa-pen"></i> STRATEGIES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/reports"><i class="fas fa-star"></i> REPORTS</a>
+          </li>
+        </ul>
+      </div>
+      <div class="button-container">
+        <button class="btn"><a class="btn-signup" href="#">LOGOUT</a></button>
+      </div>
+    </nav>
+
+      <nav class="navbar-collapse">
+    <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+    <!-- collapse bar side -->
+    <div class="collapse-bar">
+      <div class="collapse-icon">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="side-bar">
+        <div class="uncollapse-icon">
+          <i class="fas fa-xmark"></i>
+        </div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus
+          necessitatibus sunt accusantium sapiente in ad labore vitae, dolor
+          adipisci eveniet deserunt voluptatibus magni impedit quasi.
+          Accusantium harum voluptatum repellendus laudantium!
+        </p>
+        <div class="uncollapse nav-list-bar">
+          <ul class="navbar-nav-bar mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/hero/"><i class="fas fa-home"></i> HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/chart"
+              ><i class="fas fa-layer-group"></i> CHARTS</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/strategy"><i class="fas fa-pen"></i> STRATEGIES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/reports"><i class="fas fa-star"></i> REPORTS</a>
+          </li>
+
+          </ul>
+        </div>
+        <div class="button-container-bar">
+          <button class="btn-bar">
+            <a class="btn-signup" href="#">SIGN-UP</a>
+          </button>
+          <button class="btn-bar">
+            <a class="btn-signup" href="#">LOGIN</a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+    <div class="container">
+      <div class="top-flex">
+        <form method="POST">
+          <div class="container2">
+            <h2>Manual Order Placement</h2>
+            <div class="section-sml-usr">
+              <div class="box1">
+                <div class="input-group">
+                  <input name="symbol" placeholder="Symbol (e.g. WTL)" required />
+                  <input name="price" placeholder="Price" required type="text" />
+                </div>
+                <div class="icon-group">
+                  <i class="fas fa-search"></i>
+                </div>
+              </div>
+              <div class="box2">
+                <div class="input-group">
+                  <input name="user_id" placeholder="User ID" required />
+                  <input name="client_code" placeholder="Client Code" required />
+                </div>
+                <div class="image"></div>
+              </div>
+            </div>
+            <div class="section buy-selected">
+              <div class="buy-sell buy-btn">
+                <button class="side-btn" onclick="action_buy('BUY')" data-code="1">BUY</button>
+              </div>
+              <div class="buy-sell sell-btn">
+                <button class="side-btn" onclick="action_buy('SELL')" data-code="2">SELL</button>
+              </div>
+            </div>
+            <input type="hidden" name="side" id="side" value="1" />
+            <div class="section-select">
+              <p class="section-heading">MARKET TYPE:</p>
+              <div class="section">
+                <div class="market-type reg-btn">
+                  <button class="market-input active" data-code="01">REG</button>
+                </div>
+                <div class="market-type bnb-btn">
+                  <button class="market-input" data-code="020">BNB</button>
+                </div>
+                <div class="market-type fut-btn">
+                  <button class="market-input" data-code="03" class="active">FUT</button>
+                </div>
+                <div class="market-type odl-btn">
+                  <button class="market-input" data-code="08">ODL</button>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="market_code" id="market_code" value="01" />
+            <div class="section-select" style="display: none">
+              <p class="section-heading">DISPLAY QUANTITY:</p>
+              <input value="0.0" name="display_qty" placeholder="0.0" readonly />
+            </div>
+            <div class="section-select">
+              <p class="section-heading">ORDER TYPE:</p>
+              <div class="section">
+                <div class="order-type mkt-btn">
+                  <button class="order-input" data-code="1" class="active">MKT</button>
+                </div>
+                <div class="order-type limit-btn">
+                  <button class="order-input" data-code="2">Limit</button>
+                </div>
+                <div class="order-type slo-btn">
+                  <button class="order-input" data-code="3">SLO</button>
+                </div>
+                <div class="order-type mtl-btn">
+                  <button class="order-input" data-code="U">mktlmt</button>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="order_type" id="order_type" value="01" />
+            <div style="display: flex; gap: 5px">
+              <div class="section-select">
+                <p class="section-heading">QUANTITY:</p>
+                <input name="qty" placeholder="Quantity" required type="number" />
+              </div>
+              <div class="section-select">
+                <p class="section-heading">DISC. VOLUME:</p>
+                <input name="disc" id="discVolume" placeholder="Disc. Volume" required type="number" />
+              </div>
+            </div>
+            <div style="display: flex; gap: 5px">
+              <div class="section-select">
+                <p class="section-heading">LIMIT PRICE:</p>
+                <input id="limitPrice" name="lmtprice" placeholder="Limit Price" required type="number" />
+              </div>
+              <div class="section-select">
+                <p class="section-heading">PIN:</p>
+                <input name="pin" placeholder="PIN" required type="number" />
+              </div>
+            </div>
+
+            <div class="submit-buy-sell">
+              <button type="submit" id="submitBtn">BUY</button>
+            </div>
+          </div>
+        </form>
+        <div class="section-middle">
+          <div class="chart-section">
+            <h3>Live Chart</h3>
+            <div class="chart-placeholder" id="chartPlaceholder">
+              <div id="chartContainer"></div>
+            </div>
+          </div>
+
+          <div class="logs-section">
+            <div class="log-buttons">
+              <button class="active" onclick="showLogs('outstanding')">Outstanding Logs</button>
+              <button onclick="showLogs('activity')">Activity Logs</button>
+            </div>
+            <div id="outstanding_logs" class="log-table-section">
+              <h3>Outstanding Logs</h3>
+              <div class="table-scroll-container">
+                <div class="outstanding_logs_table"></div>
+              </div>
+            </div>
+
+            <div id="activity_logs" class="log-table-section" style="display: none;">
+              <h3>Activity Logs</h3>
+              <div class="table-scroll-container">
+                <div class="activity_logs_table"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="table-section">
+        <div class="depth-header">
+          <div class="stock-selector">
+            <button class="stock-btn">LOTCHEM–DEC</button>
+            <button class="plus-btn">+</button>
+          </div>
+          <div class="reg-selector">
+            <select>
+              <option>REG</option>
+              <option>FUT</option>
+              <option>OPT</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-section-md">
+          <div class="mdp">
+            <h3>Market Depth By Price</h3>
+            <div class="depth-table-wrapper">
+              <table class="depth-table">
+                <thead>
+                  <tr>
+                    <th>flag</th>
+                    <th>Volume</th>
+                    <th>Buy</th>
+                    <th>flag</th>
+                    <th>Volume</th>
+                    <th>Sell</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                  </tr>
+                  <tr>
+                    <td>12.34</td>
+                    <td>900</td>
+                    <td>Buy</td>
+                    <td>12.37</td>
+                    <td>1,500</td>
+                    <td>Sell</td>
+                  </tr>
+                  <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                  </tr>
+                  <tr>
+                    <td>12.34</td>
+                    <td>900</td>
+                    <td>Buy</td>
+                    <td>12.37</td>
+                    <td>1,500</td>
+                    <td>Sell</td>
+                  </tr>
+                  <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="mdo">
+            <h3>Market Depth By Order</h3>
+            <div class="depth-table-wrapper">
+              <table class="depth-table">
+                <thead>
+                  <tr>
+                    <th>flag</th>
+                    <th>Volume</th>
+                    <th>Buy</th>
+                    <th>flag</th>
+                    <th>Volume</th>
+                    <th>Sell</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                  </tr>
+                  <tr>
+                    <td>12.34</td>
+                    <td>900</td>
+                    <td>Buy</td>
+                    <td>12.37</td>
+                    <td>1,500</td>
+                    <td>Sell</td>
+                  </tr>
+                  <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                  </tr>
+                  <tr>
+                    <td>12.34</td>
+                    <td>900</td>
+                    <td>Buy</td>
+                    <td>12.37</td>
+                    <td>1,500</td>
+                    <td>Sell</td>
+                  </tr>
+                  <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div>
+      </div>
+      
+    </div>
+
+    <script id="logs-data" type="application/json">
+  {{ outstanding_logs | tojson | safe }}
+</script>
+<script id="activity-logs-data" type="application/json">
+  {{ activity_logs | tojson | safe }}
+</script>
+  </body>
+  <script>
+    const chartwidth = document.getElementById('chartPlaceholder').clientWidth
+    window.onload = function () {
+      const chartwidth = document.getElementById('chartPlaceholder').clientWidth
+      console.log(chartwidth)
+    }
+    console.log(chartwidth)
+    
+    new TradingView.widget({
+      container: 'chartContainer',
+      locale: 'en',
+      library_path: '/static/charting_library/',
+      datafeed: new Datafeeds.UDFCompatibleDatafeed('/chart'),
+      symbol: 'CPHL',
+      interval: '1D',
+      fullscreen: false,
+      width: chartwidth,
+      // width: window.innerWidth * (50 / 100),
+      height: 300,
+      debug: true
+    })
+    document.addEventListener('DOMContentLoaded', function () {
+      // Market type buttons
+      document.querySelectorAll('.section-select .market-type .market-input').forEach((button) => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.section-select .market-type .market-input').forEach((btn) => {
+            btn.classList.remove('active')
+          })
+          button.classList.add('active')
+        })
+      })
+    
+      // Order type buttons
+      document.querySelectorAll('.section-select .order-type button').forEach((button) => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.section-select .order-type button').forEach((btn) => {
+            btn.classList.remove('active')
+          })
+          button.classList.add('active')
+        })
+      })
+    })
+    
+    // -------------------
+    const marketButtons = document.querySelectorAll('.market-input')
+    const marketCodeInput = document.getElementById('market_code')
+    
+    marketButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        // Remove 'active' class from all buttons
+        marketButtons.forEach((btn) => btn.classList.remove('active'))
+    
+        // Add 'active' class to the clicked button
+        button.classList.add('active')
+    
+        // Set hidden input value
+        marketCodeInput.value = button.getAttribute('data-code')
+      })
+    })
+    // -------------------
+    // -------------------
+    const orderButtons = document.querySelectorAll('.order-input')
+    const orderBtnInput = document.getElementById('order_type')
+    
+    orderButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        // Remove 'active' class from all buttons
+        orderButtons.forEach((btn) => btn.classList.remove('active'))
+    
+        // Add 'active' class to the clicked button
+        button.classList.add('active')
+    
+        // Set hidden input value
+        orderBtnInput.value = button.getAttribute('data-code')
+      })
+    })
+    // -------------------
+    // -------------------
+    const sideButtons = document.querySelectorAll('.side-btn')
+    const sidebtnInput = document.getElementById('side')
+    
+    sideButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        // Remove 'active' class from all buttons
+        sideButtons.forEach((btn) => btn.classList.remove('active'))
+    
+        // Add 'active' class to the clicked button
+        button.classList.add('active')
+    
+        // Set hidden input value
+        sidebtnInput.value = button.getAttribute('data-code')
+      })
+    })
+    // -------------------
+    
+    function action_buy(type) {
+      const btn = document.getElementById('submitBtn')
+      btn.textContent = type
+    
+      if (type === 'SELL') {
+        btn.classList.add('sell')
+      } else {
+        btn.classList.remove('sell')
+      }
+    }
+    
+    function action_buy(type) {
+      const section = document.querySelector('.section')
+      const submitBtn = document.getElementById('submitBtn')
+    
+      if (type === 'SELL') {
+        section.classList.remove('buy-selected')
+        section.classList.add('sell-selected')
+        submitBtn.textContent = 'SELL'
+        submitBtn.classList.add('sell')
+      } else {
+        section.classList.remove('sell-selected')
+        section.classList.add('buy-selected')
+        submitBtn.textContent = 'BUY'
+        submitBtn.classList.remove('sell')
+      }
+    }
+    
+    document.querySelector('form').addEventListener('submit', function (e) {
+      // Prevent form from actually submitting so we can inspect the data
+      e.preventDefault()
+    
+      const formData = new FormData(this)
+      console.log('Form Data:')
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`)
+      }
+    
+      // If everything looks good, manually submit the form
+      this.submit()
+    })
+    
+    // Wait for the page to fully load
+    document.addEventListener('DOMContentLoaded', function () {
+      const buttons = document.querySelectorAll('.order-input')
+      const discVolume = document.getElementById('discVolume')
+      const limitPrice = document.getElementById('limitPrice')
+    
+      function updateFields(orderType) {
+        if (orderType === '3') {
+          discVolume.disabled = false
+          limitPrice.disabled = false
+          discVolume.classList.remove('disabled-input')
+          limitPrice.classList.remove('disabled-input')
+        } else {
+          discVolume.disabled = true
+          limitPrice.disabled = true
+          discVolume.classList.add('disabled-input')
+          limitPrice.classList.add('disabled-input')
+        }
+      }
+    
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          const orderType = this.getAttribute('data-code')
+          updateFields(orderType)
+        })
+      })
+    
+      // Disable by default (assuming default is MKT)
+      updateFields('1')
+    })
+    
+    // OUTSTANDING LOGS
+    const outstandingLogs = JSON.parse(document.getElementById('logs-data').textContent)
+    console.log('Outstanding Logs', outstandingLogs)
+    
+    const outstandingOrders = outstandingLogs?.data?.orders || {}
+    const outstandingHeaders = outstandingOrders.headers || []
+    const outstandingRows = outstandingOrders.data || []
+    
+    let outstandingTableHTML = '<table><thead><tr>'
+    outstandingHeaders.forEach((header) => {
+      outstandingTableHTML += `<th>${header}</th>`
+    })
+    outstandingTableHTML += '</tr></thead><tbody>'
+    
+    if (!outstandingRows || outstandingRows.length === 0) {
+      for (let i = 0; i < 3; i++) {
+        outstandingTableHTML += '<tr>'
+        outstandingHeaders.forEach(() => {
+          outstandingTableHTML += '<td>null</td>'
+        })
+        outstandingTableHTML += '</tr>'
+      }
+    } else {
+      outstandingRows.forEach((row) => {
+        outstandingTableHTML += '<tr>'
+        outstandingHeaders.forEach((_, index) => {
+          outstandingTableHTML += `<td>${row[index] !== null ? row[index] : 'null'}</td>`
+        })
+        outstandingTableHTML += '</tr>'
+      })
+    }
+    outstandingTableHTML += '</tbody></table>'
+    document.querySelector('.outstanding_logs_table').innerHTML = outstandingTableHTML
+    
+    // ACTIVITY LOGS
+    const activityLogs = JSON.parse(document.getElementById('activity-logs-data').textContent)
+    console.log('Activity Logs:', activityLogs)
+    
+    const activityData = activityLogs?.data || {}
+    const activityHeaders = activityData.headers || []
+    const activityRows = activityData.data || []
+    
+    let activityTableHTML = '<table><thead><tr>'
+    activityHeaders.forEach((header) => {
+      activityTableHTML += `<th>${header}</th>`
+    })
+    activityTableHTML += '</tr></thead><tbody>'
+    
+    if (!activityRows || activityRows.length === 0) {
+      for (let i = 0; i < 3; i++) {
+        activityTableHTML += '<tr>'
+        activityHeaders.forEach(() => {
+          activityTableHTML += '<td>null</td>'
+        })
+        activityTableHTML += '</tr>'
+      }
+    } else {
+      activityRows.forEach((row) => {
+        activityTableHTML += '<tr>'
+        activityHeaders.forEach((_, index) => {
+          activityTableHTML += `<td>${row[index] !== null ? row[index] : 'null'}</td>`
+        })
+        activityTableHTML += '</tr>'
+      })
+    }
+    activityTableHTML += '</tbody></table>'
+    document.querySelector('.activity_logs_table').innerHTML = activityTableHTML
+    
+    // Toggle display function
+    function showLogs(type) {
+      const outSection = document.getElementById('outstanding_logs')
+      const actSection = document.getElementById('activity_logs')
+    
+      document.querySelectorAll('.log-buttons button').forEach((btn) => btn.classList.remove('active'))
+      if (type === 'outstanding') {
+        outSection.style.display = 'block'
+        actSection.style.display = 'none'
+        document.querySelector('.log-buttons button:nth-child(1)').classList.add('active')
+      } else {
+        outSection.style.display = 'none'
+        actSection.style.display = 'block'
+        document.querySelector('.log-buttons button:nth-child(2)').classList.add('active')
+      }
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+    const collapseIcon = document.querySelector(".collapse-icon");
+    const uncollapseIcon = document.querySelector(".uncollapse-icon");
+    const sideBar = document.querySelector(".side-bar");
+
+    collapseIcon.addEventListener("click", function () {
+      sideBar.classList.add("active");
+    });
+    uncollapseIcon.addEventListener("click", function () {
+      sideBar.classList.remove("active");
+    });
+    window.addEventListener("click", function (e) {
+  if (!sideBar.contains(e.target) && !collapseIcon.contains(e.target)) {
+    sideBar.classList.remove("active");
+  }
+});
+  });
+
+  </script>
+</html>

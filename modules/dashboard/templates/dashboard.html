@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoMinds | Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/screener.css">
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <!-- Highcharts Core -->
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+
+    <!-- Indicators Core -->
+    <script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+
+    <!-- SMA (part of EMA) -->
+    <script src="https://code.highcharts.com/stock/indicators/ema.js"></script>
+
+    <!-- RSI -->
+    <script src="https://code.highcharts.com/stock/indicators/rsi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <nav class="dashboard-navbar">
+            <h3 class="logo"><a class="dashboard-navbar-brand" href="#">ALGOMINDS</a></h3>
+            <div class="collapse dashboard-nav-list">
+                <ul class="dashboard-navbar-nav mb-2 mb-lg-0">
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="fa-solid fa-grip"></i> DASHBOARD</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/screener"><i class="fa-solid fa-table-cells"></i> SCREENER</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/chart"><i class="fa-solid fa-chart-line"></i></i> CHARTS</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/order"><i class="fas fa-pen"></i> TRADING</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/strategy"><i class="fas fa-star"></i> STRATEGIES</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/watch"><i class="fas fa-eye"></i> WATCHLIST</a>
+                    </li>
+                    <li class="dashboard-nav-item">
+                        <a class="nav-link" href="/reports"><i class="fas fa-layer-group"></i> REPORTS</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dashboard-nav-account">
+                <div class="image"></div>
+                <div>
+                    <p>Client Code</p>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar-collapse">
+            <div class="collapse-bar">
+                <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+                <i class="fas fa-bars collapse-icon"></i>
+            </div>
+            <div class="side-bar">
+                <h3 class="logo"><a class="dashboard-navbar-brand" href="#">ALGOMINDS</a></h3>
+                <div class="collapse dashboard-nav-list">
+                    <ul class="dashboard-navbar-nav mb-2 mb-lg-0">
+                        <li class="dashboard-nav-item">
+                            <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a class="nav-link" href="/dashboard"><i class="fa-solid fa-grip"></i> DASHBOARD</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a class="nav-link" href="/screener"><i class="fa-solid fa-table-cells"></i> SCREENER</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a class="nav-link" href="/chart"><i class="fa-solid fa-chart-line"></i></i> CHARTS</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a class="nav-link" href="/order"><i class="fas fa-pen"></i> TRADING</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a class="nav-link" href="/strategy"><i class="fas fa-star"></i> STRATEGIES</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a class="nav-link" href="/watch"><i class="fas fa-eye"></i> WATCHLIST</a>
+                        </li>
+                        <li class="dashboard-nav-item">
+                            <a class="nav-link" href="/reports"><i class="fas fa-layer-group"></i> REPORTS</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dashboard-nav-account">
+                    <div class="image"></div>
+                    <div>
+                        <p>Client Code</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="main-section">
+            <div class="content">
+                <div class="main-content">
+                    <div class="dashboard-header">
+                        <div class="dashboard-header-info">
+                            <div class="dashboard-header-user">
+                                <h2>Dashboard</h2>
+                                <h2>Hello sanabil, </h2>
+                                <div class="dashboard-header-btns">
+                                    <button class="connect-broker-btn-header" id="connect-broker">Connect
+                                        Broker</button>
+                                    <button class="logout-btn"><i class="fas fa-sign-out-alt"></i>
+                                        Logout</button>
+                                </div>
+                            </div>
+                            <div class="dashboard-header-accounts">
+                                <div class="ledger_balance">
+                                    <h3>Ledger
+                                        Balance:</h3>
+                                    <p>30567549</p>
+                                </div>
+                                <div class="net_worth">
+                                    <h3>Net
+                                        Worth:</h3>
+                                    <p>30567549</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="client-exposure-container">
+                            <table class="client-exposure-table">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>Ledger balance</th> -->
+                                        <th>portfolio market value</th>
+                                        <th>Inventory sold</th>
+                                        <th>Held amount</th>
+                                        <th>Realized + MTM (P/L)</th>
+                                        <th>Expense Amount</th>
+                                        <!-- <th>net worth</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <!-- <td>30567549</td> -->
+                                        <td>30567549</td>
+                                        <td>30567549</td>
+                                        <td>30567549</td>
+                                        <td>30567549</td>
+                                        <td>30567549</td>
+                                        <!-- <td>30567549</td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dashboard-bottom-row">
+                        <!-- Left: Profit & Loss Chart -->
+                        <div class="pl-chart">
+                            <h2>6-Month Profit & Loss</h2>
+                            <canvas id="plChart"></canvas>
+                        </div>
+                        <!-- Right: Watchlist -->
+                        <div class="watchlist">
+                            <div class="watchlist-header">
+                                <h2>Watchlist</h2>
+                                <div>
+                                    <button id="editBtn"><i class="fa-solid fa-pen"></i></button>
+                                    <button id="createBtn"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="watchlist-list">
+                                <!-- Watchlist items will be inserted here dynamically -->
+                            </div>
+                            <!-- Popup Form Modal -->
+                            <div class="modal" id="stockModal">
+                                <div class="modal-content">
+                                    <h3>Edit Watchlist</h3>
+                                    <!-- Symbol Filter -->
+                                    <div class="dropdown-wrapper">
+                                        <button id="symbol-button">
+                                            Symbol <i class="fa-solid fa-chevron-down"></i>
+                                        </button>
+                                        <div id="symbol-dropdown" class="hidden dropdown-symbol-box">
+                                            <div class="search-bar">
+                                                <input type="text" id="symbol-search" placeholder="Search Symbol..."
+                                                    class="dropdown-search" />
+                                                <button id="clear-filter" class="clear-filter-btn"
+                                                    title="Clear all filters">
+                                                    x
+                                                </button>
+                                            </div>
+                                            <div id="symbol-list"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="save-btn">Save</button>
+                                        <button class="cancel-btn" id="closeModal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Overlay -->
+                    <div class="form-overlay">
+                        <!-- Broker Form -->
+                        <div class="dashboard-select-broker-form" id="connectBrokerForm">
+                            <h2>Connect Broker</h2>
+                            <div>
+                                <h4>Select Broker</h4>
+                                <div class="dashboard-select-broker-container ">
+                                    <div onclick=get_broker_form() class="dashboard-broker">
+                                        <div class="image"></div>
+                                        <p>Munir Khanani Securities</p>
+                                    </div>
+                                    <div class="dashboard-broker">
+                                        <div class="image"></div>
+                                        <p>Munir Khanani Securities</p>
+                                    </div>
+                                    <div class="dashboard-broker">
+                                        <div class="image"></div>
+                                        <p>Munir Khanani Securities</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-broker-form-mmk">
+                            <h4>Munir Khanani Securities</h4>
+                            <div class="mmk-form-req">
+                                <div class="form-item">
+                                    <label for="CNIC">CNIC</label>
+                                    <input type="text" name="CNIC" placeholder="CNIC" />
+                                </div>
+                                <div class="form-item">
+                                    <label for="TradelinksUsername">Tradelinks Username</label>
+                                    <input type="text" name="TradelinksUsername" placeholder="Tradelinks username" />
+                                </div>
+                                <div class="form-item">
+                                    <label for="TradingID">Trading ID</label>
+                                    <input type="text" name="TradingID" placeholder="Trading ID">
+                                </div>
+                                <div class="form-item">
+                                    <label for="StockIntelUsername">Algominds Username</label>
+                                    <input type="text" name="StockIntelUsername" placeholder="Algominds Phone Number">
+                                </div>
+                            </div>
+                            <div class="mmk-form-btn">
+                                <button class="connect-broker-btn">Connect Broker</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="side-container">
+                <div class="deployed-strategies-container">
+                    <h1>Deployed Strategies</h1>
+                    <div class="deployed-strategies-container">
+                        {% for strategy in strategies %}
+
+                        <div class="deployed-strategy">
+                            <div class="strategy-name">
+                                <h3>{{ strategy.name }}</h3>
+                                <p>{{ strategy.description }}</p>
+                            </div>
+                            <div class="strategy-status">
+                                <p>Status</p>
+                                <span class="status-{{ strategy.status }}">{{ strategy.status }}</span>
+                                <div class="strategy-actions">
+                                    <a href="/strategy" class="view-strategy-btn"><i class="fa-solid fa-eye"></i></a>
+                                    <!-- <button class="edit-strategy-btn"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="delete-strategy-btn"><i class="fa-solid fa-trash"></i></button> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                        <!-- Repeat for more strategies -->
+                    </div>
+                </div>
+                <div class="donut-chart-section">
+                    <h2>Daily Report</h2>
+                    <div id="donutChartContainer" class="donut-chart-container"
+                        style="margin-top: 30px; cursor: pointer;">
+                        <canvas id="donutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="/static/script.js"></script>
+
+<script>
+    let selectedSymbols = new Set();
+
+    brokerSelectForm = document.querySelector('.dashboard-select-broker-form');
+    overlay = document.querySelector('.form-overlay');
+
+    // -------
+    function get_broker_form() {
+        console.log("Broker form loaded");
+        const brokerSelectForm = document.querySelector('.dashboard-select-broker-form');
+        const brokerForm = document.querySelector('.dashboard-broker-form-mmk');
+        const overlay = document.querySelector('.form-overlay');
+
+        brokerSelectForm.classList.remove('active');
+        brokerForm.classList.add('active');
+        overlay.style.display = 'flex';
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById("plChart").getContext("2d");
+
+        const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+        const profits = [2000, 1500, 3000, 1000, 4000, 2000]; // Only positive
+        const losses = [-500, -800, -300, -1000, -600, -700]; // Only negative
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Profit",
+                        data: profits,
+                        backgroundColor: "#089981",
+                        stack: 'ecoStack',
+                        barPercentage: 0.8,        // reduce bar width
+                        categoryPercentage: 0.6    // reduce category width
+                    },
+                    {
+                        label: "Loss",
+                        data: losses,
+                        backgroundColor: "#f23545",
+                        stack: 'ecoStack',
+                        barPercentage: 0.8,
+                        categoryPercentage: 0.6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Eco Points Balance Distribution Among Users'
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const donutCtx = document.getElementById("donutChart").getContext("2d");
+
+        new Chart(donutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['A+', 'A', 'B', 'C', 'D', 'D-'],
+                datasets: [{
+                    data: [10, 30, 10, 5, 15, 20], // Example stock distribution
+                    backgroundColor: ['#205781', '#4F959D', '#98D2C0', '#2973B2', '#48A6A7', '#5F99AE'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                cutout: '65%',
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const createBtn = document.getElementById("createBtn");
+        const modal = document.getElementById("stockModal");
+        const closeModal = document.getElementById("closeModal");
+        const saveModal = document.getElementById("save-btn")
+        createBtn.addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
+        closeModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        // Optional: close when clicking outside modal-content
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const connectButton = document.getElementById('connect-broker');
+        const overlay = document.querySelector('.form-overlay');
+        const brokerSelectForm = document.querySelector('.dashboard-select-broker-form');
+
+        connectButton.addEventListener('click', function () {
+            console.log("Connect Broker button clicked");
+            overlay.style.display = 'flex';  // Show the overlay
+            brokerSelectForm.classList.add('active');  // Show the broker select form
+        });
+        window.addEventListener("click", (e) => {
+            if (e.target === overlay) {
+                overlay.style.display = "none";
+            }
+        });
+    });
+
+    // Symbol dropdown logic
+    document
+        .getElementById("symbol-button")
+        .addEventListener("click", async function () {
+            const dropdown = document.getElementById("symbol-dropdown");
+            const listContainer = document.getElementById("symbol-list");
+            const searchInput = document.getElementById("symbol-search");
+
+            dropdown.classList.toggle("hidden");
+
+            try {
+                const response = await fetch(
+                    "http://localhost:8000/screener/api/stocks/symbols"
+                );
+                if (!response.ok) throw new Error("Failed to fetch symbols");
+
+                allSymbols = await response.json();
+                if (!Array.isArray(allSymbols)) {
+                    throw new Error("Expected an array of symbols");
+                }
+
+                const renderList = (filteredSymbols) => {
+                    listContainer.innerHTML = filteredSymbols
+                        .map((symbol) => {
+                            const isSelected = selectedSymbols.has(symbol);
+                            return `<div class="dropdown-item ${isSelected ? "selected" : ""}" 
+                            data-symbol="${symbol}">
+                            ${symbol} ${isSelected ? "<span>✓</span>" : ""}
+                        </div>`;
+                        })
+                        .join("");
+                };
+
+                // ⬅ Render immediately after fetching
+                renderList(allSymbols);
+
+                listContainer.addEventListener("click", (e) => {
+                    const symbolItem = e.target.closest(".dropdown-item");
+                    if (symbolItem) {
+                        const symbol = symbolItem.dataset.symbol;
+                        if (selectedSymbols.has(symbol)) {
+                            selectedSymbols.delete(symbol);
+                        } else {
+                            selectedSymbols.add(symbol);
+                        }
+                        renderList(allSymbols);
+                    }
+                });
+
+                searchInput.addEventListener("input", () => {
+                    const searchTerm = searchInput.value.toLowerCase();
+                    const filtered = allSymbols.filter((symbol) =>
+                        symbol.toLowerCase().includes(searchTerm)
+                    );
+                    renderList(filtered);
+                });
+
+            } catch (error) {
+                console.error("Error loading symbols:", error);
+                listContainer.innerHTML = `<div class="dropdown-item error">Error loading symbols</div>`;
+            }
+        });
+
+    // Add clear filter functionality
+    document
+        .getElementById("clear-filter")
+        .addEventListener("click", function () {
+            // Clear selected symbols
+            selectedSymbols.clear();
+
+            // Update the dropdown display
+            const dropdownItems = document.querySelectorAll(".dropdown-item");
+            dropdownItems.forEach((item) => {
+                item.classList.remove("selected");
+                if (item.querySelector("span")) {
+                    item.querySelector("span").remove();
+                }
+            });
+
+            // Optional: Close the symbol dropdown if open
+            document.getElementById("symbol-dropdown").classList.add("hidden");
+        });
+
+    // Update this part in your symbol dropdown code:
+    const renderList = (filteredSymbols) => {
+        listContainer.innerHTML = filteredSymbols
+            .map((symbol) => {
+                const isSelected = selectedSymbols.has(symbol);
+                return `<div class="dropdown-item ${isSelected ? "selected" : ""}" 
+        data-symbol="${symbol}">
+        ${symbol} ${isSelected ? "<span>✓</span>" : ""}
+        </div>`;
+            })
+            .join("");
+    };
+    document.querySelector(".save-btn").addEventListener("click", async () => {
+        if (selectedSymbols.size === 0) {
+            alert("Please select at least one stock.");
+            return;
+        }
+
+        try {
+            // Convert Set to Array
+            const symbolsArray = Array.from(selectedSymbols);
+
+            // Send symbols to backend
+            const response = await fetch("http://localhost:8000/dashboard/api/save_watchlist", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ symbols: symbolsArray })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert("✅ Watchlist saved successfully!");
+                document.getElementById("stockModal").style.display = "none";
+            } else {
+                alert("❌ Failed: " + result.error);
+                console.log(result.error)
+            }
+        } catch (err) {
+            console.error("Error saving watchlist:", err);
+        }
+    });
+    async function loadWatchlist() {
+        try {
+            const response = await fetch("http://localhost:8000/dashboard/api/get_watchlist");
+            const data = await response.json();
+            console.log(data)
+            if (!response.ok) {
+                console.error("Failed to fetch watchlist:", data.error);
+                return;
+            }
+
+            const container = document.querySelector(".watchlist-list");
+            container.innerHTML = ""; // Clear old listnul
+
+            data.watchlist.forEach(item => {
+                const div = document.createElement("div");
+                div.classList.add("watchlist-item");
+
+                div.innerHTML = `
+                <div class="circle"></div>
+                <span class="symbol">${item.symbol}</span>
+                <span class="price">Rs. ${item.price?.toFixed(2) ?? "--"}</span>
+                <span class="change">${item.change > 0 ? "+" : ""}${item.change ?? 0}%</span>
+            `;
+
+                container.appendChild(div);
+            });
+        } catch (err) {
+            console.error("Error loading watchlist:", err);
+        }
+    }
+
+    // Call on page load
+    document.addEventListener("DOMContentLoaded", loadWatchlist);
+
+</script>
+<script>
+    document.getElementById("donutChartContainer").addEventListener("click", function () {
+        window.location.href = "/reports/daily_report";
+    });
+</script>
+
+</html>

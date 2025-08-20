@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Hero Chart</title>
+<style>
+    body {
+        margin: 0;
+        background: #0f172a; /* dark blue bg */
+        overflow: hidden;
+    }
+    .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+    /* Path stroke animation */
+    .line {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: drawLine 2s ease forwards;
+    }
+    @keyframes drawLine {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+    /* Fade-in shaded area */
+    .area {
+        opacity: 0;
+        animation: fadeIn 2s ease forwards;
+        animation-delay: 1s;
+    }
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <svg viewBox="0 0 1000 400" preserveAspectRatio="none">
+        <!-- Gradient for shaded area -->
+        <defs>
+            <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#9ACBD0" stop-opacity="0.4" />
+                <stop offset="100%" stop-color="#9ACBD0" stop-opacity="0" />
+            </linearGradient>
+        </defs>
+
+        <!-- Shaded area under line -->
+        <path class="area" fill="url(#shade)" d="M0,300 L100,250 L200,270 L300,200 L400,220 L500,150 L600,180 L700,130 L800,170 L900,120 L1000,160 L1000,400 L0,400 Z" />
+
+        <!-- Zig-zag line -->
+        <path class="line" d="M0,300 L100,250 L200,270 L300,200 L400,220 L500,150 L600,180 L700,130 L800,170 L900,120 L1000,160"
+              stroke="#9ACBD0" stroke-width="3" fill="none" />
+    </svg>
+</div>
+
+</body>
+</html>

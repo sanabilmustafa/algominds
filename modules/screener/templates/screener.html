@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <script src="https://kit.fontawesome.com/1e1b118233.js" crossorigin="anonymous"></script>
+  <title>AlgoMinds | Screener</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="/static/screener.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <!-- Select2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <!-- jQuery + Select2 JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body style="overflow: auto;">
+  <!--   HEADER SECTION
+    <div class="header">
+      <div class="logo-bar">
+        <i class="fa-solid fa-bars" id="menu-toggle"></i>
+        <h1>ALGOMINDS</h1>
+      </div>
+      <h1>STOCK SCREENER</h1>
+      <div class="search-bar">
+        <input type="text" placeholder="Search Stock for Chart Display" />
+        <i class="fa-solid fa-gear"></i>
+      </div>
+    </div>   -->
+
+  <nav class="navbar">
+    <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+    <div class="collapse nav-list">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/chart"><i class="fas fa-layer-group"></i> CHARTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/strategy"><i class="fas fa-pen"></i> STRATEGIES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reports"><i class="fas fa-star"></i> REPORTS</a>
+        </li>
+      </ul>
+    </div>
+    <div class="button-container">
+      <!-- <button class="btn"><a class="btn-signup" href="#">SIGN-UP</a></button> -->
+      <button class="btn"><a class="btn-signup" href="#">LOGOUT</a></button>
+    </div>
+  </nav>
+
+  <nav class="navbar-collapse">
+    <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
+    <!-- collapse bar side -->
+    <div class="collapse-bar">
+      <div class="collapse-icon">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="side-bar">
+        <div class="uncollapse-icon">
+          <i class="fas fa-xmark"></i>
+        </div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus
+          necessitatibus sunt accusantium sapiente in ad labore vitae, dolor
+          adipisci eveniet deserunt voluptatibus magni impedit quasi.
+          Accusantium harum voluptatum repellendus laudantium!
+        </p>
+        <div class="uncollapse nav-list-bar">
+          <ul class="navbar-nav-bar mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/hero/"><i class="fas fa-home"></i> HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/chart"><i class="fas fa-layer-group"></i> CHARTS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/strategy"><i class="fas fa-pen"></i> STRATEGIES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/reports"><i class="fas fa-star"></i> REPORTS</a>
+            </li>
+          </ul>
+        </div>
+        <div class="button-container-bar">
+          <button class="btn-bar">
+            <a class="btn-signup" href="#">SIGN-UP</a>
+          </button>
+          <button class="btn-bar">
+            <a class="btn-signup" href="#">LOGIN</a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FILTERS SECTION -->
+  <div class="filters-container">
+    <button class="market-flag">Market 🇵🇰 PSX</button>
+    <div class="profiles_dropdown">
+      <button id="profiles-button" data-dropdown-toggle="#profiles-dropdown">
+        Profiles <i class="fa-solid fa-chevron-down"></i>
+      </button>
+      <div id="profiles-dropdown" class="profiles_dropdown-menu hidden">
+        <div id="profiles-list">
+          <select id="profile-select">
+            <option value="">Select Profile</option>
+          </select>
+        </div>
+
+        <button id="profile-add-button-dropdown" class="profile-add-button">
+          Add Profile
+        </button>
+      </div>
+    </div>
+
+
+    <!-- Symbol Filter -->
+    <div class="dropdown-wrapper">
+      <button id="symbol-button" data-dropdown-toggle="#symbol-dropdown">
+        Symbol <i class="fa-solid fa-chevron-down"></i>
+      </button>
+      <div id="symbol-dropdown" class=" hidden dropdown-symbol-box">
+        <div class="search-bar">
+          <input type="text" id="symbol-search" placeholder="Search Symbol..." class="dropdown-search" />
+          <button id="clear-filter" class="clear-filter-btn" title="Clear all filters">
+            x
+          </button>
+        </div>
+        <div id="symbol-list"></div>
+      </div>
+    </div>
+
+    <!-- Sector Filter -->
+    <div class="dropdown-wrapper">
+      <button id="sector-button" data-dropdown-toggle="#sector-dropdown">
+        Sector <i class="fa-solid fa-chevron-down"></i>
+      </button>
+      <div id="sector-dropdown" class="hidden dropdown-sector-box">
+        <div class="search-bar">
+          <input type="text" id="sector-search" placeholder="Search Sector..." class="dropdown-search" />
+          <button id="clear-sector-filter" class="clear-filter-btn" title="Clear all filters">
+            x
+          </button>
+        </div>
+        <div id="sector-list"></div>
+      </div>
+    </div>
+
+    <!-- Other Filters -->
+    <button>Close <i class="fa-solid fa-chevron-down"></i></button>
+    <button>
+      SMA (Simple Moving Average) <i class="fa-solid fa-chevron-down"></i>
+    </button>
+    <button>
+      RSI (Relative Strength Indicator)
+      <i class="fa-solid fa-chevron-down"></i>
+    </button>
+    <button>
+      Last Traced Stocks <i class="fa-solid fa-chevron-down"></i>
+    </button>
+    <button>Close <i class="fa-solid fa-chevron-down"></i></button>
+
+    <button>Change % <i class="fa-solid fa-chevron-down"></i></button>
+    <button>Revenue Growth <i class="fa-solid fa-chevron-down"></i></button>
+    <button>＋</button>
+
+    <!-- STATUS -->
+    <button class="status" id="status">Connecting to WebSocket...</button>
+  </div>
+  <pre id="output"></pre>
+
+  <!-- NAVBAR / SIDEBAR -->
+  <div id="dropdown-menu" class="dropdown-menu">
+    <ul>
+      <li><i class="fa-solid fa-chart-column"></i> Dashboard</li>
+      <li>
+        <i class="fa-solid fa-house"></i>
+        <a href="http://127.0.0.1:5500/website/website.html">Home</a>
+      </li>
+      <li><i class="fa-solid fa-building-columns"></i> Brokers</li>
+      <li><i class="fa-solid fa-sliders"></i> Strategies</li>
+      <li><i class="fa-solid fa-file-lines"></i> Reports</li>
+      <li><i class="fa-solid fa-chart-pie"></i> Analytics</li>
+      <li>Market Watch</li>
+    </ul>
+  </div>
+  <!-- NAVBAR / SIDEBAR -->
+
+  <div id="dropdown-menu-columns" class="dropdown-menu-columns">
+    <div id="column-settings" class="column-settings">
+      <label><input type="checkbox" checked data-col="symbol" />Symbol</label>
+      <label><input type="checkbox" checked data-col="rsi" />RSI</label>
+      <label><input type="checkbox" checked data-col="sma_50" />SMA 50</label>
+      <label><input type="checkbox" checked data-col="macd" />MACD</label>
+      <label><input type="checkbox" checked data-col="symbol" />Symbol</label>
+      <label><input type="checkbox" checked data-col="low" />Low</label>
+      <label><input type="checkbox" checked data-col="high" />High</label>
+      <label><input type="checkbox" checked data-col="close" />Close</label>
+      <label><input type="checkbox" checked data-col="open" />Open</label>
+      <label><input type="checkbox" checked data-col="market" />Market</label>
+      <label><input type="checkbox" checked data-col="net_change" />Net
+        Change</label>
+      <label><input type="checkbox" checked data-col="bid_price" />Bid
+        Price</label>
+      <label><input type="checkbox" checked data-col="ask_price" />Ask
+        Price</label>
+      <label><input type="checkbox" checked data-col="last_price" />Last
+        Price</label>
+      <br />
+      <button id="apply-column-settings">Apply</button>
+    </div>
+  </div>
+  <!-- FORM FOR PROFILES -->
+  <div id="profile-add-button-form" class="hidden">
+    <h2>Add Profile</h2>
+    <form id="add-profile-form" method="POST">
+      <div class="profile-name-input">
+        <label for="profile-name">Profile Name:</label>
+        <input type="text" id="profile-name" required />
+      </div>
+      <div class="profile-stocks-columns">
+
+        <div class="profile-stocks-input">
+          <label for="select-stocks">Select the Stocks:</label>
+          <select name="stocks" multiple class="stock-select" id="select-stocks" disabled>
+            {% for symbol in stock_symbols %}
+            <option value="{{ symbol.value }}">{{ symbol.label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="profile-column-input">
+          <label for="selected-columns">Select Columns:</label>
+          <select id="selected-columns" name="selected_columns" multiple class="column-select" disabled>
+            <option value="symbol">Symbol</option>
+            <option value="market_code">Market</option>
+            <option value="last_trade_price">Last Price</option>
+            <option value="net_change">Net Change</option>
+            <option value="bid_price">Bid Price</option>
+            <option value="ask_price">Ask Price</option>
+            <option value="bid_volume">Bid Volume</option>
+            <option value="ask_volume">Ask Volume</option>
+            <option value="average_price">Average Price</option>
+            <option value="high_price">High</option>
+            <option value="low_price">Low</option>
+            <option value="open_price">Open</option>
+            <option value="last_day_close_price">Close</option>
+            <option value="last_trade_volume">Last Trade Volume</option>
+            <option value="last_trade_time">Last Trade Time</option>
+            <option value="record_identifier">Record Identifier</option>
+            <option value="symbol_code">Symbol Code</option>
+            <option value="symbol_direction">Symbol Direction</option>
+            <option value="symbol_state">Symbol State</option>
+            <option value="timestamp">Timestamp</option>
+            <option value="total_traded_volume">Total Traded Volume</option>
+            <option value="total_trades">Total Trades</option>
+
+          </select>
+
+        </div>
+      </div>
+      <!-- <div id="indicators-form">
+        <div class="indicator-form-selects">
+          <div class="indicator-char">
+            <label for="indicator_name">Indicators:</label>
+            <select id="indicator-name" name="indicator_name" class="indicator-select" disabled>
+              <option value="SMA">SMA</option>
+              <option value="RSI">RSI</option>
+              <option value="EMA">EMA</option>
+              <option value="MACD">MACD</option>
+              <option value="SUPERTREND">SUPERTREND</option>
+            </select>
+          </div>
+
+          <div class="indicator-char">
+            <label for="indicator-period">Length:</label>
+            <input type="range" name="indicator_period" id="indicator-period" step="" min="1" max="200" value="14" />
+            <span id="indicator-period-value" class="indicator-period-value">14</span>
+          </div>
+          <div class="indicator-char" style="margin-top: 20px;">
+            <label for="indicator-interval">Time Interval:</label>
+            <select name="indicator-interval" id="indicator-interval">
+              <option value="1d">Daily</option>
+              <option value="15min">15 Minutes</option>
+              <option value="30min">30 Minutes</option>
+              <option value="1h">Hourly</option>
+              <option value="1w">Weekly</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" class="profile-btns" id="add-indicator">Add Indicator</button>
+
+
+        <div id="selected-indicators-list" style="margin-top: 10px; font-size: 14px; color: #333">
+          Selected Indicators:
+          <div id="indicator-tags" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px"></div>
+        </div>
+      </div> -->
+<div id="indicators-form">
+  <div class="indicator-form-selects">
+    <div class="indicator-char">
+      <label for="indicator-name">Indicators:</label>
+      <select id="indicator-name" name="indicator_name">
+        <option value="SMA">SMA</option>
+        <option value="SUPERTREND">SUPERTREND</option>
+        <option value="RSI">RSI</option>
+        <option value="EMA">EMA</option>
+        <option value="MACD">MACD</option>
+      </select>
+    </div>
+
+    <div class="indicator-char" style="margin-top: 20px;">
+      <label for="indicator-interval">Time Interval:</label>
+      <select name="indicator-interval" id="indicator-interval">
+        <option value="1d">Daily</option>
+        <option value="15min">15 Minutes</option>
+        <option value="30min">30 Minutes</option>
+        <option value="1h">Hourly</option>
+        <option value="1w">Weekly</option>
+      </select>
+    </div>
+
+    <div id="indicator-params"></div>
+  </div>
+
+  <button type="button" class="profile-btns" id="add-indicator">Add Indicator</button>
+
+  <div id="selected-indicators-list" style="margin-top: 10px; font-size: 14px; color: #333">
+    Selected Indicators:
+    <div id="indicator-tags" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px"></div>
+  </div>
+</div>
+
+      <div class="profile-default-input"
+        style="display: flex; justify-content: flex-start; align-items: center; gap: 10px">
+        <input type="checkbox" id="is-default" />
+        <label for="is-default">Make this default profile?</label>
+      </div>
+      <div style="display: flex; justify-content: flex-start; gap: 10px">
+        <button type="submit" class="profile-btns" id="profile-add-button">Add</button>
+        <button type="button" class="profile-btns" id="close-profile-form">Close</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-container">
+    <table id="stockTable">
+      <thead>
+        <!-- Dynamically filled by JS -->
+      </thead>
+      <tbody id="screenerBody">
+        <!-- Data rows will be injected here -->
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- EDIT PROFILE MODAL -->
+  <div id="profileModal" class="modal hidden" data-profile-id="">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close-button" onclick="closeProfileModal()">&times;</span>
+        <h2>Edit Profile</h2>
+        <h2 id="modalProfileName">Profile Name</h2>
+        <input type="text" id="edit-profile-name" disabled />
+      </div>
+
+      <!-- <div class="profile-stocks-input">
+        <label for="edit-profile-stock-select">Select the Stocks:</label>
+        <select id="edit-profile-stock-select" name="edit_profile_stocks" multiple required
+          class="edit-profile-stock-list"></select>
+      </div> -->
+      <div class="profile-stocks-input">
+        <label for="edit-profile-stock-select">Select the Stocks:</label>
+        <select name="stocks" multiple class="stock-select" id="edit-profile-stock-select" multiple>
+          {% for symbol in stock_symbols %}
+          <option value="{{ symbol.value }}">{{ symbol.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="profile-column-selection">
+        <label>Select Columnns:</label>
+        <select id="edit_selected_columns" name="selected_columns" multiple>
+          <option value="symbol">Symbol</option>
+          <option value="market_code">Market</option>
+          <option value="last_trade_price">Last Price</option>
+          <option value="net_change">Net Change</option>
+          <option value="bid_price">Bid Price</option>
+          <option value="ask_price">Ask Price</option>
+          <option value="bid_volume">Bid Volume</option>
+          <option value="ask_volume">Ask Volume</option>
+          <option value="average_price">Average Price</option>
+          <option value="high_price">High</option>
+          <option value="low_price">Low</option>
+          <option value="open_price">Open</option>
+          <option value="last_day_close_price">Close</option>
+          <option value="last_trade_volume">Last Trade Volume</option>
+          <option value="last_trade_time">Last Trade Time</option>
+          <option value="record_identifier">Record Identifier</option>
+          <option value="symbol_code">Symbol Code</option>
+          <option value="symbol_direction">Symbol Direction</option>
+          <option value="symbol_state">Symbol State</option>
+          <option value="timestamp">Timestamp</option>
+          <option value="total_traded_volume">Total Traded Volume</option>
+          <option value="total_trades">Total Trades</option>
+        </select>
+      </div>
+
+      <!-- Selected stocks preview -->
+      <div id="edit-profile-stock-preview" style="margin-bottom: 10px; font-size: 14px; color: #333">
+        <p>Selected Stocks:</p>
+        <div id="edit-profile-selected-stock-list" style="display: flex; flex-wrap: wrap; gap: 10px"></div>
+      </div>
+      <div id="edit-selected-columns-preview" style="margin-bottom: 10px; font-size: 14px; color: #333">
+        <p> Selected Columns For This Profile:</p>
+        <div id="edit-selected-column-list" style="display: flex; flex-wrap: wrap; gap: 10px"></div>
+      </div>
+      <div id="edit-indicators-form">
+        <label>Edit Indicators:</label>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <select id="edit-indicator-name">
+            <option value="SMA">SMA</option>
+            <option value="RSI">RSI</option>
+            <option value="EMA">EMA</option>
+            <option value="MACD">MACD</option>
+            <option value="SUPERTREND">SUPERTREND</option>
+          </select>
+
+          <input type="number" id="edit-indicator-period" min="1" max="99" placeholder="Period" style="width: 80px" />
+
+          <select id="edit-indicator-interval">
+            <option value="15min">15 min</option>
+            <option value="30min">30 min</option>
+            <option value="1h">hourly</option>
+            <option value="1d">Daily</option>
+            <option value="1w">weekly</option>
+          </select>
+
+          <button type="button" id="edit-add-indicator">Add</button>
+        </div>
+
+        <div style="margin-top: 10px;">
+          Selected Indicators:
+          <div id="edit-indicator-tags" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;"></div>
+        </div>
+      </div>
+
+
+      <div class="profile-default-input">
+        <label for="edit-is-default">Make this the default profile?</label>
+        <input type="checkbox" id="edit-is-default" />
+      </div>
+
+      <div class="edit-modal-btns">
+        <button id="saveProfileButton">Save</button>
+        <button id="editProfileButton">Edit</button>
+        <button id="deleteProfileButton" style="background-color: red; color: white">Delete</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const selectedProfileIdFromServer = {{ selected_profile_id or 'null' }};
+  </script>
+  <script src="/static/script.js"></script>
+  <script src="/static/screener.js"></script>
+  <script src="/static/screener_data.js"></script>
+</body>
+
+</html>
