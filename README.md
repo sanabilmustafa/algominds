@@ -1,89 +1,86 @@
-- [algominds](#algominds)
 
-- [Project Structure] (#-project-structure)
-
-algominds-app-compilation/
-│
-├── config.py # Configuration settings (DB, secret keys, etc.)
-├── requirements.txt # Python dependencies
-│
-├── static/ # Global static assets (CSS, JS, etc.)
-│
-├── templates/ # Global HTML templates (e.g. layout.html)
-│
-├── modules/ # Modular apps
-│ ├── strategy/
-│ │ ├── init.py
-│ │ ├── strategy.py # Flask Blueprint for strategy config UI
-│ │ ├── models.py
-│ │ └── templates/
-│ │ └── strategy.html
-│ │
-│ ├── strategy_engine/
-│ │ ├── init.py # Blueprint definition
-│ │ ├── indicators.py
-│ │ ├── position_manager.py
-│ │ ├── strategy_runner.py # Runs the strategy engine (processes live market data, sends orders, manages positions via WebSocket feeds)
-│ │ ├── tkt_conventional.py
-│ │ └── utils.py
-│ │
-│ ├── datafeed/ # Stateless | Handles raw PSX feed, parses and emits
-│ │ ├── init.py # Blueprint definition
-│ │ ├── feed_manager.py # ZeroMQ connection to receive live data, parses and broadcasts
-│ │ ├── state.py # Runs run_datafeed() to start feed + WebSocket server
-│ │ ├── indicator_server.py # Broadcasts indicator values (ws://localhost:8766)
-│ │ └── utils.py # MarketData DB model + feed parsing + DB insert
-│ │
-│ ├── indicators/ # Indicator-related logic
-│ │ ├── init.py
-│ │ ├── manager.py # Subscription tracking & routing
-│ │ ├── calculator.py # Indicator computation logic
-│ │ └── state.py # In-memory cache (dict-based)
-│ │
-│ ├── clients/ # Handles WebSocket client connections
-│ │ ├── init.py
-│ │ ├── feed_manager.py
-│ │ ├── state.py
-│ │ └── utils.py
-│ │
-│ ├── charting/
-│ │ ├── init.py
-│ │ ├── charting.py # Chart routes
-│ │ └── templates/
-│ │ └── charting.html
-│ │
-│ ├── userDetails/
-│ │ ├── init.py
-│ │ ├── submit_form.py # Form submission
-│ │ └── templates/
-│ │ └── createAccount.html
-│ │
-│ ├── clientAuth/
-│ │ ├── init.py
-│ │ ├── clientAuth.py # Authentication logic
-│ │ └── templates/
-│ │ └── clientAuth.html
-│ │
-│ ├── dashboard/
-│ │ ├── init.py
-│ │ ├── dashboard.py # Dashboard routes
-│ │ └── templates/
-│ │ └── dashboard.html
-│ │
-│ ├── screener/
-│ │ ├── init.py
-│ │ ├── screener.py # Stock screener logic
-│ │ └── templates/
-│ │ └── screener.html
-│ │
-│ └── order/
-│ ├── init.py
-│ ├── order.py # Order sending + WebSocket connections
-│ └── templates/
-│ └── order.html
-│
-├── app.py # Master Flask App
-└── run.py # Entry point           # backend process run(datafeed and strategy_engine)
+        algominds-app-compilation/
+        │
+        ├── config.py # Configuration settings (DB, secret keys, etc.)
+        ├── requirements.txt # Python dependencies
+        │
+        ├── static/ # Global static assets (CSS, JS, etc.)
+        │
+        ├── templates/ # Global HTML templates (e.g. layout.html)
+        │
+        ├── modules/ # Modular apps
+        │ ├── strategy/
+        │ │ ├── init.py
+        │ │ ├── strategy.py # Flask Blueprint for strategy config UI
+        │ │ ├── models.py
+        │ │ └── templates/
+        │ │ └── strategy.html
+        │ │
+        │ ├── strategy_engine/
+        │ │ ├── init.py # Blueprint definition
+        │ │ ├── indicators.py
+        │ │ ├── position_manager.py
+        │ │ ├── strategy_runner.py # Runs the strategy engine (processes live market data, sends orders, manages positions via WebSocket feeds)
+        │ │ ├── tkt_conventional.py
+        │ │ └── utils.py
+        │ │
+        │ ├── datafeed/ # Stateless | Handles raw PSX feed, parses and emits
+        │ │ ├── init.py # Blueprint definition
+        │ │ ├── feed_manager.py # ZeroMQ connection to receive live data, parses and broadcasts
+        │ │ ├── state.py # Runs run_datafeed() to start feed + WebSocket server
+        │ │ ├── indicator_server.py # Broadcasts indicator values (ws://localhost:8766)
+        │ │ └── utils.py # MarketData DB model + feed parsing + DB insert
+        │ │
+        │ ├── indicators/ # Indicator-related logic
+        │ │ ├── init.py
+        │ │ ├── manager.py # Subscription tracking & routing
+        │ │ ├── calculator.py # Indicator computation logic
+        │ │ └── state.py # In-memory cache (dict-based)
+        │ │
+        │ ├── clients/ # Handles WebSocket client connections
+        │ │ ├── init.py
+        │ │ ├── feed_manager.py
+        │ │ ├── state.py
+        │ │ └── utils.py
+        │ │
+        │ ├── charting/
+        │ │ ├── init.py
+        │ │ ├── charting.py # Chart routes
+        │ │ └── templates/
+        │ │ └── charting.html
+        │ │
+        │ ├── userDetails/
+        │ │ ├── init.py
+        │ │ ├── submit_form.py # Form submission
+        │ │ └── templates/
+        │ │ └── createAccount.html
+        │ │
+        │ ├── clientAuth/
+        │ │ ├── init.py
+        │ │ ├── clientAuth.py # Authentication logic
+        │ │ └── templates/
+        │ │ └── clientAuth.html
+        │ │
+        │ ├── dashboard/
+        │ │ ├── init.py
+        │ │ ├── dashboard.py # Dashboard routes
+        │ │ └── templates/
+        │ │ └── dashboard.html
+        │ │
+        │ ├── screener/
+        │ │ ├── init.py
+        │ │ ├── screener.py # Stock screener logic
+        │ │ └── templates/
+        │ │ └── screener.html
+        │ │
+        │ └── order/
+        │ ├── init.py
+        │ ├── order.py # Order sending + WebSocket connections
+        │ └── templates/
+        │ └── order.html
+        │
+        ├── app.py # Master Flask App
+        └── run.py # Entry point           # backend process run(datafeed and strategy_engine)
 
 
                         +-------------------------+
