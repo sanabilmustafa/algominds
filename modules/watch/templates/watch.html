@@ -9,10 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet" />
-
-
+  <link rel="stylesheet" href="/static/watch/exposure-watch.css">
+  <link rel="stylesheet" href="/static/buy-sell-window.css">
   <link rel="stylesheet" href="/static/styles.css">
   <link rel="stylesheet" href="/static/watch/watch.css">
+  <link rel="stylesheet" href="/static/order.css"> 
+
 </head>
 
 <body>
@@ -22,20 +24,24 @@
       <div class="collapse nav-list">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/chart"><i class="fas fa-layer-group"></i> CHARTS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/strategy"><i class="fas fa-pen"></i> STRATEGIES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/order"><i class="fas fa-pen"></i> TRADING</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/reports"><i class="fas fa-star"></i> REPORTS</a>
+            </li>
         </ul>
       </div>
       <div class="button-container">
@@ -43,42 +49,8 @@
         <button class="btn"><a class="btn-signup" href="#">LOGIN</a></button>
       </div>
     </nav>
-
-    <!-- <nav class="navbar-collapse">
-      <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
-      <div class="collapse-bar">
-        <div class="collapse-icon"><i class="fas fa-bars"></i></div>
-        <div class="side-bar">
-          <div class="uncollapse-icon"><i class="fas fa-xmark"></i></div>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus necessitatibus sunt accusantium sapiente in
-            ad labore vitae, dolor adipisci eveniet deserunt voluptatibus magni impedit quasi. Accusantium harum
-            voluptatum repellendus laudantium!</p>
-          <div class="uncollapse nav-list-bar">
-            <ul class="navbar-nav-bar mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="/hero/"><i class="fas fa-home"></i> HOME</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
-              </li>
-            </ul>
-          </div>
-          <div class="button-container-bar">
-            <button class="btn-bar"><a class="btn-signup" href="#">SIGN-UP</a></button>
-            <button class="btn-bar"><a class="btn-signup" href="#">LOGIN</a></button>
-          </div>
-        </div>
-      </div>
-    </nav> -->
+    {% include "exposurewatch.html" %}
+    {% include "buy-sell-window.html" %}
     <main>
       <button class="message-btn"><i class="fa-solid fa-message"></i></button>
       <div class="message-box">
@@ -192,43 +164,44 @@
             <!-- Profiles will be loaded here -->
           </div>
         </div>
-
         <button class="select-sector watch-nav-btn"><i class="fa-solid fa-chevron-down"></i> Select Sector</button>
         <button class="select-sector-watch watch-nav-btn">Sector Watch</button>
         <button class="select-inventory-watch watch-nav-btn">Inventory Watch</button>
         <button class="select-cap-watch watch-nav-btn">Cap Watch</button>
         <button class="select-future-watch watch-nav-btn">Future Watch</button>
         <button class="select-Index-watch watch-nav-btn">Index Watch</button>
+        <button class="exposure-watch watch-nav-btn" id="account_details_button">Account Details</button>
       </div>
+
       <div class="watchlist-table">
         <div class="table-container">
           <table class="watchlist-table" >
             <thead >
               <tr id="watch-header">
-                <th>MKT</th>
-                <th>Actions</th>
-                <th>Symbol</th>
-                <th>Buyer <br>Volume</th>
-                <th>Buyer</th>
-                <th>Seller</th>
-                <th>Seller <br>Volume</th>
-                <th>Change</th>
-                <th>Total <br> Volume</th>
-                <th>High</th>
-                <th>Low</th>
-                <th>High Low Range</th>
-                <th>Last Trade <br>Price</th>
-                <th>% Change</th>
-                <th>Upper Cap</th>
-                <th>Lower Lock</th>
-                <th>Close</th>
-                <th>Open</th>
-                <th>Last Trade <br>Volume</th>
-                <th>Prev Close</th>
-                <th>Average <br>Price</th>
-                <th>Total <br> Trades</th>
-                <th>Last Trade <br>Time</th>
-                <th>Symbol <br>State</th>
+                <th data-key="market_code" class="watch-table-header">MKT</th>
+                <th data-key="action" class="watch-table-header">Actions</th>
+                <th data-key="symbol_code" class="watch-table-header">Symbol</th>
+                <th data-key="bid_volume" class="watch-table-header">Buyer <br>Volume</th>
+                <th data-key="bid_price" class="watch-table-header">Buyer</th>
+                <th data-key="ask_price" class="watch-table-header">Seller</th>
+                <th data-key="ask_volume" class="watch-table-header">Seller <br>Volume</th>
+                <th data-key="change" class="watch-table-header">Change</th>
+                <th data-key="total_traded_volume" class="watch-table-header">Total <br> Volume</th>
+                <th data-key="high_price" class="watch-table-header">High</th>
+                <th data-key="low_price" class="watch-table-header">Low</th>
+                <th data-key="mkt_range" class="watch-table-header">High Low Range</th>
+                <th data-key="last_trade_price" class="watch-table-header">Last Trade <br>Price</th>
+                <th data-key="change_percent" class="watch-table-header">% Change</th>
+                <th data-key="upper_cap" class="watch-table-header">Upper Cap</th>
+                <th data-key="lower_lock" class="watch-table-header">Lower Lock</th>
+                <th data-key="close_price" class="watch-table-header">Close</th>
+                <th data-key="open_price" class="watch-table-header">Open</th>
+                <th data-key="last_trade_volume" class="watch-table-header">Last Trade <br>Volume</th>
+                <th data-key="prev_close" class="watch-table-header">Prev Close</th>
+                <th data-key="average_price" class="watch-table-header">Average <br>Price</th>
+                <th data-key="total_trades" class="watch-table-header">Total <br> Trades</th>
+                <th data-key="last_trade_time" class="watch-table-header">Last Trade <br>Time</th>
+                <th data-key="symbol_state" class="watch-table-header">Symbol <br>State</th>
               </tr>
             </thead>
             <tbody id="watch-body"></tbody>
@@ -315,7 +288,7 @@
     <!-- Columns Selection -->
     <label for="editColumnsSelect">Columns:</label>
     <select id="editColumnsSelect" multiple>
-      <option value="symbol">Symbol</option>
+          <option value="symbol">Symbol</option>
             <option value="market_code">Market</option>
             <option value="last_trade_price">Last Price</option>
             <option value="net_change">Net Change</option>
@@ -357,5 +330,9 @@
   </div>
 </body>
 <script src="/static/watch/watch.js"></script>
+<script src="/static/watch/exposure-watch.js"></script>
+<script src="/static/order.js"></script>
+<script src="/static/buy-sell-window.js"></script>
+
 
 </html>

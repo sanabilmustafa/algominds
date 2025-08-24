@@ -4,6 +4,7 @@ const tableBody = document.getElementById("screenerBody");
 // Store rows by symbol so we can update them
 let allSymbols = [];
 let selectedSymbols = new Set();
+let pinnedSymbols = new Set();
 
 //   ------------------------------------------------------------------------------------------
 
@@ -11,10 +12,11 @@ let selectedSymbols = new Set();
 document.addEventListener('DOMContentLoaded', function () {
     const rangeInput = document.getElementById('indicator-period');
     const rangeValue = document.getElementById('indicator-period-value');
-
+    if(rangeInput != null){
     rangeInput.addEventListener('input', function () {
         rangeValue.textContent = rangeInput.value;
     });
+}
 });
 //   ------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
@@ -84,96 +86,145 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // Symbol dropdown logic
-document
-    .getElementById("symbol-button")
-    .addEventListener("click", async function () {
-        const dropdown = document.getElementById("symbol-dropdown");
-        const listContainer = document.getElementById("symbol-list");
-        const searchInput = document.getElementById("symbol-search");
-
-        // dropdown.classList.toggle("hidden");
-
-        try {
-            const response = await fetch(
-                "http://localhost:8000/screener/api/stocks/symbols"
-            );
-            if (!response.ok) throw new Error("Failed to fetch symbols");
-
-            allSymbols = await response.json();
-            if (!Array.isArray(allSymbols)) {
-                throw new Error("Expected an array of symbols");
-            }
-            console.log(allSymbols);
-            dropdown.dataset.symbols = JSON.stringify(allSymbols);
-
-            const renderList = (filteredSymbols) => {
-                listContainer.innerHTML = filteredSymbols
-                    .map((symbol) => {
-                        const isSelected = selectedSymbols.has(symbol);
-                        return `<div class="dropdown-item ${isSelected ? "selected" : ""
-                            }" 
-                    data-symbol="${symbol}">
-                    ${symbol} ${isSelected ? "✓" : ""}
-                    </div>`;
-                    })
-                    .join("");
-            };
-
-            renderList(allSymbols);
-
-            // Handle symbol selection
-            listContainer.addEventListener("click", (e) => {
-                const symbolItem = e.target.closest(".dropdown-item");
-                if (symbolItem) {
-                    const symbol = symbolItem.dataset.symbol;
-                    if (selectedSymbols.has(symbol)) {
-                        selectedSymbols.delete(symbol);
-                    } else {
-                        selectedSymbols.add(symbol);
-                    }
-                    renderList(allSymbols);
-                    filterTable();
-                }
-            });
-
-            searchInput.addEventListener("input", () => {
-                const searchTerm = searchInput.value.toLowerCase();
-                const filtered = allSymbols.filter((symbol) =>
-                    symbol.toLowerCase().includes(searchTerm)
-                );
-                renderList(filtered);
-            });
-        } catch (error) {
-            console.error("Error loading symbols:", error);
-            listContainer.innerHTML = `<div class="dropdown-item error">Error loading symbols</div>`;
+document.getElementById("symbol-button").addEventListener("click", async function () {
+    const dropdown = document.getElementById("symbol-dropdown");
+    const listContainer = document.getElementById("symbol-list");
+    const searchInput = document.getElementById("symbol-search");
+    const clearBtn = document.getElementById("clear-filter");
+  
+    // dropdown.classList.toggle("hidden"); // enable if you want open/close
+  
+    try {
+      const response = await fetch("/screener/api/stocks/symbols");
+      if (!response.ok) throw new Error("Failed to fetch symbols");
+  
+      let allSymbols = await response.json();
+      if (!Array.isArray(allSymbols)) throw new Error("Expected an array of symbols");
+  
+      dropdown.dataset.symbols = JSON.stringify(allSymbols);
+  
+      const renderList = (symbols) => {
+        listContainer.innerHTML = symbols
+          .map((symbol) => {
+            const isSelected = selectedSymbols.has(symbol);
+            return `
+              <div class="dropdown-item ${isSelected ? "selected" : ""}" data-symbol="${symbol}">
+                ${symbol} ${isSelected ? "✓" : ""}
+              </div>`;
+          })
+          .join("");
+      };
+  
+      renderList(allSymbols);
+  
+      // Select / unselect symbol
+      listContainer.addEventListener("click", (e) => {
+        const item = e.target.closest(".dropdown-item");
+        if (!item) return;
+  
+        const symbol = item.dataset.symbol;
+  
+        // Toggle selection
+        if (selectedSymbols.has(symbol)) {
+          selectedSymbols.delete(symbol);
+          pinnedSymbols.delete(symbol); // unpin if unselected
+        } else {
+          selectedSymbols.add(symbol);
+          // If it exists in the current table, move it to the top and pin it
+          if (tableRows[symbol]) {
+            moveRowToTop(symbol, { pin: true });
+          } else {
+            // Not in current profile → optional: notify
+            console.log(`Symbol ${symbol} is not part of this profile (no row to move).`);
+          }
         }
+  
+        renderList(allSymbols);
+        // OPTIONAL filter
+        if (typeof filterTable === "function") filterTable();
+      });
+  
+      // Search box
+      searchInput.addEventListener("input", () => {
+        const term = searchInput.value.toLowerCase();
+        const filtered = allSymbols.filter((s) => s.toLowerCase().includes(term));
+        renderList(filtered);
+      });
+  
+      // Clear all (selection + pins + filter)
+      clearBtn.addEventListener("click", () => {
+        selectedSymbols.clear();
+        pinnedSymbols.clear();
+        renderList(allSymbols);
+        if (typeof filterTable === "function") filterTable();
+      });
+  
+    } catch (err) {
+      console.error("Error loading symbols:", err);
+      listContainer.innerHTML = `<div class="dropdown-item error">Error loading symbols</div>`;
+    }
+  });
+  
+
+//FILTER TABLE MOVE STOCK AT THE TOP OF THE TABLE 
+function moveRowToTop(symbol, { pin = true } = {}) {
+    const entry = tableRows[symbol];
+    if (!entry) return;               // not in current profile/table
+    const row = entry.row;
+  
+    if (pin) pinnedSymbols.add(symbol);
+  
+    // Reinsert as the first row in <tbody>
+    if (screenerBody.firstChild !== row) {
+      screenerBody.removeChild(row);
+      screenerBody.insertBefore(row, screenerBody.firstChild);
+    }
+  }
+
+// Filter table based on selected symbols
+function filterTable() {
+    const rows = screenerBody.querySelectorAll("tr");
+    const hasFilter = selectedSymbols.size > 0;
+  
+    rows.forEach(tr => {
+      const symbolCell = tr.querySelector("td.symbol-column");
+      if (!symbolCell) return;
+      const symbol = symbolCell.textContent.trim();
+  
+      if (!hasFilter || selectedSymbols.has(symbol)) {
+        tr.style.display = "";
+      } else {
+        tr.style.display = "none";
+      }
     });
+  }
+  
 
 // Add clear filter functionality
-document
-    .getElementById("clear-filter")
-    .addEventListener("click", function () {
-        // Clear selected symbols
-        selectedSymbols.clear();
+// document
+//     .getElementById("clear-filter")
+//     .addEventListener("click", function () {
+//         // Clear selected symbols
+//         selectedSymbols.clear();
 
-        // Update the dropdown display
-        const dropdownItems = document.querySelectorAll(".dropdown-item");
-        dropdownItems.forEach((item) => {
-            item.classList.remove("selected");
-            if (item.querySelector("span")) {
-                item.querySelector("span").remove();
-            }
-        });
+//         // Update the dropdown display
+//         const dropdownItems = document.querySelectorAll(".dropdown-item");
+//         dropdownItems.forEach((item) => {
+//             item.classList.remove("selected");
+//             if (item.querySelector("span")) {
+//                 item.querySelector("span").remove();
+//             }
+//         });
 
-        // Show all rows
-        const rows = tableBody.querySelectorAll("tr");
-        rows.forEach((row) => {
-            row.style.display = "";
-        });
+//         // Show all rows
+//         const rows = tableBody.querySelectorAll("tr");
+//         rows.forEach((row) => {
+//             row.style.display = "";
+//         });
 
-        // Optional: Close the symbol dropdown if open
-        document.getElementById("symbol-dropdown").classList.add("hidden");
-    });
+//         // Optional: Close the symbol dropdown if open
+//         document.getElementById("symbol-dropdown").classList.add("hidden");
+//     });
 
 // Update this part in your symbol dropdown code:
 const renderList = (filteredSymbols) => {
@@ -203,7 +254,7 @@ document
         if (allSectors.length === 0) {
             try {
                 const response = await fetch(
-                    "http://localhost:8000/screener/api/stocks/sectors"
+                    "/screener/api/stocks/sectors"
                 );
 
                 if (!response.ok) throw new Error("Failed to fetch sectors");
@@ -320,7 +371,7 @@ const renderProfiles = (profilesList) => {
 
 const fetchAndRenderProfiles = async () => {
     try {
-        const response = await fetch("http://localhost:8000/screener/api/get_profiles");
+        const response = await fetch("/screener/api/get_profiles");
         if (!response.ok) throw new Error("Failed to fetch profiles");
 
         const profiles = await response.json();
@@ -377,7 +428,7 @@ document.addEventListener("click", (event) => {
 
 async function filterStocksByProfile(profileId) {
     try {
-        const response = await fetch(`http://localhost:8000/screener/api/get_profile_stocks/${profileId}`);
+        const response = await fetch(`/screener/api/get_profile_stocks/${profileId}`);
         if (!response.ok) throw new Error("Failed to fetch profile stocks");
 
         const stocks = await response.json();
@@ -419,7 +470,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function fetchStockSymbols() {
         try {
-            const response = await fetch("http://127.0.0.1:8000/watch/api/stocks/symbols");
+            const response = await fetch("/watch/api/stocks/symbols");
             if (!response.ok) throw new Error("Failed to fetch stock symbols");
 
             const stockSelect = document.getElementById("select-stocks");
@@ -555,7 +606,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Submitting profile data:", data);
 
             try {
-                const response = await fetch("http://localhost:8000/screener/api/create_profile", {
+                const response = await fetch("/screener/api/create_profile", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -672,7 +723,7 @@ document.getElementById("edit_selected_columns").addEventListener("mousedown", f
 // Fetch and populate all stock symbols
 async function fetchStockSymbols() {
     try {
-        const response = await fetch("http://localhost:8000/screener/api/stocks/symbols");
+        const response = await fetch("/screener/api/stocks/symbols");
         if (!response.ok) throw new Error("Failed to fetch stock symbols");
 
         const symbols = await response.json();
@@ -709,7 +760,7 @@ const openProfileModal = async (profileId) => {
     document.getElementById("editProfileButton").style.display = "inline-block";
 
     try {
-        const res = await fetch(`http://localhost:8000/screener/api/get_profile_stocks/${profileId}`);
+        const res = await fetch(`/screener/api/get_profile_stocks/${profileId}`);
         selectedStocks = await res.json(); // Update global selectedStocks
 
         stockSelect.innerHTML = ""; // Clear old options
@@ -733,7 +784,7 @@ const openProfileModal = async (profileId) => {
 
     // ✅ New block to load previously selected columns & indicators
     try {
-        const metaRes = await fetch(`http://localhost:8000/screener/api/get_profile_meta/${profileId}`);
+        const metaRes = await fetch(`/screener/api/get_profile_meta/${profileId}`);
         const metaData = await metaRes.json();
 
         // Columns
@@ -788,7 +839,7 @@ document.getElementById("editProfileButton").addEventListener("click", async () 
 
     try {
         // Fetch profile stocks
-        const res = await fetch(`http://localhost:8000/screener/api/get_profile_stocks/${selectedProfileEdit}`);
+        const res = await fetch(`/screener/api/get_profile_stocks/${selectedProfileEdit}`);
         selectedStocks = await res.json();
         const selectedSet = new Set(selectedStocks);
 
@@ -820,7 +871,7 @@ document.getElementById("editProfileButton").addEventListener("click", async () 
         updateSelectedStocksDisplay();
 
         // ✅ Fetch existing selected columns (optional, based on how you're storing them)
-        const colRes = await fetch(`http://localhost:8000/screener/api/get_profile_columns/${selectedProfileEdit}`);
+        const colRes = await fetch(`/screener/api/get_profile_columns/${selectedProfileEdit}`);
         const existingCols = await colRes.json();
         const columnSelect = document.getElementById("edit_selected_columns");
         Array.from(columnSelect.options).forEach(option => {
@@ -852,7 +903,7 @@ document.getElementById("saveProfileButton").addEventListener("click", async () 
     console.log("the updated data", data.selected_columns)
     console.log(data)
     try {
-        const res = await fetch(`http://localhost:8000/screener/api/update_profile/${profileId}`, {
+        const res = await fetch(`/screener/api/update_profile/${profileId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
@@ -882,7 +933,7 @@ document.getElementById("deleteProfileButton").addEventListener("click", async (
     const profileId = selectedProfileEdit;
 
     try {
-        const res = await fetch(`http://localhost:8000/screener/api/delete_profile/${profileId}`, {
+        const res = await fetch(`/screener/api/delete_profile/${profileId}`, {
             method: "DELETE"
         });
 
@@ -928,162 +979,106 @@ function renderSelectedIndicators() {
     });
 }
 
-
-
-
-
-
-//indicators
-document.getElementById("add-indicator").addEventListener("click", function () {
-    const name = document.getElementById("indicator-name").value;
-    const interval = document.getElementById("indicator-interval").value;
-
-    // Collect all dynamic params
-    const params = {};
-    document.querySelectorAll("#indicator-params input").forEach(input => {
-        params[input.name] = input.value;
-    });
-
-    // Ensure all fields have values
-    if (!name || !interval || Object.values(params).some(v => !v)) {
-        alert("Please fill in all indicator values.");
-        return;
-    }
-    console.log(params)
-    const formatted = `${name}-${Object.values(params).join("-")}-${interval}`;
-    selectedIndicators.push(formatted);
-    console.log(formatted)
-    renderSelectedIndicators();
-
-    // Clear params
-    document.querySelectorAll("#indicator-params input").forEach(input => input.value = "");
-});
-
-
-let selectedEditIndicators = [];
-
-function renderEditIndicators() {
-    const container = document.getElementById("edit-indicator-tags");
-    container.innerHTML = "";
-
-    if (selectedEditIndicators.length === 0) {
-        container.textContent = "None";
-        return;
-    }
-
-    selectedEditIndicators.forEach((indicator) => {
-        const span = document.createElement("span");
-        span.classList.add("indicator-tag");
-        span.textContent = indicator;
-        container.appendChild(span);
-    });
-}
-
-document.getElementById("edit-add-indicator").addEventListener("click", function () {
-    const name = document.getElementById("edit-indicator-name").value;
-    const period = document.getElementById("edit-indicator-period").value;
-    const interval = document.getElementById("edit-indicator-interval").value;
-
-    if (!name || !period || !interval) {
-        alert("Please select all indicator values.");
-        return;
-    }
-
-    const formatted = `${name}-${period}-${interval}`;
-    selectedEditIndicators.push(formatted);
-    renderEditIndicators();
-
-    document.getElementById("edit-indicator-period").value = "";
-    });
-    
-
-
-
-
-
-    ///indicators
+// Indic// Indicators
 document.addEventListener('DOMContentLoaded', function () {
-  const indicatorParams = {
-    SMA: { length: 14 },
-    RSI: { length: 14 },
-    EMA: { length: 14 },
-    SUPERTREND: { signal: 3, slow: 20, fast: 10 },
-    MACD: { multiplier: 2, length: 14 }
-  };
+    // 1) Config
+    const indicatorParams = {
+        SMA: { length: 14 },
+        RSI: { length: 14 },
+        EMA: { length: 14 },
+        SUPERTREND: { period: 10, multiplier: 3 }, // Fixed parameter names
+        MACD: { fastPeriod: 12, slowPeriod: 26, signalPeriod: 9 } // Fixed parameter names
+    };
 
-  const indicatorSelect = document.getElementById("indicator-name");
-  const parameterContainer = document.getElementById("indicator-params");
-  const indicatorTags = document.getElementById("indicator-tags");
+    // 2) DOM refs
+    const indicatorTags = document.getElementById("indicator-tags");
+    const addIndicatorBtn = document.getElementById("add-indicator");
+    const indicatorSelect = document.getElementById("indicator-name");
+    const paramsContainer = document.getElementById("indicator-params");
+    const intervalSelect = document.getElementById("indicator-interval");
 
-  function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+    // 3) Helpers
+    const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 
-  function createInput(param, defaultValue) {
-    const wrapper = document.createElement("div");
-    wrapper.classList.add("indicator-char");
+    function createInput(param, defaultValue) {
+        const wrap = document.createElement("div");
+        wrap.classList.add("indicator-char");
+        wrap.style.margin = "5px 0";
 
-    const label = document.createElement("label");
-    label.textContent = capitalize(param) + ":";
-    wrapper.appendChild(label);
+        const label = document.createElement("label");
+        label.textContent = cap(param) + ": ";
+        label.style.display = "inline-block";
+        label.style.width = "100px";
 
-    const input = document.createElement("input");
-    input.type = "number";
-    input.name = param;
-    input.value = defaultValue;
-    input.min = 1;
-    input.step = "any";
-    wrapper.appendChild(input);
+        const input = document.createElement("input");
+        input.type = "number";
+        input.name = param;
+        input.value = defaultValue;
+        input.min = 1;
+        input.step = "any";
+        input.style.width = "90px";
 
-    return wrapper;
-  }
-
-  function updateParams() {
-    const selected = indicatorSelect.value;
-    const params = indicatorParams[selected] || {};
-
-    parameterContainer.innerHTML = "";
-    Object.entries(params).forEach(([param, defaultValue]) => {
-      const inputWrapper = createInput(param, defaultValue);
-      parameterContainer.appendChild(inputWrapper);
-       console.log(inputWrapper)
-    });
-   
-  }
-
-  // Update params when the indicator dropdown changes
-  indicatorSelect.addEventListener("change", updateParams);
-
-  // Initial load
-  updateParams();
-
-  // Single click handler for Add Indicator
-  document.getElementById("add-indicator").addEventListener("click", function () {
-    const name = indicatorSelect.value;
-    const interval = document.getElementById("indicator-interval").value;
-
-    // Grab current input values
-    const params = {};
-    parameterContainer.querySelectorAll("input").forEach(input => {
-      params[input.name] = parseFloat(input.value);
-    });
-
-    if (!name || !interval || Object.values(params).some(v => isNaN(v))) {
-      alert("Please fill in all indicator values.");
-      return;
+        wrap.appendChild(label);
+        wrap.appendChild(input);
+        return wrap;
     }
 
-    const formatted = `${name}-${Object.values(params).join("-")}-${interval}`;
-    console.log("Added:", formatted);
+    function updateParams() {
+        if (!indicatorSelect || !paramsContainer) return;
 
-    const tag = document.createElement("div");
-    tag.textContent = formatted;
-    tag.style.padding = "5px 10px";
-    tag.style.background = "#e0e0e0";
-    tag.style.borderRadius = "5px";
-    indicatorTags.appendChild(tag);
+        const selected = indicatorSelect.value;
+        const params = indicatorParams[selected] || {};
 
-    // **Do NOT clear the params here**. Keep them so user can adjust or select another indicator.
-    // parameterContainer.innerHTML = ""; // <-- remove this line
-  });
+
+        // Rebuild UI
+        paramsContainer.innerHTML = "";
+        const title = document.createElement("h4");
+        title.textContent = `Parameters for ${selected}`;
+        title.style.margin = "10px 0";
+        paramsContainer.appendChild(title);
+
+        Object.entries(params).forEach(([param, defVal]) => {
+            paramsContainer.appendChild(createInput(param, defVal));
+        });
+    }
+
+    // 4) Event listeners
+    indicatorSelect.addEventListener("change", updateParams);
+
+    if (addIndicatorBtn) {
+        addIndicatorBtn.addEventListener("click", function () {
+            if (!indicatorSelect || !paramsContainer || !intervalSelect) return;
+
+            const name = indicatorSelect.value;
+            const interval = intervalSelect.value;
+
+            // Get current parameter values directly from the DOM
+            const params = {};
+            const inputs = paramsContainer.querySelectorAll("input");
+            inputs.forEach(input => {
+                params[input.name] = parseFloat(input.value) || input.value;
+            });
+
+            if (!name || !interval || Object.values(params).some(v => v === "" || v == null)) {
+                alert("Please fill in all indicator values.");
+                return;
+            }
+
+            const formatted = `${name}-${Object.values(params).join("-")}-${interval}`;
+
+            if (indicatorTags) {
+                const tag = document.createElement("div");
+                tag.textContent = formatted;
+                tag.style.padding = "5px 10px";
+                tag.style.background = "#e0e0e0";
+                tag.style.borderRadius = "5px";
+                tag.style.display = "inline-block";
+                tag.style.marginRight = "5px";
+                indicatorTags.appendChild(tag);
+            }
+        });
+    }
+
+    // 5) Initial render
+    updateParams();
 });

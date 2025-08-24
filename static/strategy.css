@@ -7,11 +7,6 @@
     --green-color: green;
   }
 
-
-
-
-
-
 .strategy-container {
     display: flex;
     height: 100vh;
@@ -33,6 +28,7 @@
     overflow-y: auto;
     height: 100vh;
     padding: 20px 10px;
+    margin-left: 70px;
     /* background-color: var(--darker-color); */
 }
 
@@ -103,8 +99,8 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 55px;
+    height: 30px;
 }
 
 /* Hide default HTML checkbox */
@@ -173,7 +169,15 @@ input:checked+.slider:before {
 .strategy-card-header h3 {
     margin: 0;
     color: var(--darker-color);
-    font-size: 20px;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.strategy-card-author{
+    margin-top: 0;
+    margin-bottom: 2px;
+    font-size: 15px;
+    opacity: 0.6;
 }
 
 .strategy-time {

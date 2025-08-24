@@ -14,73 +14,9 @@
 </head>
 <body>
       <!-- Navbar -->
-  <nav class="navbar">
-    <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
-    <div class="collapse nav-list">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
-        </li>
-      </ul>
-    </div>
-    <div class="button-container">
-      <button class="btn"><a class="btn-signup" href="#">SIGN-UP</a></button>
-      <button class="btn"><a class="btn-signup" href="#">LOGIN</a></button>
-    </div>
-  </nav>
+      {% include "navbar.html" %}
 
-  <nav class="navbar-collapse">
-    <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
-    <!-- collapse bar side -->
-    <div class="collapse-bar">
-      <div class="collapse-icon"><i class="fas fa-bars"></i></div>
-      <div class="side-bar">
-        <div class="uncollapse-icon"><i class="fas fa-xmark"></i></div>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus necessitatibus sunt accusantium sapiente in ad labore vitae, dolor adipisci eveniet deserunt voluptatibus magni impedit quasi. Accusantium harum voluptatum repellendus laudantium!</p>
-        <div class="uncollapse nav-list-bar">
-          <ul class="navbar-nav-bar mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/hero/"><i class="fas fa-home"></i> HOME</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fas fa-layer-group"></i> FEATURES</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fas fa-pen"></i> ABOUT US</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fas fa-star"></i> CONTACT</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
-            </li>
-          </ul>
-        </div>
-        <div class="button-container-bar">
-          <button class="btn-bar"><a class="btn-signup" href="#">SIGN-UP</a></button>
-          <button class="btn-bar"><a class="btn-signup" href="#">LOGIN</a></button>
-        </div>
-      </div>
-    </div>
-  </nav>
 <h3><a href="/reports/daily_report">Daily Report</a></h3>
 </body>
+<script src="/static/script.js"></script>
 </html>

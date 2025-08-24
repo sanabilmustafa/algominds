@@ -94,7 +94,7 @@ svg {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 25px 35px;
+    margin: 10px 15px;
     padding: 8px;
     border-radius: 12px;
     background-color: var(--lighter-color);

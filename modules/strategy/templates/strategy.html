@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algominds | Strategy</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/styles.css"> 
     <link rel="stylesheet" href="/static/strategy.css">
     <link rel="stylesheet" href="/static/dashboard.css">
+    <link rel="stylesheet" href="/static/side-nav.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
@@ -24,44 +25,7 @@
 
 <body>
     <div class="strategy-container">
-        <nav class="dashboard-navbar">
-            <h3 class="logo"><a class="dashboard-navbar-brand" href="#">ALGOMINDS</a></h3>
-            <div class="collapse dashboard-nav-list">
-                <ul class="dashboard-navbar-nav mb-2 mb-lg-0">
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/dashboard"><i class="fa-solid fa-grip"></i> DASHBOARD</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/screener"><i class="fa-solid fa-table-cells"></i> SCREENER</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/chart"><i class="fa-solid fa-chart-line"></i></i> CHARTS</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/order"><i class="fas fa-pen"></i> TRADING</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/strategy"><i class="fas fa-star"></i> STRATEGIES</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/watch"><i class="fas fa-eye"></i> WATCHLIST</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/reports"><i class="fas fa-layer-group"></i> REPORTS</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dashboard-nav-account">
-                <div class="image"></div>
-                <div>
-                    <p>Client Code</p>
-                </div>
-            </div>
-        </nav>
-
+        {% include "side-navbar.html" %}
         <div class="strategies-content">
             <h2>Strategies</h2>
             <div class="strategy-tab">
@@ -72,7 +36,11 @@
             </div>
             <div class="strategies-container">
                 {% for strategy in strategies %}
-                <div class="strategy" data-strategy-id="{{ strategy.strategy_id }}">
+                <div class="strategy" data-strategy-id="{{ strategy.strategy_id }}">  
+
+
+
+                    <!-- // HEADER -->
                     <div class="strategy-card-header">
                         <h3>{{strategy.strategy_name}}</h3>
                         <div class="strategy-status">
@@ -225,9 +193,17 @@
                             </label>
                         </div>
                     </div>
+
+
+
+                    <!-- // STRATEGY BY... -->
                     <div class="strategy-card-author">
                         <p>by <span class="author-name">{{strategy.strategy_author}}</span></p>
                     </div>
+
+
+
+                    <!-- // TIME -->
                     <div class="strategy-time">
                         <p><i class="fa-solid fa-clock"></i>starts: <span class="time">9:30 a.m.</span></p>
                         <p><i class="fa-solid fa-clock"></i>ends: <span class="time">3:30 p.m.</span></p>
@@ -242,6 +218,9 @@
                         {% endif %}
                         {% endfor %}
 
+
+
+                        <!-- // TYPE AND ASSET CLASS -->
                         <div class="char">
                             <p class="key">Type: </p>
                             <p class="value">{{ description_dict['Type'] }}</p>
@@ -282,6 +261,9 @@
                                 </div>
                                 {% endif %}
                                 {% if strategy.allow_update %}
+
+
+                                <!-- // SELECT STOCKS -->
                                 <div class="char">
                                     <label for="stocks">Select Stocks:</label>
                                     <select name="stocks" multiple class="stock-select">
@@ -291,6 +273,9 @@
                                         {% endfor %}
                                     </select>
                                 </div>
+
+
+                                <!-- // ALLOCATIONS -->
                                 <div class="char">
                                     <label for="allocation_of_balance">Allocation (%) of Total Balance:</label>
                                     <input type="text" value="{{strategy.allocation_of_assets}}"
@@ -298,6 +283,9 @@
                                 </div>
                                 <div class="stock-allocations" id="stock-allocations-{{ strategy.strategy_id }}">
 
+
+
+                                    <!-- // STOCKS -->
                                     {%for stock in stocks_by_strategy[strategy.strategy_id] %}
                                     <div class="stock-row">
                                         <label>{{stock.stock_symbol}}</label>

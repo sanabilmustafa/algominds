@@ -371,12 +371,3 @@ def delete_profile(profile_id):
         return jsonify({'error': str(e)}), 500
 
 
-# @screener_bp.route('/')
-# def screener_home():
-
-    
-
-
-
-
-            # const response = await fetch("http://localhost:8000/screener/api/stocks/symbols");

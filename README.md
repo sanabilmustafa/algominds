@@ -82,7 +82,7 @@
         ├── app.py # Master Flask App
         └── run.py # Entry point           # backend process run(datafeed and strategy_engine)
 
-
+market data with redis logic model ( that we did not implement ): 
                         +-------------------------+
                         |   Market Data Feed      |
                         +-----------+-------------+
@@ -424,3 +424,96 @@ COMMAND GIVEN BY CHATGPT
         -- GATM
         ('2025-08-18', 35.17, 34.90, 35.55, 34.30, 846910, 1.21, '846.91K', 420, 'GATM'),
         ('2025-08-15', 34.75, 35.15, 35.74, 34.50, 2020000, -0.94, '2.02M', 420, 'GATM');
+
+
+            exposure watch:
+                "SYMBOL",
+                "MARKET",
+                "MARKET_RATE",
+                "INVENTORY_HOLDINGS",
+                "INVENTORY_MARKET_VALUE",
+                "INVENTORY_AVG_PRICE",
+                "INVENTORY_AVG_VALUE",
+                "HAIRCUT",
+                "INVENTORY_HAIRCUT_VALUE",
+                "OPEN_VOLUME",
+                "OPEN_VALUE",
+                "OPEN_AVG_PRICE",
+                "CUR_NET_QTY",
+                "CUR_NET_AMT",
+                "CUR_AVG_RATE",
+                "PENDING_NET_QTY",
+                "PENDING_NET_AMT",
+                "PENDING_AVG_RATE",
+                "REALIZED_GAIN_LOSS",
+                "UNREALIZED_MTM_AMOUNT",
+                "NET_POSITION"
+
+ORDER:
+buy
+sell
+leverage buy 
+leverage sell
+short sell. 
+change order
+cancel order
+replace outstanding orders
+
+WATCHES:
+market watch
+message window
+MBO
+MBP
+Symbol search
+sector performance
+top 30 movers
+indces summary
+gainers loosers
+Future watch
+sector watch
+index watch
+Cap watch
+
+QUERY:
+account position
+outstanding logs
+daily trade logs
+daily activity logs
+-strategy logs
+-all logs
+symbol-wise position (for dealer)
+-account statement
+-transaction statement
+-miscellaneous report
+
+
+
+
+
+SCREENER DISCUSSION
+
+INDICATORS
+    --Bollinger
+    --Average Daily Range
+    --Average Daily Range Percentage
+    --Averyage True Range
+    --Averyage True Range Percenatage
+    --Donchian
+    --Relative Strength
+    --Stochastic 
+    --Stochastic RSI
+    --Volume Weighted Average Price
+    --Volume Weighted Moving Average
+
+
+
+TABLE:
+    -GHERI LINE
+
+
+
+
+
+WATCH LIST:
+    --To make symbol column sticky
+    

@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="/static/screener.css">
     <link rel="stylesheet" href="/static/dashboard.css">
+    <link rel="stylesheet" href="/static/side-nav.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     <!-- Highcharts Core -->
@@ -31,99 +33,18 @@
 
 <body>
     <div class="dashboard-container">
-        <nav class="dashboard-navbar">
-            <h3 class="logo"><a class="dashboard-navbar-brand" href="#">ALGOMINDS</a></h3>
-            <div class="collapse dashboard-nav-list">
-                <ul class="dashboard-navbar-nav mb-2 mb-lg-0">
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/dashboard"><i class="fa-solid fa-grip"></i> DASHBOARD</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/screener"><i class="fa-solid fa-table-cells"></i> SCREENER</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/chart"><i class="fa-solid fa-chart-line"></i></i> CHARTS</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/order"><i class="fas fa-pen"></i> TRADING</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/strategy"><i class="fas fa-star"></i> STRATEGIES</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/watch"><i class="fas fa-eye"></i> WATCHLIST</a>
-                    </li>
-                    <li class="dashboard-nav-item">
-                        <a class="nav-link" href="/reports"><i class="fas fa-layer-group"></i> REPORTS</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dashboard-nav-account">
-                <div class="image"></div>
-                <div>
-                    <p>Client Code</p>
-                </div>
-            </div>
-        </nav>
-        <nav class="navbar-collapse">
-            <div class="collapse-bar">
-                <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
-                <i class="fas fa-bars collapse-icon"></i>
-            </div>
-            <div class="side-bar">
-                <h3 class="logo"><a class="dashboard-navbar-brand" href="#">ALGOMINDS</a></h3>
-                <div class="collapse dashboard-nav-list">
-                    <ul class="dashboard-navbar-nav mb-2 mb-lg-0">
-                        <li class="dashboard-nav-item">
-                            <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
-                        </li>
-                        <li class="dashboard-nav-item">
-                            <a class="nav-link" href="/dashboard"><i class="fa-solid fa-grip"></i> DASHBOARD</a>
-                        </li>
-                        <li class="dashboard-nav-item">
-                            <a class="nav-link" href="/screener"><i class="fa-solid fa-table-cells"></i> SCREENER</a>
-                        </li>
-                        <li class="dashboard-nav-item">
-                            <a class="nav-link" href="/chart"><i class="fa-solid fa-chart-line"></i></i> CHARTS</a>
-                        </li>
-                        <li class="dashboard-nav-item">
-                            <a class="nav-link" href="/order"><i class="fas fa-pen"></i> TRADING</a>
-                        </li>
-                        <li class="dashboard-nav-item">
-                            <a class="nav-link" href="/strategy"><i class="fas fa-star"></i> STRATEGIES</a>
-                        </li>
-                        <li class="dashboard-nav-item">
-                            <a class="nav-link" href="/watch"><i class="fas fa-eye"></i> WATCHLIST</a>
-                        </li>
-                        <li class="dashboard-nav-item">
-                            <a class="nav-link" href="/reports"><i class="fas fa-layer-group"></i> REPORTS</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="dashboard-nav-account">
-                    <div class="image"></div>
-                    <div>
-                        <p>Client Code</p>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        {% include "side-navbar.html" %}
         <div class="main-section">
             <div class="content">
                 <div class="main-content">
                     <div class="dashboard-header">
                         <div class="dashboard-header-info">
                             <div class="dashboard-header-user">
-                                <h2>Dashboard</h2>
-                                <h2>Hello sanabil, </h2>
+                                <h2>Hello sanabil,</h2>
+                                <!-- <h2> </h2> -->
                                 <div class="dashboard-header-btns">
-                                    <button class="connect-broker-btn-header" id="connect-broker">Connect
-                                        Broker</button>
-                                    <button class="logout-btn"><i class="fas fa-sign-out-alt"></i>
-                                        Logout</button>
+                                    <button class="connect-broker-btn-header" id="connect-broker">Connect Broker</button>
+                                    <button class="logout-btn"><i class="fas fa-sign-out-alt"></i>Logout</button>
                                 </div>
                             </div>
                             <div class="dashboard-header-accounts">
@@ -169,48 +90,50 @@
                     </div>
                     <div class="dashboard-bottom-row">
                         <!-- Left: Profit & Loss Chart -->
-                        <div class="pl-chart">
-                            <h2>6-Month Profit & Loss</h2>
-                            <canvas id="plChart"></canvas>
-                        </div>
-                        <!-- Right: Watchlist -->
-                        <div class="watchlist">
-                            <div class="watchlist-header">
-                                <h2>Watchlist</h2>
-                                <div>
-                                    <button id="editBtn"><i class="fa-solid fa-pen"></i></button>
-                                    <button id="createBtn"><i class="fa-solid fa-plus"></i></button>
-                                </div>
+                        <div class="row-left-column">
+                            <div class="pl-chart">
+                                <h2>6-Month Profit & Loss</h2>
+                                <canvas id="plChart"></canvas>
                             </div>
-
-                            <div class="watchlist-list">
-                                <!-- Watchlist items will be inserted here dynamically -->
-                            </div>
-                            <!-- Popup Form Modal -->
-                            <div class="modal" id="stockModal">
-                                <div class="modal-content">
-                                    <h3>Edit Watchlist</h3>
-                                    <!-- Symbol Filter -->
-                                    <div class="dropdown-wrapper">
-                                        <button id="symbol-button">
-                                            Symbol <i class="fa-solid fa-chevron-down"></i>
-                                        </button>
-                                        <div id="symbol-dropdown" class="hidden dropdown-symbol-box">
-                                            <div class="search-bar">
-                                                <input type="text" id="symbol-search" placeholder="Search Symbol..."
-                                                    class="dropdown-search" />
-                                                <button id="clear-filter" class="clear-filter-btn"
-                                                    title="Clear all filters">
-                                                    x
-                                                </button>
+                            <div class="deployed-strategies-container">
+                                <h2>Deployed Strategies</h2>
+                                <div class="deployed-strategies-container">
+                                    {% for strategy in strategies %}
+    
+                                    <div class="deployed-strategy">
+                                        <div class="strategy-name">
+                                            <h3>{{ strategy.name }}</h3>
+                                            <p>{{ strategy.description }}</p>
+                                        </div>
+                                        <div class="strategy-status">
+                                            <p>Status</p>
+                                            <span class="status-{{ strategy.status }}">{{ strategy.status }}</span>
+                                            <div class="strategy-actions">
+                                                <a href="/strategy" class="view-strategy-btn"><i
+                                                        class="fa-solid fa-eye"></i></a>
+                                                <!-- <button class="edit-strategy-btn"><i class="fa-solid fa-pen"></i></button>
+                                                    <button class="delete-strategy-btn"><i class="fa-solid fa-trash"></i></button> -->
                                             </div>
-                                            <div id="symbol-list"></div>
                                         </div>
                                     </div>
-                                    <div class="form-actions">
-                                        <button class="save-btn">Save</button>
-                                        <button class="cancel-btn" id="closeModal">Cancel</button>
-                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- space for watchlist -->
+                        
+                        <div class="row-right-column">
+                            <div class="navigations-bottom-column">
+                                <div><a href="/screener"><p>Screener</p></a></div>
+                                <div><a href="/strategy"><p>Strategy</p></a></div>
+                                <div><a href="/watch"><p>Watchlist</p></a></div>
+                                <div><a href="/chart"><p>Charts</p></a></div>
+                            </div>
+                            <div class="donut-chart-section">
+                                <h2>Daily Report</h2>
+                                <div id="donutChartContainer" class="donut-chart-container"
+                                    style="margin-top: 30px; cursor: pointer;">
+                                    <canvas id="donutChart"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -267,38 +190,56 @@
                 </div>
             </div>
             <div class="side-container">
-                <div class="deployed-strategies-container">
-                    <h1>Deployed Strategies</h1>
-                    <div class="deployed-strategies-container">
-                        {% for strategy in strategies %}
+                <!-- Right: Watchlist -->
+                <div class="watchlist">
+                    <div class="watchlist-header">
+                        <h2>Watchlist</h2>
+                        <div>
+                            <button id="editBtn"><i class="fa-solid fa-pen"></i></button>
+                            <button id="createBtn"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
 
-                        <div class="deployed-strategy">
-                            <div class="strategy-name">
-                                <h3>{{ strategy.name }}</h3>
-                                <p>{{ strategy.description }}</p>
-                            </div>
-                            <div class="strategy-status">
-                                <p>Status</p>
-                                <span class="status-{{ strategy.status }}">{{ strategy.status }}</span>
-                                <div class="strategy-actions">
-                                    <a href="/strategy" class="view-strategy-btn"><i class="fa-solid fa-eye"></i></a>
-                                    <!-- <button class="edit-strategy-btn"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="delete-strategy-btn"><i class="fa-solid fa-trash"></i></button> -->
+                    <div class="watchlist-list">
+                        <!-- Watchlist items will be inserted here dynamically -->
+                    </div>
+                    <!-- Popup Form Modal -->
+                        <div class="modal" id="stockModal">
+                            <div class="modal-content">
+                                <h3>Create Watchlist</h3>
+                        
+                                <!-- Symbol Filter -->
+                                <div class="dropdown-wrapper">
+                                    <button id="symbol-button">
+                                        Symbol <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div id="symbol-dropdown" class="hidden dropdown-symbol-box">
+                                        <div class="search-bar">
+                                            <input type="text" id="symbol-search" placeholder="Search Symbol..."
+                                                class="dropdown-search" />
+                                            <button id="clear-filter" class="clear-filter-btn" title="Clear all filters">✕</button>
+                                        </div>
+                                        <div id="symbol-list"></div>
+                                    </div>
+                                </div>
+                                <div class="selected-stocks">
+                                    <h4>Selected Stocks</h4>
+                                    <div id="selected-stocks-list" class="selected-stocks-list">
+                                        <!-- JS will insert chosen stocks here as badges -->
+                                    </div>
+                                </div>
+                        
+                                <!-- Actions -->
+                                <div class="form-actions">
+                                    <button class="save-btn">Save</button>
+                                    <button class="cancel-btn" id="closeModal">Cancel</button>
                                 </div>
                             </div>
                         </div>
-
-                        {% endfor %}
-                        <!-- Repeat for more strategies -->
-                    </div>
+                        
+                    
                 </div>
-                <div class="donut-chart-section">
-                    <h2>Daily Report</h2>
-                    <div id="donutChartContainer" class="donut-chart-container"
-                        style="margin-top: 30px; cursor: pointer;">
-                        <canvas id="donutChart"></canvas>
-                    </div>
-                </div>
+                <!-- watchlist end -->
             </div>
         </div>
 
@@ -454,7 +395,7 @@
 
             try {
                 const response = await fetch(
-                    "http://localhost:8000/screener/api/stocks/symbols"
+                    "/screener/api/stocks/symbols"
                 );
                 if (!response.ok) throw new Error("Failed to fetch symbols");
 
@@ -548,7 +489,7 @@
             const symbolsArray = Array.from(selectedSymbols);
 
             // Send symbols to backend
-            const response = await fetch("http://localhost:8000/dashboard/api/save_watchlist", {
+            const response = await fetch("/dashboard/api/save_watchlist", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -570,7 +511,7 @@
     });
     async function loadWatchlist() {
         try {
-            const response = await fetch("http://localhost:8000/dashboard/api/get_watchlist");
+            const response = await fetch("/dashboard/api/get_watchlist");
             const data = await response.json();
             console.log(data)
             if (!response.ok) {
@@ -583,13 +524,15 @@
 
             data.watchlist.forEach(item => {
                 const div = document.createElement("div");
-                div.classList.add("watchlist-item");
-
+                classStyle = item.change > 0 ? "green" : "red" ;
+                div.classList.add("watchlist-item", `bg-${classStyle}`);
                 div.innerHTML = `
-                <div class="circle"></div>
-                <span class="symbol">${item.symbol}</span>
-                <span class="price">Rs. ${item.price?.toFixed(2) ?? "--"}</span>
-                <span class="change">${item.change > 0 ? "+" : ""}${item.change ?? 0}%</span>
+                    <div class="circle"></div>
+                    <span class="symbol">${item.symbol}</span>
+                    <span class="buyer">${item.bid_price ?? "0"}</span>
+                    <span class="seller">${item.ask_price ?? "0"}</span>
+                    <span class="change pn-value ${classStyle}">${item.change > 0 ? "+" : ""}${item.change ?? 0}%</span>
+                    <span class="price">${item.price?.toFixed(2) ?? "--"}</span>
             `;
 
                 container.appendChild(div);
@@ -601,6 +544,13 @@
 
     // Call on page load
     document.addEventListener("DOMContentLoaded", loadWatchlist);
+    function addStock(symbol) {
+    const list = document.getElementById("selected-stocks-list");
+    const badge = document.createElement("div");
+    badge.className = "selected-stock-badge";
+    badge.innerHTML = `${symbol} <span class="remove-stock">✕</span>`;
+    list.appendChild(badge);
+}
 
 </script>
 <script>
@@ -608,5 +558,6 @@
         window.location.href = "/reports/daily_report";
     });
 </script>
+<script src="/static/dashboard.js"></script>
 
 </html>

@@ -5,7 +5,8 @@ import websockets
 import json
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from strategy_logic import tkt_modified_tsl_mod, sandbox, newTest
+from modules.strategy_engine.strategy_logic import tkt_modified
+
 # Constants
 DB_CONFIG = {
     'dbname': 'AlgoMinds',
@@ -16,14 +17,13 @@ DB_CONFIG = {
     
 }
 
-
 WS_URI = 'ws://localhost:8765'
 
 
 # Hardcoded indicators per strategy (this will later be dynamic or plugin-based)
 STRATEGY_INDICATORS = {
     "TKT modified": ["SMA-200-D", "RSI-14-D", 'SMA-45-D'],
-    "Long Term" : ["SMA-2-D", "SMA-5-D", "RSI-3-D"],
+    # "Long Term" : ["SMA-2-D", "SMA-5-D", "RSI-3-D"],
     # "TKT" : ["RSI-14-D"],
     
 }
@@ -93,9 +93,9 @@ def handle_incoming_data(data):
     for strat in strategy_subscriptions:
         if symbol in strat['symbols']:
             if strat['strategy_name'] == "TKT modified":
-                tkt_modified_tsl_mod.run(symbol, tick, indicators, market_is_open=True)
-            elif strat['strategy_name'] == "Long Term":
-                sandbox.run(symbol, tick, indicators, market_is_open=True)
+                tkt_modified.run(symbol, tick, indicators, market_is_open=True)
+            # elif strat['strategy_name'] == "Long Term":
+            #     sandbox.run(symbol, tick, indicators, market_is_open=True)
             # elif strat['strategy_name'] == "TKT":
             #     newTest.run(symbol, tick, indicators, market_is_open=True)
                 
@@ -160,8 +160,8 @@ def main():
 
     asyncio.run(send_subscription(strategy_subscriptions))
 
-if __name__ == "__main__":
-    main()
-    
-# def run_strategies():
+# if __name__ == "__main__":
 #     main()
+    
+def run_strategies():
+    main()

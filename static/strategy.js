@@ -164,7 +164,7 @@ document.addEventListener('click', function (e) {
             if (!stockSelect.length || !allocation) {
                 alert("Please fill all fields before deploying.");
                 return;
-            }
+            } 
 
             const confirmText = `
             Selected Stocks: ${stockSelect.join(', ')}\n

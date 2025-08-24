@@ -130,13 +130,11 @@ h1{
     cursor: pointer;
     margin: 5px;
     gap: 10px;
-
     padding: 8px 14px;
     border: 1px solid #ccc;
     border-radius: 6px;
     background-color: white;
     cursor: pointer;
-    /* font-size: 16px; */
     font-size: 14px;
     color: var(--dark-color-light);
 }
@@ -160,12 +158,12 @@ table {
     user-select: none;
 }
 
-th, td {
+.watch-table-header, td {
     padding: 5px 1px;
     /* text-align: center; */
 }
 
-th{
+.watch-table-header{
     background-color: var(--dark-color);
     color: #ffffff; /* teal text for headers */
     padding: 10px 10px;
@@ -176,9 +174,10 @@ th{
 }
 td{
     font-size: 14px;
-    text-align: center;
+    text-align: right;
     white-space: nowrap; /* Prevent text wrapping */
-
+    padding-right: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 tr:nth-child(even) {
     background-color: var(--hover-light-color);
@@ -194,10 +193,6 @@ tr:hover {
     background-color: #ccf1f5;
     color: var(--darker-color) !important;
     transition: background-color 0.1s ease-in-out;
-}
-
-td {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .table-container {
     overflow-x: auto;

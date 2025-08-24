@@ -1,0 +1,274 @@
+<div class="buy-sell-main">
+
+<div class="buy-sell-container">
+    <!-- buy sell form start -->
+<form method="POST">
+    <div class="container2">
+    <h2>Manual Order Placement</h2>
+    <div class="section-sml-usr">
+        <div class="box1">
+            <div class="input-group">
+                <input name="symbol" placeholder="Symbol (e.g. WTL)" required />
+                <input name="price" placeholder="Price" required type="text" />
+            </div>
+            <!-- <div class="icon-group">
+                <i class="fas fa-search"></i>
+            </div> -->
+        </div>
+        <div class="box2">
+            <div class="input-group">
+                <input name="user_id" placeholder="User ID" required />
+                <input name="client_code" placeholder="Client Code" required />
+            </div>
+            <!-- <div class="image"></div> -->
+        </div>
+    </div>
+    <div class="section buy-selected">
+        <div class="buy-sell buy-btn">
+        <button class="side-btn" onclick="action_buy('BUY')" data-code="1">BUY</button>
+        </div>
+        <div class="buy-sell sell-btn">
+        <button class="side-btn" onclick="action_buy('SELL')" data-code="2">SELL</button>
+        </div>
+    </div>
+    <input type="hidden" name="side" id="side" value="1" />
+    <div class="section-select">
+        <p class="section-heading">MARKET TYPE:</p>
+        <div class="section">
+        <div class="market-type reg-btn">
+            <button class="market-input active" data-code="01">REG</button>
+        </div>
+        <div class="market-type bnb-btn">
+            <button class="market-input" data-code="020">BNB</button>
+        </div>
+        <div class="market-type fut-btn">
+            <button class="market-input" data-code="03" class="active">FUT</button>
+        </div>
+        <div class="market-type odl-btn">
+            <button class="market-input" data-code="08">ODL</button>
+        </div>
+        </div>
+    </div>
+    <input type="hidden" name="market_code" id="market_code" value="01" />
+    <div class="section-select" style="display: none">
+        <p class="section-heading">DISPLAY QUANTITY:</p>
+        <input value="0.0" name="display_qty" placeholder="0.0" readonly />
+    </div>
+    <div class="section-select">
+        <p class="section-heading">ORDER TYPE:</p>
+        <div class="section">
+        <div class="order-type mkt-btn">
+            <button class="order-input" data-code="1" class="active">MKT</button>
+        </div>
+        <div class="order-type limit-btn">
+            <button class="order-input" data-code="2">Limit</button>
+        </div>
+        <div class="order-type slo-btn">
+            <button class="order-input" data-code="3">SLO</button>
+        </div>
+        <div class="order-type mtl-btn">
+            <button class="order-input" data-code="U">mktlmt</button>
+        </div>
+        </div>
+    </div>
+    <input type="hidden" name="order_type" id="order_type" value="01" />
+    <div style="display: flex; gap: 5px">
+        <div class="section-select">
+        <p class="section-heading">QUANTITY:</p>
+        <input name="qty" placeholder="Quantity" required type="number" />
+        </div>
+        <div class="section-select">
+        <p class="section-heading">DISC. VOLUME:</p>
+        <input name="disc" id="discVolume" placeholder="Disc. Volume" required type="number" />
+        </div>
+    </div>
+    <div style="display: flex; gap: 5px">
+        <div class="section-select">
+        <p class="section-heading">LIMIT PRICE:</p>
+        <input id="limitPrice" name="lmtprice" placeholder="Limit Price" required type="number" />
+        </div>
+        <div class="section-select">
+        <p class="section-heading">PIN:</p>
+        <input name="pin" placeholder="PIN" required type="number" />
+        </div>
+    </div>
+
+    <div class="submit-buy-sell">
+        <button type="submit" id="submitBtn">BUY</button>
+    </div>
+    </div>
+</form>
+    <!-- buy sell form end -->
+<div class="center-section">
+
+    <!-- chart start -->
+    <div class="buy-sell-center-section">
+        <h3>Live Chart</h3>
+        <div class="chart-placeholder" id="chartPlaceholder">
+            <div id="chartContainer-window"></div>
+        </div>
+        </div>
+        <!-- chart end -->
+        <!-- log section start -->
+        <div class="logs-section">
+            <div class="log-buttons">
+                <button class="active" onclick="showLogs('outstanding')">Outstanding Logs</button>
+                <button onclick="showLogs('activity')">Activity Logs</button>
+            </div>
+            <div id="outstanding_logs" class="log-table-section">
+                <h3>Outstanding Logs</h3>
+                <div class="table-scroll-container">
+                <div class="outstanding_logs_table"></div>
+                </div>
+            </div>
+            <div id="activity_logs" class="log-table-section" style="display: none;">
+                <h3>Activity Logs</h3>
+                <div class="table-scroll-container">
+                <div class="activity_logs_table"></div>
+                </div>
+            </div>
+        </div>
+        <!-- log section end -->
+    </div>
+
+<!-- table section start -->
+<div class="table-section">
+    <div class="depth-header">
+        <div class="stock-selector">
+        <button class="stock-btn">LOTCHEM–DEC</button>
+        <button class="plus-btn">+</button>
+        </div>
+        <div class="reg-selector">
+        <select>
+            <option>REG</option>
+            <option>FUT</option>
+            <option>OPT</option>
+        </select>
+        </div>
+    </div>
+    <div class="table-section-md">
+        <div class="mdp">
+            <h3>Market Depth By Price</h3>
+            <div class="depth-table-wrapper">
+                <table class="depth-table">
+                <thead>
+                    <tr>
+                    <th>flag</th>
+                    <th>Volume</th>
+                    <th>Buy</th>
+                    <th>flag</th>
+                    <th>Volume</th>
+                    <th>Sell</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                    </tr>
+                    <tr>
+                    <td>12.34</td>
+                    <td>900</td>
+                    <td>Buy</td>
+                    <td>12.37</td>
+                    <td>1,500</td>
+                    <td>Sell</td>
+                    </tr>
+                    <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                    </tr>
+                    <tr>
+                    <td>12.34</td>
+                    <td>900</td>
+                    <td>Buy</td>
+                    <td>12.37</td>
+                    <td>1,500</td>
+                    <td>Sell</td>
+                    </tr>
+                    <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mdo">
+            <h3>Market Depth By Order</h3>
+            <div class="depth-table-wrapper">
+                <table class="depth-table">
+                <thead>
+                    <tr>
+                    <th>flag</th>
+                    <th>Volume</th>
+                    <th>Buy</th>
+                    <th>flag</th>
+                    <th>Volume</th>
+                    <th>Sell</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                    </tr>
+                    <tr>
+                    <td>12.34</td>
+                    <td>900</td>
+                    <td>Buy</td>
+                    <td>12.37</td>
+                    <td>1,500</td>
+                    <td>Sell</td>
+                    </tr>
+                    <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                    </tr>
+                    <tr>
+                    <td>12.34</td>
+                    <td>900</td>
+                    <td>Buy</td>
+                    <td>12.37</td>
+                    <td>1,500</td>
+                    <td>Sell</td>
+                    </tr>
+                    <tr>
+                    <td>12.35</td>
+                    <td>1,200</td>
+                    <td>Buy</td>
+                    <td>12.36</td>
+                    <td>750</td>
+                    <td>Sell</td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- table section end -->
+
+</div>
+</div>
+<script src="/static/buy-sell-window.js"></script>

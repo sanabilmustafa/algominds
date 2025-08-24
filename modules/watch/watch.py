@@ -45,10 +45,86 @@ class WatchProfileItems(db.Model):
     # Relationships
     profile = db.relationship("WatchProfile", backref=db.backref("items", cascade="all, delete-orphan"))
 
+# mock_data.py
+
+clients_data = [
+    {
+        "id": "c1",
+        "name": "Ali Khan",
+        "phone": "0301-1234567",
+        "clientcode": "CL-001",
+        "cnic": "35202-1234567-1",
+        "ledger_balance": 150000,
+        "inventory_market_value": 120000,
+        "inventory_sold": 40000,
+        "pc_held_amount": 5000,
+        "p_l": 25000,
+        "expense_amount": 2000,
+        "net_worth": 233000,
+        "buying_power": {
+            "markets": ["REG (restricted)", "FUT (restricted)", "ODL (restricted)", "LB (restricted)"],
+            "status": [0.0, 0.0, 0.0, 0.0],
+            "cash_collateral_leverage": ["100% -- 0%", "100% -- 0%", "100% -- 0%", "100% -- 0%"],
+            "open_orders": [0.0, 0.0, 0.0, 0.0],
+            "outstanding_limits": [0.0, 0.0, 0.0, 0.0],
+            "available_amount": [4076, 4076, 4076, 4076],
+            "total_position": [0.0, 0.0, 0.0, 0.0],
+            "total_exposure": [0.0, 0.0, 0.0, 0.0]
+        }
+    },
+    {
+        "id": "c2",
+        "name": "Sara Ahmed",
+        "phone": "0333-7654321",
+        "clientcode": "CL-002",
+        "cnic": "35201-9876543-2",
+        "ledger_balance": 80000,
+        "inventory_market_value": 60000,
+        "inventory_sold": 30000,
+        "pc_held_amount": 7000,
+        "p_l": -5000,
+        "expense_amount": 1500,
+        "net_worth": 136500,
+        "buying_power": {
+            "markets": ["REG (restricted)", "FUT (restricted)", "ODL (restricted)", "LB (restricted)"],
+            "status": [0.0, 0.0, 0.0, 0.0],
+            "cash_collateral_leverage": ["100% -- 0%", "100% -- 0%", "100% -- 0%", "100% -- 0%"],
+            "open_orders": [0.0, 0.0, 0.0, 0.0],
+            "outstanding_limits": [0.0, 0.0, 0.0, 0.0],
+            "available_amount": [4076, 4076, 40076, 4076],
+            "total_position": [0.0, 0.0, 0.0, 0.0],
+            "total_exposure": [0.0, 0.0, 0.0, 0.0]
+        }
+    },
+    {
+        "id": "c3",
+        "name": "Bilal Sheikh",
+        "phone": "0345-9876543",
+        "clientcode": "CL-003",
+        "cnic": "35200-1122334-5",
+        "ledger_balance": 200000,
+        "inventory_market_value": 180000,
+        "inventory_sold": 60000,
+        "pc_held_amount": 12000,
+        "p_l": 40000,
+        "expense_amount": 3000,
+        "net_worth": 269000,
+        "buying_power": {
+            "markets": ["REG (restricted)", "FUT (restricted)", "ODL (restricted)", "LB (restricted)"],
+            "status": [0.0, 0.0, 0.0, 0.0],
+            "cash_collateral_leverage": ["100% -- 0%", "100% -- 0%", "100% -- 0%", "100% -- 0%"],
+            "open_orders": [0.0, 0.0, 0.0, 0.0],
+            "outstanding_limits": [0.0, 0.0, 0.0, 0.0],
+            "available_amount": [4076, 4476, 4076, 4076],
+            "total_position": [0.0, 0.0, 0.0, 0.0],
+            "total_exposure": [0.0, 0.0, 0.0, 0.0]
+        }
+    }
+]
+
 @watch_bp.route('/')
 def watch_home():
-    return render_template('watch.html')
-
+    return render_template('watch.html', clients_data=clients_data)
 
 @watch_bp.route('/api/stocks/symbols')
 def get_symbols():

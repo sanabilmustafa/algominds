@@ -11,112 +11,23 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
   <!-- Select2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
   <!-- jQuery + Select2 JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
 </head>
 
 <body style="overflow: auto;">
-  <!--   HEADER SECTION
-    <div class="header">
-      <div class="logo-bar">
-        <i class="fa-solid fa-bars" id="menu-toggle"></i>
-        <h1>ALGOMINDS</h1>
-      </div>
-      <h1>STOCK SCREENER</h1>
-      <div class="search-bar">
-        <input type="text" placeholder="Search Stock for Chart Display" />
-        <i class="fa-solid fa-gear"></i>
-      </div>
-    </div>   -->
-
-  <nav class="navbar">
-    <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
-    <div class="collapse nav-list">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/"><i class="fas fa-home"></i> HOME</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/chart"><i class="fas fa-layer-group"></i> CHARTS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/strategy"><i class="fas fa-pen"></i> STRATEGIES</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/reports"><i class="fas fa-star"></i> REPORTS</a>
-        </li>
-      </ul>
-    </div>
-    <div class="button-container">
-      <!-- <button class="btn"><a class="btn-signup" href="#">SIGN-UP</a></button> -->
-      <button class="btn"><a class="btn-signup" href="#">LOGOUT</a></button>
-    </div>
-  </nav>
-
-  <nav class="navbar-collapse">
-    <h3 class="logo"><a class="navbar-brand" href="#">ALGOMINDS</a></h3>
-    <!-- collapse bar side -->
-    <div class="collapse-bar">
-      <div class="collapse-icon">
-        <i class="fas fa-bars"></i>
-      </div>
-      <div class="side-bar">
-        <div class="uncollapse-icon">
-          <i class="fas fa-xmark"></i>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus
-          necessitatibus sunt accusantium sapiente in ad labore vitae, dolor
-          adipisci eveniet deserunt voluptatibus magni impedit quasi.
-          Accusantium harum voluptatum repellendus laudantium!
-        </p>
-        <div class="uncollapse nav-list-bar">
-          <ul class="navbar-nav-bar mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/hero/"><i class="fas fa-home"></i> HOME</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/dashboard"><i class="fas fa-clock"></i> DASHBOARDS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/chart"><i class="fas fa-layer-group"></i> CHARTS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/strategy"><i class="fas fa-pen"></i> STRATEGIES</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/watch"><i class="fas fa-pen"></i> WATCHLIST</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/reports"><i class="fas fa-star"></i> REPORTS</a>
-            </li>
-          </ul>
-        </div>
-        <div class="button-container-bar">
-          <button class="btn-bar">
-            <a class="btn-signup" href="#">SIGN-UP</a>
-          </button>
-          <button class="btn-bar">
-            <a class="btn-signup" href="#">LOGIN</a>
-          </button>
-        </div>
-      </div>
-    </div>
-  </nav>
-
+  {% include "navbar.html" %}
   <!-- FILTERS SECTION -->
   <div class="filters-container">
-    <button class="market-flag">Market 🇵🇰 PSX</button>
+    <button class="market-flag">Market PSX</button>
     <div class="profiles_dropdown">
       <button id="profiles-button" data-dropdown-toggle="#profiles-dropdown">
         Profiles <i class="fa-solid fa-chevron-down"></i>
@@ -183,10 +94,10 @@
 
     <button>Change % <i class="fa-solid fa-chevron-down"></i></button>
     <button>Revenue Growth <i class="fa-solid fa-chevron-down"></i></button>
-    <button>＋</button>
+    <button style="font-size: 12px">＋</button>
 
     <!-- STATUS -->
-    <button class="status" id="status">Connecting to WebSocket...</button>
+    <!-- <button class="status" id="status">Connecting to WebSocket...</button> -->
   </div>
   <pre id="output"></pre>
 
@@ -317,40 +228,43 @@
           <div id="indicator-tags" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px"></div>
         </div>
       </div> -->
-<div id="indicators-form">
-  <div class="indicator-form-selects">
-    <div class="indicator-char">
-      <label for="indicator-name">Indicators:</label>
-      <select id="indicator-name" name="indicator_name">
-        <option value="SMA">SMA</option>
-        <option value="SUPERTREND">SUPERTREND</option>
-        <option value="RSI">RSI</option>
-        <option value="EMA">EMA</option>
-        <option value="MACD">MACD</option>
-      </select>
-    </div>
+      <div id="indicators-form">
+        <div class="indicator-form-selects">
+          <div class="indicator-char">
+            <label for="indicator-name">Indicators:</label>
+            <select id="indicator-name" name="indicator_name">
+              <option value="SMA">SMA</option>
 
-    <div class="indicator-char" style="margin-top: 20px;">
-      <label for="indicator-interval">Time Interval:</label>
-      <select name="indicator-interval" id="indicator-interval">
-        <option value="1d">Daily</option>
-        <option value="15min">15 Minutes</option>
-        <option value="30min">30 Minutes</option>
-        <option value="1h">Hourly</option>
-        <option value="1w">Weekly</option>
-      </select>
-    </div>
-
-    <div id="indicator-params"></div>
-  </div>
-
-  <button type="button" class="profile-btns" id="add-indicator">Add Indicator</button>
-
-  <div id="selected-indicators-list" style="margin-top: 10px; font-size: 14px; color: #333">
-    Selected Indicators:
-    <div id="indicator-tags" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px"></div>
-  </div>
-</div>
+              <option value="SUPERTREND">SUPERTREND</option>
+              <option value="RSI">RSI</option>
+              <option value="EMA">EMA</option>
+              <option value="MACD">MACD</option>
+            </select>
+          </div>
+      
+          <div class="indicator-char" style="margin-top: 20px;">
+            <label for="indicator-interval">Time Interval:</label>
+            <select name="indicator-interval" id="indicator-interval">
+              <option value="1d">Daily</option>
+              <option value="15min">15 Minutes</option>
+              <option value="30min">30 Minutes</option>
+              <option value="1h">Hourly</option>
+              <option value="1w">Weekly</option>
+            </select>
+          </div>
+      
+          <!-- PARAMS WILL BE RENDERED HERE -->
+          <div id="indicator-params" style="margin-top:15px;"></div>
+        </div>
+      
+        <button type="button" class="profile-btns" id="add-indicator">Add Indicator</button>
+      
+        <div id="selected-indicators-list" style="margin-top: 10px; font-size: 14px; color: #333">
+          Selected Indicators:
+          <div id="indicator-tags" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px"></div>
+        </div>
+      </div>
+      
 
       <div class="profile-default-input"
         style="display: flex; justify-content: flex-start; align-items: center; gap: 10px">
@@ -366,7 +280,7 @@
 
   <div class="table-container">
     <table id="stockTable">
-      <thead>
+      <thead id="screenerHead">
         <!-- Dynamically filled by JS -->
       </thead>
       <tbody id="screenerBody">
@@ -481,7 +395,7 @@
     </div>
   </div>
   <script>
-    const selectedProfileIdFromServer = {{ selected_profile_id or 'null' }};
+    const selectedProfileIdFromServer = {{ selected_profile_id | tojson }};
   </script>
   <script src="/static/script.js"></script>
   <script src="/static/screener.js"></script>

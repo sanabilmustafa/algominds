@@ -1,4 +1,4 @@
-const socket = new WebSocket("wss://bf687d07959b.ngrok-free.app");
+const socket = new WebSocket("wss://510b85ab856e.ngrok-free.app");
 
 let marketData = {};
 
@@ -26,7 +26,7 @@ socket.onopen = () => {
 
 socket.onmessage = (event) => {
   const msg = JSON.parse(event.data);
-    console.log("Recieved Data", msg);
+    // console.log("Recieved Data", msg);
     if (msg && msg.tick && msg.tick.symbol_code) {
       marketData[msg.tick.symbol_code] = msg.tick;
       updateTable(marketData);
@@ -40,8 +40,80 @@ socket.onerror = (err) => {
 };
 
 // function updateTable(dataObj) {
+//     const tbody = document.querySelector(".watchlist-table tbody");
+//     tbody.innerHTML = "";
+  
+//     Object.values(dataObj).forEach((row) => {
+//       const changePercent =
+//         (row.net_change / row.last_day_close_price) * 100 || 0;
+//       const changeClass = changePercent >= 0 ? "green" : "red";
+  
+//       const tr = document.createElement("tr");
+//       tr.innerHTML = `
+//         <td>${row.market_code}</td>
+//         <td class="watchlist-action-btns">
+//             <button class="watchlist-buy-btn">Buy</button>
+//             <button class="watchlist-sell-btn">Sell</button>
+//         </td>
+//         <td>${row.symbol_code}</td>
+//         <td>${(row.bid_volume != null) ? row.bid_volume.toLocaleString() : 0 }</td>
+//         <td class="buyer-price-value">${(row.bid_price != null) ? row.bid_price : 0}</td>
+//         <td class="seller-price-value">${(row.ask_price != null) ? row.ask_price : 0}</td>
+//         <td>${(row.ask_volume != null) ? row.ask_volume.toLocaleString() : 0}</td>
+//         <td>Change</td>
+//         <td>${row.total_traded_volume.toLocaleString()}</td>
+//         <td>${(row.high_price != null) ? row.high_price : 0}</td>
+//         <td>${(row.low_price) ? row.low_price : 0}</td>
+//         <td class="mkt-range-column">
+//             <div class="mkt-range-wrapper">
+//                 <div class="mkt-range"></div>
+//                 <div class="mkt-marker"></div>
+//             </div>
+//             <div class="mkt-range-values">
+//                 <p class="low-price">${(row.low_price) ? row.low_price : 0}</p>
+//                 <p class="high-price">${(row.high_price != null) ? row.high_price : 0}</p>
+//             </div>
+//         </td>
+//         <td>${(row.last_trade_price != null) ? row.last_trade_price : 0}</td>
+//         <td class="${changeClass}">${changePercent.toFixed(2)}%</td>
+//         <td>Upper Cap</td>
+//         <td>Lower Lock</td>
+//         <td>Close</td>
+//         <td>${(row.open_price != null) ? row.open_price : 0}</td>
+//         <td>${(row.last_trade_volume != null) ? row.last_trade_volume : 0}</td>
+//         <td>${row.last_day_close_price}</td>
+//         <td>${row.average_price.toLocaleString()}</td>
+//         <td>${row.total_trades.toLocaleString()}</td>
+//         <td>${row.timestamp}</td>
+//         <td>${row.symbol_state}</td>
+//       `;
+  
+//       // calculate percent position
+//       const high = parseFloat(row.high_price);
+//       const low = parseFloat(row.low_price);
+//       const close = parseFloat(row.last_trade_price);
+//       let percent = ((close - low) / (high - low)) * 100;
+//       percent = Math.max(0, Math.min(100, percent)); // clamp 0–100%
+  
+//       // ✅ select marker inside this row only
+//       const marker = tr.querySelector(".mkt-marker");
+//       if (marker) {
+//         marker.style.left = `calc(${percent}% - 2px)`; // adjust offset
+//       }
+  
+//       tbody.appendChild(tr);
+//     });
+//   }
+  
+// function updateTable(dataObj) {
 //   const tbody = document.querySelector(".watchlist-table tbody");
 //   tbody.innerHTML = "";
+
+//   // ✅ Get the current header order
+//   const headers = Array.from(
+//     document.querySelectorAll(".watchlist-table thead th")
+//   ).map(th => th.dataset.key); 
+//   // (we’ll assign a `data-key` to each <th>)
 
 //   Object.values(dataObj).forEach((row) => {
 //     const changePercent =
@@ -49,123 +121,277 @@ socket.onerror = (err) => {
 //     const changeClass = changePercent >= 0 ? "green" : "red";
 
 //     const tr = document.createElement("tr");
-//     tr.innerHTML = `
-//                 <td>${row.market_code}</td>
-//                 <td class="watchlist-action-btns">
-//                     <button class="watchlist-buy-btn" >Buy</button>
-//                     <button class="watchlist-sell-btn">Sell</button>
-//                 </td>
-//                 <td>${row.symbol_code}</td>
-//                 <td>${row.bid_volume.toLocaleString()}</td>
-//                 <td>${row.bid_price}</td>
-//                 <td>${row.ask_price}</td>
-//                 <td>${row.ask_volume.toLocaleString()}</td>
-//                 <td>Change</td>
-//                 <td>${row.total_traded_volume.toLocaleString()}</td>
-//                 <td>${row.high_price}</td>
-//                 <td>${row.low_price}</td>
-//                 <td class="mkt-range-column">
-//                     <div class="mkt-range-wrapper">
-//                         <div class="mkt-range"></div>
-//                         <div class="mkt-marker"></div>
-//                     </div>
-//                     <div class="mkt-range-values">
-//                         <p class="low-price">${row.low_price}</p>
-//                         <p class="high-price">${row.high_price}</p>
-//                     </div>
-//                 </td>
-//                 <td>${row.last_trade_price}</td>
-//                 <td class="${changeClass}">${changePercent.toFixed(2)}%</td>
-//                 <td>Upper Cap</td>
-//                 <td>Lower Lock</td>
-//                 <td>Close</td>
-//                 <td>${row.open_price}</td>
-//                 <td>${row.last_trade_volume}</td>
-//                 <td>${row.last_day_close_price}</td>
-//                 <td>${row.average_price.toLocaleString()}</td>
-//                 <td>${row.total_trades.toLocaleString()}</td>
-//                 <td>${row.timestamp}</td>
-//                 <td>${row.symbol_state}</td>
-//             `;
+
+//     // ✅ Build cells according to header order
+//     headers.forEach((key) => {
+//       let td = document.createElement("td");
+
+//       switch (key) {
+//         case "market_code":
+//           td.textContent = row.market_code;
+//           break;
+
+//         case "action":
+//           td.innerHTML = `
+//             <button class="watchlist-buy-btn">Buy</button>
+//             <button class="watchlist-sell-btn">Sell</button>`;
+//           break;
+
+//         case "symbol_code":
+//           td.textContent = row.symbol_code;
+//           break;
+
+//         case "bid_volume":
+//           td.textContent = row.bid_volume?.toLocaleString() ?? 0;
+//           break;
+
+//         case "bid_price":
+//           td.textContent = row.bid_price ?? 0;
+//           td.classList.add("buyer-price-value");
+//           break;
+
+//         case "ask_price":
+//           td.textContent = row.ask_price ?? 0;
+//           td.classList.add("seller-price-value");
+//           break;
+
+//         case "ask_volume":
+//           td.textContent = row.ask_volume?.toLocaleString() ?? 0;
+//           break;
+
+//         case "change":
+//           td.textContent = "Change";
+//           break;
+
+//         case "total_traded_volume":
+//           td.textContent = row.total_traded_volume.toLocaleString();
+//           break;
+
+//         case "high_price":
+//           td.textContent = row.high_price ?? 0;
+//           break;
+
+//         case "low_price":
+//           td.textContent = row.low_price ?? 0;
+//           break;
+
+//         case "mkt_range":
+//           td.classList.add("mkt-range-column");
+//           td.innerHTML = `
+//             <div class="mkt-range-wrapper">
+//               <div class="mkt-range"></div>
+//               <div class="mkt-marker"></div>
+//             </div>
+//             <div class="mkt-range-values">
+//               <p class="low-price">${row.low_price ?? 0}</p>
+//               <p class="high-price">${row.high_price ?? 0}</p>
+//             </div>`;
+//           break;
+
+//         case "last_trade_price":
+//           td.textContent = row.last_trade_price ?? 0;
+//           break;
+
+//         case "change_percent":
+//           td.classList.add(changeClass);
+//           td.textContent = `${changePercent.toFixed(2)}%`;
+//           break;
+//         case "upper_cap":
+//           // td.textContent = `${row.upper_cap}%`;
+//           td.textContent = "Upper cap"
+//           break;
+//         case "lower_lock":
+//           // td.textContent = `${row.lower_lock}%`;
+//           td.textContent = "lower lock"
+//           break;
+//         case "close_price":
+//           td.textContent = `${row.close_price ?? 0}%`;
+//           break;
+//         case "open_price":
+//           td.textContent = `${row.open_price ?? 0}%`;
+//           break;
+//         case "last_trade_volume":
+//           td.textContent = `${row.last_trade_volume ?? 0}%`;
+//           break;
+//         case "prev_close":
+//           td.textContent = `${row.prev_close ?? 0}%`;
+//           break;
+//         case "average_price":
+//           td.textContent = `${row.average_price ?? "average price"}%`;
+//           break;
+//         case "total_trades":
+//           td.textContent = `${row.total_trades ?? "average price"}%`;
+//           break;
+//         case "last_trade_time":
+//           td.textContent = `${row.last_trade_time ?? "average price"}%`;
+//           break;
+//         case "symbol_state":
+//           td.textContent = `${row.symbol_state ?? "average price"}%`;
+//           break;
+
+//         default:
+//           td.textContent = row[key] ?? "";
+//       }
+
+//       tr.appendChild(td);
+//     });
+
+    // ✅ Update marker position
 //     const high = parseFloat(row.high_price);
 //     const low = parseFloat(row.low_price);
 //     const close = parseFloat(row.last_trade_price);
 //     let percent = ((close - low) / (high - low)) * 100;
-//     percent = Math.max(0, Math.min(100, percent)); // clamp between 0-100%
-//     const marker = document.getElementsByClassName("mkt-marker");
-//     console.log(high, low ,marker)
-//     // marker.style.left = `calc(${percent}% - 1px)`; // -1px to center marker
+//     percent = Math.max(0, Math.min(100, percent));
+
+//     const marker = tr.querySelector(".mkt-marker");
+//     if (marker) {
+//       marker.style.left = `calc(${percent}% - 2px)`;
+//     }
 
 //     tbody.appendChild(tr);
-//     // updateMarketRange(row, td);
 //   });
 // }
+
+
 function updateTable(dataObj) {
-    const tbody = document.querySelector(".watchlist-table tbody");
-    tbody.innerHTML = "";
-  
-    Object.values(dataObj).forEach((row) => {
-      const changePercent =
-        (row.net_change / row.last_day_close_price) * 100 || 0;
+  const tbody = document.querySelector(".watchlist-table tbody");
+
+  // ✅ Get header order
+  const headers = Array.from(
+    document.querySelectorAll(".watchlist-table thead th")
+  ).map(th => th.dataset.key);
+
+  Object.values(dataObj).forEach((row) => {
+    const rowKey = row.symbol_code; // or market_code if that's unique
+    let tr = tbody.querySelector(`tr[data-key="${rowKey}"]`);
+
+    // If row doesn’t exist, create it
+    if (!tr) {
+      tr = document.createElement("tr");
+      tr.dataset.key = rowKey; // store identifier
+      headers.forEach(() => {
+        const td = document.createElement("td");
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    }
+
+    // Update cells in header order
+    headers.forEach((key, i) => {
+      const td = tr.children[i]; // existing td
+      const changePercent = (row.net_change / row.last_day_close_price) * 100 || 0;
       const changeClass = changePercent >= 0 ? "green" : "red";
-  
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${row.market_code}</td>
-        <td class="watchlist-action-btns">
+
+      switch (key) {
+        case "market_code":
+          td.textContent = row.market_code;
+          break;
+        case "action":
+          td.innerHTML = `
             <button class="watchlist-buy-btn">Buy</button>
-            <button class="watchlist-sell-btn">Sell</button>
-        </td>
-        <td>${row.symbol_code}</td>
-        <td>${(row.bid_volume != null) ? row.bid_volume.toLocaleString() : 0 }</td>
-        <td class="buyer-price-value">${(row.bid_price != null) ? row.bid_price : 0}</td>
-        <td class="seller-price-value">${(row.ask_price != null) ? row.ask_price : 0}</td>
-        <td>${(row.ask_volume != null) ? row.ask_volume.toLocaleString() : 0}</td>
-        <td>Change</td>
-        <td>${row.total_traded_volume.toLocaleString()}</td>
-        <td>${(row.high_price != null) ? row.high_price : 0}</td>
-        <td>${(row.low_price) ? row.low_price : 0}</td>
-        <td class="mkt-range-column">
+            <button class="watchlist-sell-btn">Sell</button>`;
+          break;
+        case "symbol_code":
+          td.textContent = row.symbol_code;
+          break;
+        case "bid_volume":
+          td.textContent = row.bid_volume?.toLocaleString() ?? 0;
+          break;
+        case "bid_price":
+          td.textContent = row.bid_price ?? 0;
+          td.className = "buyer-price-value";
+          break;
+        case "ask_price":
+          td.textContent = row.ask_price ?? 0;
+          td.className = "seller-price-value";
+          break;
+        case "ask_volume":
+          td.textContent = row.ask_volume?.toLocaleString() ?? 0;
+          break;
+        case "change":
+          td.textContent = "Change";
+          break;
+        case "total_traded_volume":
+          td.textContent = row.total_traded_volume.toLocaleString();
+          break;
+        case "high_price":
+          td.textContent = row.high_price ?? 0;
+          break;
+        case "low_price":
+          td.textContent = row.low_price ?? 0;
+          break;
+        case "mkt_range":
+          td.className = "mkt-range-column";
+          td.innerHTML = `
             <div class="mkt-range-wrapper">
-                <div class="mkt-range"></div>
-                <div class="mkt-marker"></div>
+              <div class="mkt-range"></div>
+              <div class="mkt-marker"></div>
             </div>
             <div class="mkt-range-values">
-                <p class="low-price">${(row.low_price) ? row.low_price : 0}</p>
-                <p class="high-price">${(row.high_price != null) ? row.high_price : 0}</p>
-            </div>
-        </td>
-        <td>${(row.last_trade_price != null) ? row.last_trade_price : 0}</td>
-        <td class="${changeClass}">${changePercent.toFixed(2)}%</td>
-        <td>Upper Cap</td>
-        <td>Lower Lock</td>
-        <td>Close</td>
-        <td>${(row.open_price != null) ? row.open_price : 0}</td>
-        <td>${(row.last_trade_volume != null) ? row.last_trade_volume : 0}</td>
-        <td>${row.last_day_close_price}</td>
-        <td>${row.average_price.toLocaleString()}</td>
-        <td>${row.total_trades.toLocaleString()}</td>
-        <td>${row.timestamp}</td>
-        <td>${row.symbol_state}</td>
-      `;
-  
-      // calculate percent position
-      const high = parseFloat(row.high_price);
-      const low = parseFloat(row.low_price);
-      const close = parseFloat(row.last_trade_price);
-      let percent = ((close - low) / (high - low)) * 100;
-      percent = Math.max(0, Math.min(100, percent)); // clamp 0–100%
-  
-      // ✅ select marker inside this row only
-      const marker = tr.querySelector(".mkt-marker");
-      if (marker) {
-        marker.style.left = `calc(${percent}% - 2px)`; // adjust offset
+              <p class="low-price">${row.low_price ?? 0}</p>
+              <p class="high-price">${row.high_price ?? 0}</p>
+            </div>`;
+          break;
+        case "last_trade_price":
+          td.textContent = row.last_trade_price ?? 0;
+          break;
+        case "change_percent":
+          td.className = changeClass;
+          td.textContent = `${changePercent.toFixed(2)}`;
+          break;
+          case "upper_cap":
+          // td.textContent = `${row.upper_cap}%`;
+          td.textContent = "Upper cap"
+          break;
+        case "lower_lock":
+          // td.textContent = `${row.lower_lock}%`;
+          td.textContent = "lower lock"
+          break;
+        case "close_price":
+          td.textContent = `${row.close_price ?? 0}`;
+          break;
+        case "open_price":
+          td.textContent = `${row.open_price ?? 0}`;
+          break;
+        case "last_trade_volume":
+          td.textContent = `${row.last_trade_volume ?? 0}`;
+          break;
+        case "prev_close":
+          td.textContent = `${row.prev_close ?? 0}`;
+          break;
+        case "average_price":
+          td.textContent = `${row.average_price ?? "average price"}`;
+          break;
+        case "total_trades":
+          td.textContent = `${row.total_trades}`;
+          break;
+        case "last_trade_time":
+          td.textContent = `${row.last_trade_time}`;
+          break;
+        case "symbol_state":
+          td.textContent = `${row.symbol_state}`;
+          break;
+        default:
+          td.textContent = row[key] ?? "";
       }
-  
-      tbody.appendChild(tr);
     });
-  }
-  
+
+    // ✅ Update marker
+    const high = parseFloat(row.high_price);
+    const low = parseFloat(row.low_price);
+    const close = parseFloat(row.last_trade_price);
+    let percent = ((close - low) / (high - low)) * 100;
+    percent = Math.max(0, Math.min(100, percent));
+
+    const marker = tr.querySelector(".mkt-marker");
+    if (marker) {
+      marker.style.left = `calc(${percent}% - 2px)`;
+    }
+  });
+}
+
+
+
 function updateMarketRange(row, element) {
   console.log("inside update market");
   const high = parseFloat(row.high_price);

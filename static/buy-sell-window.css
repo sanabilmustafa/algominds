@@ -1,0 +1,98 @@
+.buy-sell-main{
+    display: none;
+}
+
+.buy-sell-container{
+    display: grid  !important;
+    /* display: none !important; */
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    width:90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    /* background-color:;
+     */
+     /* From https://css.glass */
+background: rgba(255, 255, 255, 0.34);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(6.3px);
+-webkit-backdrop-filter: blur(6.3px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px 30px !important;
+    gap: 10px;
+}
+.depth-table th, .depth-table td{
+    font-size: 12px !important;
+    padding: 5px !important;
+}
+@media screen and (max-width: 1100px) {
+    .buy-sell-container {
+        /* grid-template-columns: repeat(auto-fill, minmax(40%, 1fr)); */
+        width: 90% !important;
+        padding: 10px !important;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 5px;
+        height: 80%;
+    }
+    .table-section-md{
+        display: flex;
+        flex-direction: row !important;
+    }
+    .table-section{
+        grid-area: 2 / 1 / 3 / 3; 
+    }
+}
+.buy-sell-center-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.container2{
+    width: 100% !important;
+    max-width: 400px;
+    margin: auto;
+}
+.table-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100% !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+.depth-header{
+    margin: 0 !important;
+}
+.chart-placeholder{
+    width: 100% !important;
+    height: 300px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.stock-btn{
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+}
+.plus-btn{
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+}
+.reg-selector select{
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    padding: 6px 10px !important;
+}

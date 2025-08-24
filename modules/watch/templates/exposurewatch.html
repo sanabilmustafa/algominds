@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/watch/exposure-watch.css">
+</head>
+
+<body>
+    <div class="exposure-watch-container" >
+        <div class="exposure-watch-content">
+            <div class="exposure-watch-header">
+                <h1>Account Details</h1>
+            </div>
+            <div class="exposure-watch-body">
+                <div class="search-client-by-bar">
+                    <select name="client-search" id="client-search">
+                        <option value="" disabled selected>Search Client by:</option>
+                        <option value="name">Name</option>
+                        <option value="phone">Phone Number</option>
+                        <option value="clientcode">Client Code</option>
+                        <option value="cnic">CNIC</option>
+                    </select>
+                    <select name="clients" id="clients">
+                        <option value="" disabled selected>Select Client</option>
+                        <!-- Options will be populated dynamically -->
+                        <!-- <option value="client1">Client 1</option>
+                        <option value="client2">Client 2</option>
+                        <option value="client3">Client 3</option> -->
+                    </select>
+                </div>
+                <div class="exposure-account-summary">
+                    <div class="account-summary-item">
+                        <span class="label">Ledger Balance:</span>
+                        <span class="value" id="client-ledger-balance">--</span>
+                      </div>
+                      <div class="account-summary-item">
+                        <span class="label">Inventory @ Market Value:</span>
+                        <span class="value" id="client-inventory-market-value">--</span>
+                      </div>
+                      <div class="account-summary-item">
+                        <span class="label">Inventory Sold:</span>
+                        <span class="value" id="client-inventory-sold">--</span>
+                      </div>
+                      <div class="account-summary-item">
+                        <span class="label">Profit / Cash Held Amount:</span>
+                        <span class="value" id="client-pc-held-amount">--</span>
+                      </div>
+                      <div class="account-summary-item">
+                        <span class="label">Realized & Un-Realized P/L:</span>
+                        <span class="value" id="client-p-l">--</span>
+                      </div>
+                      <div class="account-summary-item">
+                        <span class="label">Expense Amount:</span>
+                        <span class="value" id="client-expense-amount">--</span>
+                      </div>
+                      <div class="account-summary-item">
+                        <span class="label">Net Worth:</span>
+                        <span class="value" id="client-net-worth">--</span>
+                      </div>
+                </div>
+                <div class="exposure-buying-power">
+                  <h2>Buying Power</h2>
+                  <table class="e-buying-power-table">
+                    <tr>
+                      <th>Market</th>
+                      <td class="bp-market-0">0</td>
+                      <td class="bp-market-1">0</td>
+                      <td class="bp-market-2">0</td>
+                      <td class="bp-market-3">0</td>
+                    </tr>
+                    <tr>
+                      <th>Status</th>
+                      <td class="bp-status-0">0</td>
+                      <td class="bp-status-1">0</td>
+                      <td class="bp-status-2">0</td>
+                      <td class="bp-status-3">0</td>
+                    </tr>
+                    <tr>
+                      <th>Cash & Collateral Leverage %</th>
+                      <td class="bp-cash-0">0</td>
+                      <td class="bp-cash-1">0</td>
+                      <td class="bp-cash-2">0</td>
+                      <td class="bp-cash-3">0</td>
+                    </tr>
+                    <tr>
+                      <th>Open Orders</th>
+                      <td class="bp-open-0">0</td>
+                      <td class="bp-open-1">0</td>
+                      <td class="bp-open-2">0</td>
+                      <td class="bp-open-3">0</td>
+                    </tr>
+                    <tr>
+                      <th>Outstanding Orders (limits)</th>
+                      <td class="bp-outstanding-0">0</td>
+                      <td class="bp-outstanding-1">0</td>
+                      <td class="bp-outstanding-2">0</td>
+                      <td class="bp-outstanding-3">0</td>
+                    </tr>
+                    <tr>
+                      <th>Available Amount</th>
+                      <td class="bp-available-0">0</td>
+                      <td class="bp-available-1">0</td>
+                      <td class="bp-available-2">0</td>
+                      <td class="bp-available-3">0</td>
+                    </tr>
+                    <tr>
+                      <th>Total Position</th>
+                      <td class="bp-position-0">0</td>
+                      <td class="bp-position-1">0</td>
+                      <td class="bp-position-2">0</td>
+                      <td class="bp-position-3">0</td>
+                    </tr>
+                    <tr>
+                      <th>Total Exposure</th>
+                      <td class="bp-exposure-0">0</td>
+                      <td class="bp-exposure-1">0</td>
+                      <td class="bp-exposure-2">0</td>
+                      <td class="bp-exposure-3">0</td>
+                    </tr>
+                  </table>
+                  
+                </div>
+            </div>
+            <div class="exposure-watch-footer">
+                <button class="btn btn-primary">Learn More</button>
+                <button class="btn btn-primary" id="close_modal_button">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const clientsData = {{ clients_data | tojson | safe }};
+        const searchBy = document.getElementById("client-search");
+        const clientsSelect = document.getElementById("clients");
+      
+        // update client list when search type changes
+        searchBy.addEventListener("change", () => {
+          const selectedKey = searchBy.value;
+          clientsSelect.innerHTML = '<option value="" disabled selected>Select Client</option>';
+      
+          clientsData.forEach(client => {
+            const opt = document.createElement("option");
+            opt.value = client.id;
+            opt.textContent = client[selectedKey];
+            clientsSelect.appendChild(opt);
+          });
+        });
+        // update summary when client is chosen
+        clientsSelect.addEventListener("change", () => {
+          const selectedId = clientsSelect.value;
+          const client = clientsData.find(c => c.id === selectedId);
+          if (client) {
+            document.getElementById("client-ledger-balance").textContent = client.ledger_balance;
+            document.getElementById("client-inventory-market-value").textContent = client.inventory_market_value;
+            document.getElementById("client-inventory-sold").textContent = client.inventory_sold;
+            document.getElementById("client-pc-held-amount").textContent = client.pc_held_amount;
+            document.getElementById("client-p-l").textContent = client.p_l;
+            document.getElementById("client-expense-amount").textContent = client.expense_amount;
+            document.getElementById("client-net-worth").textContent = client.net_worth;
+
+            document.getElementById("")
+          }
+        });
+        clientsSelect.addEventListener("change", () => {
+          const selectedId = clientsSelect.value;
+          const client = clientsData.find(c => c.id === selectedId);
+        
+          if (client) {
+            // 🔹 Account summary
+            document.getElementById("client-ledger-balance").textContent = client.ledger_balance;
+            document.getElementById("client-inventory-market-value").textContent = client.inventory_market_value;
+            document.getElementById("client-inventory-sold").textContent = client.inventory_sold;
+            document.getElementById("client-pc-held-amount").textContent = client.pc_held_amount;
+            document.getElementById("client-p-l").textContent = client.p_l;
+            document.getElementById("client-expense-amount").textContent = client.expense_amount;
+            document.getElementById("client-net-worth").textContent = client.net_worth;
+        
+            // 🔹 Buying power
+            const bp = client.buying_power;
+        
+            bp.markets.forEach((val, i) => {
+              document.querySelector(`.bp-market-${i}`).textContent = val;
+            });
+            bp.status.forEach((val, i) => {
+              document.querySelector(`.bp-status-${i}`).textContent = val;
+            });
+            bp.cash_collateral_leverage.forEach((val, i) => {
+              document.querySelector(`.bp-cash-${i}`).textContent = val;
+            });
+            bp.open_orders.forEach((val, i) => {
+              document.querySelector(`.bp-open-${i}`).textContent = val;
+            });
+            bp.outstanding_limits.forEach((val, i) => {
+              document.querySelector(`.bp-outstanding-${i}`).textContent = val;
+            });
+            bp.available_amount.forEach((val, i) => {
+              document.querySelector(`.bp-available-${i}`).textContent = val.toLocaleString();
+            });
+            bp.total_position.forEach((val, i) => {
+              document.querySelector(`.bp-position-${i}`).textContent = val;
+            });
+            bp.total_exposure.forEach((val, i) => {
+              document.querySelector(`.bp-exposure-${i}`).textContent = val;
+            });
+          }
+        });
+        
+      </script>
+      <script src="/static/watch/exposure-watch.js"></script>
+      
+</body>
+
+</html>

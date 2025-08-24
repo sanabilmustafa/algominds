@@ -1,9 +1,9 @@
-const socket = new WebSocket("wss://bf687d07959b.ngrok-free.app");
+const socket = new WebSocket("wss://510b85ab856e.ngrok-free.app");
 
 // const socket = new WebSocket("wss://localhost:8765");
 const output = document.getElementById("output");
 const screenerBody = document.getElementById("screenerBody");
-const thead = document.querySelector("#stockTable thead");
+const thead = document.querySelector("#screenerHead");
 const tableRows = {};
 
 let selectedProfileId = null;
@@ -16,6 +16,34 @@ function formatColumnName(key) {
 }
 
 // 1️⃣ Setup the <thead> with both tick + indicator columns
+// function setSelectedColumns(tickKeys, indicatorKeys) {
+//   selectedTickKeys = tickKeys || [];
+//   selectedIndicatorKeys = indicatorKeys || [];
+
+//   thead.innerHTML = "";
+//   const tr = document.createElement("tr");
+//   // tr.id = 'tableHeader'
+
+//   const symbolTh = document.createElement("th");
+//   symbolTh.textContent = "Symbol";
+//   tr.appendChild(symbolTh);
+
+//   selectedTickKeys.forEach(key => {
+//     const th = document.createElement("th");
+//     th.dataset.col = key;
+//     th.textContent = formatColumnName(key);
+//     tr.appendChild(th);
+//   });
+
+//   selectedIndicatorKeys.forEach(key => {
+//     const th = document.createElement("th");
+//     th.dataset.col = key;
+//     th.textContent = formatColumnName(key);
+//     tr.appendChild(th);
+//   });
+
+//   thead.appendChild(tr);
+// }
 function setSelectedColumns(tickKeys, indicatorKeys) {
   selectedTickKeys = tickKeys || [];
   selectedIndicatorKeys = indicatorKeys || [];
@@ -42,7 +70,26 @@ function setSelectedColumns(tickKeys, indicatorKeys) {
   });
 
   thead.appendChild(tr);
+
+  // ✅ Re-initialize sortable on the header row
+  new Sortable(tr, {
+    animation: 150,
+    onEnd: function (evt) {
+      let oldIndex = evt.oldIndex;
+      let newIndex = evt.newIndex;
+
+      document.querySelectorAll("#screenerBody tr").forEach(row => {
+        let cells = row.children;
+        if (newIndex < oldIndex) {
+          row.insertBefore(cells[oldIndex], cells[newIndex]);
+        } else {
+          row.insertBefore(cells[oldIndex], cells[newIndex].nextSibling);
+        }
+      });
+    }
+  });
 }
+
 
 function updateTableRow(data) {
   const { symbol, indicators, tick = {} } = data;
@@ -53,35 +100,39 @@ function updateTableRow(data) {
 
   if (!entry) {
     row = document.createElement("tr");
-
+    row.dataset.symbol = symbol;   // ✅ unique id for this row
+  
     const img = document.createElement("img");
     img.src = `/static/assets/stocks/${symbol}.png`;
     img.className = "stock-logo";
-    
+  
     const symbolTd = document.createElement("td");
     symbolTd.classList.add("symbol-column")
     symbolTd.appendChild(img);
     symbolTd.appendChild(document.createTextNode(`${symbol}`));
     row.appendChild(symbolTd);
-
+  
     selectedTickKeys.forEach(key => {
       const td = document.createElement("td");
       td.dataset.col = key;
       td.textContent = tick[key] ?? "-";
       row.appendChild(td);
     });
-
+  
     selectedIndicatorKeys.forEach(key => {
       const td = document.createElement("td");
       td.dataset.col = key;
       td.textContent = indicators?.[key] ?? "-";
       row.appendChild(td);
     });
-
+  
+    // ✅ only append once, don’t re-insert existing rows
     screenerBody.appendChild(row);
+  
     lastValues = {};
     tableRows[symbol] = { row, lastValues };
-  } else {
+  }
+   else {
     row = entry.row;
     lastValues = entry.lastValues || {};
   }
@@ -106,7 +157,7 @@ function updateTableRow(data) {
 
 async function fetchProfileSubscription(profileId) {
   try {
-    const res = await fetch(`http://localhost:8000/screener/api/profile-subscription-data/${profileId}`);
+    const res = await fetch(`/screener/api/profile-subscription-data/${profileId}`);
     if (!res.ok) throw new Error("Failed to fetch subscription data");
     return await res.json();
   } catch (err) {
@@ -135,8 +186,6 @@ async function sendSubscription(profileId) {
   Object.keys(tableRows).forEach(k => delete tableRows[k]);
 
   setSelectedColumns(tickColumns, indicators);
-
-  console.log(indicators)
   const subscription = {
     request: "subscribe",
     symbols: symbols,
@@ -166,6 +215,10 @@ socket.onmessage = (event) => {
 
   // console.log("📩 Received data:", data);
   updateTableRow(data);
+  // ✅ keep pinned rows at the top
+  if (pinnedSymbols.has(data.symbol)) {
+    moveRowToTop(data.symbol, { pin: true });
+  }
 };
 
 socket.onerror = (err) => {
@@ -207,13 +260,15 @@ listContainer.addEventListener("click", (e) => {
     onProfileSelected(profileId);
   }
 });
-
+// let selectedProfileIdFromServer = null;
 // 4️⃣ On page load, load profile if URL has profileId
 document.addEventListener("DOMContentLoaded", () => {
   if (selectedProfileIdFromServer) {
     onProfileSelected(selectedProfileIdFromServer);
   }
 });
+
+console.log("the default profile is", selectedProfileIdFromServer);
 // lighting effect
 function animateCellChange(td, key, newVal, lastValues = {}) {
   const oldVal = lastValues[key];
@@ -244,3 +299,28 @@ function animateCellChange(td, key, newVal, lastValues = {}) {
     td.textContent = parsedNewVal;
   }, 2000);
 }
+
+
+
+
+// new Sortable(document.getElementById("screenerHead"), {
+//   animation: 150,
+//   onEnd: function (evt) {
+//     let oldIndex = evt.oldIndex;
+//     let newIndex = evt.newIndex;
+
+//     // For each row, move the cell
+//     document.querySelectorAll("#screeneBody tr").forEach(row => {
+//       let cells = row.children;
+//       if (newIndex < oldIndex) {
+//         row.insertBefore(cells[oldIndex], cells[newIndex]);
+//       } else {
+//         row.insertBefore(cells[oldIndex], cells[newIndex].nextSibling);
+//       }
+//     });
+//   }
+// });
+// Row reorder (still works)
+new Sortable(document.getElementById("screenerBody"), {
+  animation: 150
+});
